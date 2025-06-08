@@ -1,64 +1,87 @@
-
 import React from 'react';
-import { Shield, Award } from 'lucide-react';
+import { Shield, Award, Clock, Users } from 'lucide-react';
 
 const About = () => {
+  const stats = [
+    {
+      icon: Shield,
+      value: '10+',
+      label: 'Years of Excellence',
+      description: 'Dedicated to automotive perfection'
+    },
+    {
+      icon: Award,
+      value: '5000+',
+      label: 'Vehicles Detailed',
+      description: 'Each treated with meticulous care'
+    },
+    {
+      icon: Clock,
+      value: '100%',
+      label: 'Satisfaction Rate',
+      description: 'Client satisfaction guaranteed'
+    },
+    {
+      icon: Users,
+      value: '2500+',
+      label: 'Regular Clients',
+      description: 'Trust our premium service'
+    }
+  ];
+
   return (
-    <section id="about" className="py-20 bg-slate-900">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          {/* Left Content */}
-          <div className="space-y-8">
-            <div>
-              <h2 className="text-4xl md:text-5xl font-black text-white mb-6">
-                about us
-              </h2>
-              
-              <div className="space-y-6 text-slate-400 text-lg leading-relaxed">
-                <p>
-                  Lorem ipsum dolor sit amet consectetur. Nec lorem sagittis proin eleifend tempor 
-                  integer aenean pellentesque ut mauris. Elit volutpat magna varius.
-                </p>
-                
-                <p>
-                  Turpis tellus vulputate sed morbi feugiat sed ultricies. Molestie rutrum vitae 
-                  ullamcorper dictum consectetur. Tellus tortor urna felis placerat.
-                </p>
-              </div>
-            </div>
+    <section id="about" className="py-24 bg-[#080808] relative overflow-hidden">
+      {/* Premium Background Effects */}
+      <div className="absolute inset-0 bg-gradient-to-b from-blue-500/5 to-transparent"></div>
+      <div className="absolute inset-0">
+        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-blue-500/20 to-transparent"></div>
+        <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-blue-500/20 to-transparent"></div>
+      </div>
 
-            {/* Features */}
-            <div className="space-y-4">
-              <div className="flex items-center space-x-4">
-                <div className="w-12 h-12 bg-yellow-400 rounded-full flex items-center justify-center">
-                  <Shield className="w-6 h-6 text-black" />
-                </div>
-                <div>
-                  <h4 className="text-white font-bold text-lg">Quality Guarantee</h4>
-                  <p className="text-slate-400">100% satisfaction guaranteed</p>
-                </div>
-              </div>
-              
-              <div className="flex items-center space-x-4">
-                <div className="w-12 h-12 bg-yellow-400 rounded-full flex items-center justify-center">
-                  <Award className="w-6 h-6 text-black" />
-                </div>
-                <div>
-                  <h4 className="text-white font-bold text-lg">Expert Team</h4>
-                  <p className="text-slate-400">Professional certified detailers</p>
-                </div>
-              </div>
-            </div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center space-x-2 bg-blue-500/10 border border-blue-500/20 rounded-full px-4 py-2 text-sm text-blue-400 mb-4">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+            </span>
+            <span>Our Legacy</span>
           </div>
+          <h2 className="text-4xl md:text-5xl font-black text-white mb-6 tracking-tight">
+            A Decade of Excellence in
+            <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600">
+              Automotive Detailing
+            </span>
+          </h2>
+          <p className="text-gray-400 max-w-2xl mx-auto text-lg">
+            We've built our reputation on uncompromising quality, attention to detail, and a commitment to automotive excellence that sets us apart.
+          </p>
+        </div>
 
-          {/* Right Image */}
-          <div className="relative">
-            <img
-              src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
-              alt="Professional car detailing"
-              className="w-full h-96 object-cover rounded-2xl"
-            />
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {stats.map((stat, index) => {
+            const IconComponent = stat.icon;
+            return (
+              <div
+                key={index}
+                className="relative group"
+              >
+                <div className="absolute inset-0.5 bg-gradient-to-b from-blue-500/20 to-transparent rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
+                <div className="relative bg-black/40 backdrop-blur-xl rounded-2xl p-8 border border-blue-500/10 hover:border-blue-500/30 transition-colors duration-300">
+                  <div className="relative mb-4">
+                    <div className="absolute inset-0 bg-blue-500/20 rounded-full blur-xl transform group-hover:scale-110 transition duration-500"></div>
+                    <div className="relative inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full group-hover:scale-110 transition-transform duration-300">
+                      <IconComponent className="w-6 h-6 text-white" />
+                    </div>
+                  </div>
+                  <h3 className="text-3xl font-bold text-white mb-2">{stat.value}</h3>
+                  <p className="text-blue-400 font-medium mb-2">{stat.label}</p>
+                  <p className="text-gray-400 text-sm">{stat.description}</p>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>

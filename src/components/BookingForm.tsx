@@ -1,225 +1,280 @@
-
 import React, { useState } from 'react';
-import { Calendar, Clock, Car, User, Phone, Mail, MapPin } from 'lucide-react';
+import { Calendar, Clock, Package } from 'lucide-react';
+
+interface ServiceOption {
+  id: string;
+  name: string;
+  description: string;
+  price: string;
+  duration: string;
+}
 
 const BookingForm = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    address: '',
-    service: '',
-    vehicleType: '',
-    date: '',
-    time: ''
+  const [selectedService, setSelectedService] = useState<string>('');
+  const [selectedDate, setSelectedDate] = useState<string>('');
+  const [selectedTime, setSelectedTime] = useState<string>('');
+  const [vehicleInfo, setVehicleInfo] = useState({
+    make: '',
+    model: '',
+    year: '',
+    notes: ''
   });
 
-  const services = [
-    // Car Detailing Packages
-    'Hand Wash Package - $40 (Wash, Rim Cleaning, Tire Clean & Tire Shine, Vacuum)',
-    'Bronze Package - $65 (Wash, Rim Cleaning, Tire Clean & Tire Shine, Vacuum, Window Cleaning, Interior Wipe Down, Door/Trunk Jam Wipe Out, Air Freshener)',
-    'Silver Package - $120 (Wash, Rim Cleaning, Tire Clean & Tire Shine, Window Cleaning, Vacuum, Interior Deep Clean, Interior Protection, Black Trim Protection, Door/Trunk Jam Wipe Out, Air Freshener)',
-    'Gold Package - $200 (Wash, Rim Cleaning, Tire Clean & Tire Shine, Window Cleaning, Interior Deep Clean, Interior Protection, Seat & Carpet Shampoo, Black Trim Protection, Engine Bay Cleaning, Door/Trunk Jam Wipe Out, Air Freshener)',
-    // Semi-Truck Detailing Packages
-    'Exterior Wash Only (Semi) - $65',
-    'Basic Detail (Semi) - $150 (Truck Body, Frame Cleaning, Rim Cleaning, Tire Cleaning & Tire Shine, Interior Wipe Down, Interior Floor Cleaning)',
-    'Ultimate Detail (Semi) - $250 (Truck Body, Frame Cleaning, Rim Cleaning, Tire Cleaning & Tire Shine, Interior Deep Cleaning, Floor Cleaning, Interior Protection, Window Cleaning)',
-    // Interior Packages
-    'Interior Bronze Package - $100 (Interior Wipe Down, Floor Cleaning, Window Cleaning)',
-    'Interior Silver Package - $150 (Interior Deep Cleaning, Interior Protection, Floor Cleaning, Window Cleaning)',
-    // Custom Option
-    'Custom Service - Quote'
+  const carServices: ServiceOption[] = [
+    {
+      id: 'hand-wash',
+      name: 'Hand Wash Package',
+      description: 'Basic exterior wash and cleaning',
+      price: '$40',
+      duration: '1 hour'
+    },
+    {
+      id: 'bronze',
+      name: 'Bronze Package',
+      description: 'Complete basic detailing service',
+      price: '$65',
+      duration: '1.5 hours'
+    },
+    {
+      id: 'silver',
+      name: 'Silver Package',
+      description: 'Premium detailing with protection',
+      price: '$120',
+      duration: '2.5 hours'
+    },
+    {
+      id: 'gold',
+      name: 'Gold Package',
+      description: 'Ultimate detailing experience',
+      price: '$200',
+      duration: '4 hours'
+    }
   ];
 
-  const timeSlots = [
-    '9:00 AM', '10:00 AM', '11:00 AM', '12:00 PM',
-    '1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM'
+  const truckServices: ServiceOption[] = [
+    {
+      id: 'truck-wash',
+      name: 'Exterior Wash Only',
+      description: 'Basic exterior cleaning for semi-trucks',
+      price: '$65',
+      duration: '1.5 hours'
+    },
+    {
+      id: 'truck-basic',
+      name: 'Basic Detail',
+      description: 'Complete basic detailing for trucks',
+      price: '$150',
+      duration: '3 hours'
+    },
+    {
+      id: 'truck-ultimate',
+      name: 'Ultimate Detail',
+      description: 'Premium truck detailing service',
+      price: '$250',
+      duration: '5 hours'
+    }
   ];
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
+  const interiorServices: ServiceOption[] = [
+    {
+      id: 'interior-bronze',
+      name: 'Interior Bronze Package',
+      description: 'Basic interior cleaning service',
+      price: '$100',
+      duration: '2 hours'
+    },
+    {
+      id: 'interior-silver',
+      name: 'Interior Silver Package',
+      description: 'Premium interior detailing',
+      price: '$150',
+      duration: '3 hours'
+    }
+  ];
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Booking submitted:', formData);
-    // Handle booking submission
+    // Handle form submission
+    console.log({
+      service: selectedService,
+      date: selectedDate,
+      time: selectedTime,
+      vehicleInfo
+    });
   };
 
   return (
-    <section id="booking" className="py-20 bg-slate-800">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-black text-white mb-6">
-            book your service
+    <section className="py-24 bg-[#080808] relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-b from-blue-500/5 to-transparent"></div>
+      <div className="absolute inset-0">
+        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-blue-500/20 to-transparent"></div>
+        <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-blue-500/20 to-transparent"></div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center space-x-2 bg-blue-500/10 border border-blue-500/20 rounded-full px-4 py-2 text-sm text-blue-400 mb-4">
+            <Package className="w-4 h-4 mr-1" />
+            <span>Book Your Detail</span>
+          </div>
+          <h2 className="text-4xl md:text-5xl font-black text-white mb-6 tracking-tight">
+            Select your preferred service package and schedule a time that works best for you.
           </h2>
-          <p className="text-xl text-slate-400">
-            Schedule your car detailing appointment today
-          </p>
         </div>
 
-        <div className="bg-slate-900/50 backdrop-blur-sm rounded-3xl p-8 border border-slate-700/50">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+          {/* Car Services */}
+          <div className="space-y-4">
+            <h3 className="text-xl font-bold text-white mb-6">Car Services</h3>
+            {carServices.map((service) => (
+              <div
+                key={service.id}
+                className={`p-6 rounded-xl cursor-pointer transition-all duration-200 ${
+                  selectedService === service.id
+                    ? 'bg-blue-500 text-white'
+                    : 'bg-black/40 hover:bg-black/60 text-gray-300'
+                }`}
+                onClick={() => setSelectedService(service.id)}
+              >
+                <div className="flex justify-between items-start mb-2">
+                  <div>
+                    <h4 className="font-bold text-lg">{service.name}</h4>
+                    <p className="text-sm opacity-80">{service.description}</p>
+                    <div className="flex items-center mt-2 text-sm">
+                      <Clock className="w-4 h-4 mr-1" />
+                      <span>{service.duration}</span>
+                    </div>
+                  </div>
+                  <span className="text-xl font-bold">{service.price}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Truck Services */}
+          <div className="space-y-4">
+            <h3 className="text-xl font-bold text-white mb-6">Truck Services</h3>
+            {truckServices.map((service) => (
+              <div
+                key={service.id}
+                className={`p-6 rounded-xl cursor-pointer transition-all duration-200 ${
+                  selectedService === service.id
+                    ? 'bg-blue-500 text-white'
+                    : 'bg-black/40 hover:bg-black/60 text-gray-300'
+                }`}
+                onClick={() => setSelectedService(service.id)}
+              >
+                <div className="flex justify-between items-start mb-2">
+                  <div>
+                    <h4 className="font-bold text-lg">{service.name}</h4>
+                    <p className="text-sm opacity-80">{service.description}</p>
+                    <div className="flex items-center mt-2 text-sm">
+                      <Clock className="w-4 h-4 mr-1" />
+                      <span>{service.duration}</span>
+                    </div>
+                  </div>
+                  <span className="text-xl font-bold">{service.price}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Interior Services */}
+          <div className="space-y-4">
+            <h3 className="text-xl font-bold text-white mb-6">Interior Services</h3>
+            {interiorServices.map((service) => (
+              <div
+                key={service.id}
+                className={`p-6 rounded-xl cursor-pointer transition-all duration-200 ${
+                  selectedService === service.id
+                    ? 'bg-blue-500 text-white'
+                    : 'bg-black/40 hover:bg-black/60 text-gray-300'
+                }`}
+                onClick={() => setSelectedService(service.id)}
+              >
+                <div className="flex justify-between items-start mb-2">
+                  <div>
+                    <h4 className="font-bold text-lg">{service.name}</h4>
+                    <p className="text-sm opacity-80">{service.description}</p>
+                    <div className="flex items-center mt-2 text-sm">
+                      <Clock className="w-4 h-4 mr-1" />
+                      <span>{service.duration}</span>
+                    </div>
+                  </div>
+                  <span className="text-xl font-bold">{service.price}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Vehicle Information Form */}
+        <div className="bg-black/40 backdrop-blur-xl rounded-2xl p-8 border border-blue-500/10">
+          <h3 className="text-xl font-bold text-white mb-6">Vehicle Information</h3>
           <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Personal Information */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div>
-                <label className="block text-white text-sm font-semibold mb-2">
-                  <User className="w-4 h-4 inline mr-2" />
-                  Full Name
+                <label className="block text-sm font-medium text-gray-400 mb-2">
+                  Make
                 </label>
                 <input
                   type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-3 bg-slate-800 border border-slate-600 rounded-xl text-white placeholder-slate-400 focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400"
-                  placeholder="Enter your full name"
-                  required
+                  value={vehicleInfo.make}
+                  onChange={(e) => setVehicleInfo({ ...vehicleInfo, make: e.target.value })}
+                  className="w-full bg-black/40 border border-blue-500/10 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500"
+                  placeholder="Enter vehicle make"
                 />
               </div>
-              
               <div>
-                <label className="block text-white text-sm font-semibold mb-2">
-                  <Phone className="w-4 h-4 inline mr-2" />
-                  Phone Number
+                <label className="block text-sm font-medium text-gray-400 mb-2">
+                  Model
                 </label>
                 <input
-                  type="tel"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-3 bg-slate-800 border border-slate-600 rounded-xl text-white placeholder-slate-400 focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400"
-                  placeholder="(555) 123-4567"
-                  required
+                  type="text"
+                  value={vehicleInfo.model}
+                  onChange={(e) => setVehicleInfo({ ...vehicleInfo, model: e.target.value })}
+                  className="w-full bg-black/40 border border-blue-500/10 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500"
+                  placeholder="Enter vehicle model"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-400 mb-2">
+                  Year
+                </label>
+                <input
+                  type="text"
+                  value={vehicleInfo.year}
+                  onChange={(e) => setVehicleInfo({ ...vehicleInfo, year: e.target.value })}
+                  className="w-full bg-black/40 border border-blue-500/10 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500"
+                  placeholder="Enter vehicle year"
                 />
               </div>
             </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <label className="block text-white text-sm font-semibold mb-2">
-                  <Mail className="w-4 h-4 inline mr-2" />
-                  Email Address
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-3 bg-slate-800 border border-slate-600 rounded-xl text-white placeholder-slate-400 focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400"
-                  placeholder="your@email.com"
-                  required
-                />
-              </div>
-              
-              <div>
-                <label className="block text-white text-sm font-semibold mb-2">
-                  <Car className="w-4 h-4 inline mr-2" />
-                  Vehicle Type
-                </label>
-                <select
-                  name="vehicleType"
-                  value={formData.vehicleType}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-3 bg-slate-800 border border-slate-600 rounded-xl text-white focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400"
-                  required
-                >
-                  <option value="">Select vehicle type</option>
-                  <option value="sedan">Sedan</option>
-                  <option value="suv">SUV</option>
-                  <option value="truck">Truck</option>
-                  <option value="coupe">Coupe</option>
-                  <option value="hatchback">Hatchback</option>
-                  <option value="semi-truck">Semi-Truck</option>
-                  <option value="van">Van</option>
-                </select>
-              </div>
-            </div>
-
             <div>
-              <label className="block text-white text-sm font-semibold mb-2">
-                <MapPin className="w-4 h-4 inline mr-2" />
-                Service Address
+              <label className="block text-sm font-medium text-gray-400 mb-2">
+                Additional Notes
               </label>
-              <input
-                type="text"
-                name="address"
-                value={formData.address}
-                onChange={handleInputChange}
-                className="w-full px-4 py-3 bg-slate-800 border border-slate-600 rounded-xl text-white placeholder-slate-400 focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400"
-                placeholder="Enter your address"
-                required
+              <textarea
+                value={vehicleInfo.notes}
+                onChange={(e) => setVehicleInfo({ ...vehicleInfo, notes: e.target.value })}
+                className="w-full bg-black/40 border border-blue-500/10 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500 h-32"
+                placeholder="Any special requests or notes about your vehicle"
               />
             </div>
-
-            <div>
-              <label className="block text-white text-sm font-semibold mb-2">
-                Service Type
-              </label>
-              <select
-                name="service"
-                value={formData.service}
-                onChange={handleInputChange}
-                className="w-full px-4 py-3 bg-slate-800 border border-slate-600 rounded-xl text-white focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400"
-                required
+            <div className="text-center">
+              <button
+                type="submit"
+                className="px-8 py-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-200"
               >
-                <option value="">Select a service</option>
-                {services.map((service) => (
-                  <option key={service} value={service}>
-                    {service}
-                  </option>
-                ))}
-              </select>
+                Book Appointment
+              </button>
             </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <label className="block text-white text-sm font-semibold mb-2">
-                  <Calendar className="w-4 h-4 inline mr-2" />
-                  Preferred Date
-                </label>
-                <input
-                  type="date"
-                  name="date"
-                  value={formData.date}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-3 bg-slate-800 border border-slate-600 rounded-xl text-white focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400"
-                  required
-                />
-              </div>
-              
-              <div>
-                <label className="block text-white text-sm font-semibold mb-2">
-                  <Clock className="w-4 h-4 inline mr-2" />
-                  Preferred Time
-                </label>
-                <select
-                  name="time"
-                  value={formData.time}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-3 bg-slate-800 border border-slate-600 rounded-xl text-white focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400"
-                  required
-                >
-                  <option value="">Select time</option>
-                  {timeSlots.map((time) => (
-                    <option key={time} value={time}>
-                      {time}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-
-            <button
-              type="submit"
-              className="w-full bg-yellow-400 hover:bg-yellow-300 text-black font-bold py-4 rounded-xl transition-all duration-300 transform hover:scale-105"
-            >
-              BOOK APPOINTMENT
-            </button>
           </form>
+        </div>
+
+        {/* Disclaimer */}
+        <div className="mt-8 text-center text-gray-400 text-sm">
+          * All prices will vary depending on the vehicle's condition
         </div>
       </div>
     </section>
