@@ -9,28 +9,32 @@ const Services = () => {
       title: 'Hand Wash Package',
       duration: '1 hour',
       price: '$40',
-      description: 'Essential hand wash service to keep your vehicle clean.'
+      description: 'Essential hand wash service to keep your vehicle clean.',
+      features: ['Wash', 'Rim Cleaning', 'Tire Clean & Tire Shine', 'Vacuum']
     },
     {
       icon: Car,
       title: 'Bronze Package',
       duration: '2 hours',
       price: '$65',
-      description: 'Basic detailing package with exterior wash and interior cleaning.'
+      description: 'Basic detailing package with exterior wash and interior cleaning.',
+      features: ['Wash', 'Rim Cleaning', 'Tire Clean & Tire Shine', 'Vacuum', 'Window Cleaning', 'Interior Wipe Down', 'Door/Trunk Jam Wipe Out', 'Air Freshener']
     },
     {
       icon: Shield,
       title: 'Silver Package',
       duration: '3 hours',
       price: '$120',
-      description: 'Comprehensive detailing with paint protection and premium care.'
+      description: 'Comprehensive detailing with paint protection and premium care.',
+      features: ['Wash', 'Rim Cleaning', 'Tire Clean & Tire Shine', 'Window Cleaning', 'Vacuum', 'Interior Deep Clean', 'Interior Protection', 'Black Trim Protection', 'Door/Trunk Jam Wipe Out', 'Air Freshener']
     },
     {
       icon: Star,
       title: 'Gold Package',
       duration: '4-5 hours',
       price: '$200',
-      description: 'Premium detailing service with full paint correction and protection.'
+      description: 'Premium detailing service with full paint correction and protection.',
+      features: ['Wash', 'Rim Cleaning', 'Tire Clean & Tire Shine', 'Window Cleaning', 'Interior Deep Clean', 'Interior Protection', 'Seat & Carpet Shampoo', 'Black Trim Protection', 'Engine Bay Cleaning', 'Door/Trunk Jam Wipe Out', 'Air Freshener']
     }
   ];
 
@@ -40,21 +44,24 @@ const Services = () => {
       title: 'Exterior Wash Only',
       duration: '1 hour',
       price: '$65',
-      description: 'Professional exterior cleaning for semi-trucks.'
+      description: 'Professional exterior cleaning for semi-trucks.',
+      features: []
     },
     {
       icon: Truck,
       title: 'Basic Detail',
       duration: '3 hours',
       price: '$150',
-      description: 'Complete basic detailing service for commercial vehicles.'
+      description: 'Complete basic detailing service for commercial vehicles.',
+      features: ['Truck Body', 'Frame Cleaning', 'Rim Cleaning', 'Tire Cleaning & Tire Shine', 'Interior Wipe Down', 'Interior Floor Cleaning']
     },
     {
       icon: Sparkles,
       title: 'Ultimate Detail',
       duration: '5-6 hours',
       price: '$250',
-      description: 'Full premium detailing service for semi-trucks.'
+      description: 'Full premium detailing service for semi-trucks.',
+      features: ['Truck Body', 'Frame Cleaning', 'Rim Cleaning', 'Tire Cleaning & Tire Shine', 'Interior Deep Cleaning', 'Floor Cleaning', 'Interior Protection', 'Window Cleaning']
     }
   ];
 
@@ -64,14 +71,16 @@ const Services = () => {
       title: 'Interior Bronze Package',
       duration: '2 hours',
       price: '$100',
-      description: 'Basic interior cleaning and conditioning service.'
+      description: 'Basic interior cleaning and conditioning service.',
+      features: ['Interior Wipe Down', 'Floor Cleaning', 'Window Cleaning']
     },
     {
       icon: Star,
       title: 'Interior Silver Package',
       duration: '3 hours',
       price: '$150',
-      description: 'Premium interior detailing with deep cleaning and protection.'
+      description: 'Premium interior detailing with deep cleaning and protection.',
+      features: ['Interior Deep Cleaning', 'Interior Protection', 'Floor Cleaning', 'Window Cleaning']
     }
   ];
 
@@ -105,6 +114,18 @@ const Services = () => {
                     <p className="text-slate-400 leading-relaxed text-sm">
                       {service.description}
                     </p>
+                    {service.features.length > 0 && (
+                      <div className="text-left mt-4">
+                        <ul className="text-slate-300 text-sm space-y-1">
+                          {service.features.map((feature, idx) => (
+                            <li key={idx} className="flex items-center">
+                              <span className="w-2 h-2 bg-yellow-400 rounded-full mr-2 flex-shrink-0"></span>
+                              {feature}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
                   </div>
                 </div>
               );
@@ -133,6 +154,18 @@ const Services = () => {
                     <p className="text-slate-400 leading-relaxed text-sm">
                       {service.description}
                     </p>
+                    {service.features.length > 0 && (
+                      <div className="text-left mt-4">
+                        <ul className="text-slate-300 text-sm space-y-1">
+                          {service.features.map((feature, idx) => (
+                            <li key={idx} className="flex items-center">
+                              <span className="w-2 h-2 bg-yellow-400 rounded-full mr-2 flex-shrink-0"></span>
+                              {feature}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
                   </div>
                 </div>
               );
@@ -161,6 +194,18 @@ const Services = () => {
                     <p className="text-slate-400 leading-relaxed text-sm">
                       {service.description}
                     </p>
+                    {service.features.length > 0 && (
+                      <div className="text-left mt-4">
+                        <ul className="text-slate-300 text-sm space-y-1">
+                          {service.features.map((feature, idx) => (
+                            <li key={idx} className="flex items-center">
+                              <span className="w-2 h-2 bg-yellow-400 rounded-full mr-2 flex-shrink-0"></span>
+                              {feature}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
                   </div>
                 </div>
               );

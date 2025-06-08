@@ -16,17 +16,17 @@ const BookingForm = () => {
 
   const services = [
     // Car Detailing Packages
-    'Hand Wash Package - $40',
-    'Bronze Package - $65',
-    'Silver Package - $120',
-    'Gold Package - $200',
+    'Hand Wash Package - $40 (Wash, Rim Cleaning, Tire Clean & Tire Shine, Vacuum)',
+    'Bronze Package - $65 (Wash, Rim Cleaning, Tire Clean & Tire Shine, Vacuum, Window Cleaning, Interior Wipe Down, Door/Trunk Jam Wipe Out, Air Freshener)',
+    'Silver Package - $120 (Wash, Rim Cleaning, Tire Clean & Tire Shine, Window Cleaning, Vacuum, Interior Deep Clean, Interior Protection, Black Trim Protection, Door/Trunk Jam Wipe Out, Air Freshener)',
+    'Gold Package - $200 (Wash, Rim Cleaning, Tire Clean & Tire Shine, Window Cleaning, Interior Deep Clean, Interior Protection, Seat & Carpet Shampoo, Black Trim Protection, Engine Bay Cleaning, Door/Trunk Jam Wipe Out, Air Freshener)',
     // Semi-Truck Detailing Packages
     'Exterior Wash Only (Semi) - $65',
-    'Basic Detail (Semi) - $150',
-    'Ultimate Detail (Semi) - $250',
+    'Basic Detail (Semi) - $150 (Truck Body, Frame Cleaning, Rim Cleaning, Tire Cleaning & Tire Shine, Interior Wipe Down, Interior Floor Cleaning)',
+    'Ultimate Detail (Semi) - $250 (Truck Body, Frame Cleaning, Rim Cleaning, Tire Cleaning & Tire Shine, Interior Deep Cleaning, Floor Cleaning, Interior Protection, Window Cleaning)',
     // Interior Packages
-    'Interior Bronze Package - $100',
-    'Interior Silver Package - $150',
+    'Interior Bronze Package - $100 (Interior Wipe Down, Floor Cleaning, Window Cleaning)',
+    'Interior Silver Package - $150 (Interior Deep Cleaning, Interior Protection, Floor Cleaning, Window Cleaning)',
     // Custom Option
     'Custom Service - Quote'
   ];
