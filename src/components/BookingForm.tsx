@@ -15,12 +15,20 @@ const BookingForm = () => {
   });
 
   const services = [
-    'Paint Correction',
-    'Ceramic Coating',
-    'Interior Cleaning',
-    'Full Detail',
-    'Exterior Detailing',
-    'Wax/Polish'
+    // Car Detailing Packages
+    'Hand Wash Package - $40',
+    'Bronze Package - $65',
+    'Silver Package - $120',
+    'Gold Package - $200',
+    // Semi-Truck Detailing Packages
+    'Exterior Wash Only (Semi) - $65',
+    'Basic Detail (Semi) - $150',
+    'Ultimate Detail (Semi) - $250',
+    // Interior Packages
+    'Interior Bronze Package - $100',
+    'Interior Silver Package - $150',
+    // Custom Option
+    'Custom Service - Quote'
   ];
 
   const timeSlots = [
@@ -125,6 +133,8 @@ const BookingForm = () => {
                   <option value="truck">Truck</option>
                   <option value="coupe">Coupe</option>
                   <option value="hatchback">Hatchback</option>
+                  <option value="semi-truck">Semi-Truck</option>
+                  <option value="van">Van</option>
                 </select>
               </div>
             </div>
