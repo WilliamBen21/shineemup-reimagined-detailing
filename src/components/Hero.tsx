@@ -1,79 +1,81 @@
 
 import React from 'react';
-import { ArrowRight, Star, Shield, Award } from 'lucide-react';
+import { ArrowRight, Star, Shield, Award, Play } from 'lucide-react';
 
 const Hero = () => {
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background with overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80')] bg-cover bg-center opacity-20"></div>
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent"></div>
+      {/* Modern gradient background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800">
+        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80')] bg-cover bg-center opacity-10"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 to-transparent"></div>
       </div>
 
-      {/* Animated background elements */}
-      <div className="absolute inset-0">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+      {/* Modern geometric shapes */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-amber-400/20 to-orange-500/20 rounded-full blur-3xl"></div>
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-full blur-3xl"></div>
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <div className="animate-fade-in">
-          <h1 className="text-5xl md:text-7xl font-black mb-6 bg-gradient-to-r from-white via-gray-100 to-amber-400 bg-clip-text text-transparent leading-tight">
-            LUXURY CAR
-            <br />
-            <span className="bg-gradient-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent">
-              DETAILING
-            </span>
-          </h1>
-          
-          <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed">
-            Transform your vehicle into a masterpiece with our premium detailing services. 
-            Where perfection meets passion.
-          </p>
+      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center space-y-8">
+          {/* Modern typography */}
+          <div className="space-y-6">
+            <h1 className="text-6xl md:text-8xl font-black tracking-tight">
+              <span className="block text-white leading-none">PREMIUM</span>
+              <span className="block bg-gradient-to-r from-amber-400 via-orange-500 to-red-500 bg-clip-text text-transparent leading-none">
+                DETAILING
+              </span>
+            </h1>
+            
+            <p className="text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto font-light leading-relaxed">
+              Elevating your vehicle to perfection with precision, passion, and professional excellence.
+            </p>
+          </div>
 
-          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-12">
-            <button className="group bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-amber-500/25 flex items-center">
-              BOOK NOW
-              <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
+          {/* Modern CTA buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-8">
+            <button className="group relative overflow-hidden bg-gradient-to-r from-amber-500 to-orange-600 text-black px-10 py-4 rounded-2xl font-bold text-lg transition-all duration-300 hover:shadow-2xl hover:shadow-amber-500/25 hover:scale-105">
+              <span className="relative z-10 flex items-center">
+                BOOK SERVICE
+                <ArrowRight className="ml-3 w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
+              </span>
+              <div className="absolute inset-0 bg-gradient-to-r from-orange-600 to-red-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </button>
-            <button className="border-2 border-gray-400 hover:border-amber-400 text-gray-300 hover:text-amber-400 px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 hover:bg-amber-400/10">
-              VIEW PORTFOLIO
+            
+            <button className="group flex items-center px-10 py-4 text-white border-2 border-slate-600 rounded-2xl font-semibold text-lg hover:border-amber-400 hover:bg-amber-400/10 transition-all duration-300">
+              <Play className="w-5 h-5 mr-3 group-hover:scale-110 transition-transform duration-300" />
+              WATCH WORK
             </button>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-            <div className="flex items-center justify-center p-6 bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 hover:border-amber-400/50 transition-all duration-300">
-              <Star className="w-8 h-8 text-amber-400 mr-3" />
-              <div className="text-left">
-                <div className="text-2xl font-bold text-white">500+</div>
-                <div className="text-gray-400">Happy Clients</div>
-              </div>
+          {/* Modern stats cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto pt-16">
+            <div className="group bg-white/5 backdrop-blur-xl rounded-3xl p-8 border border-white/10 hover:border-amber-400/50 transition-all duration-500 hover:bg-white/10">
+              <Star className="w-10 h-10 text-amber-400 mx-auto mb-4 group-hover:scale-110 transition-transform duration-300" />
+              <div className="text-4xl font-black text-white mb-2">500+</div>
+              <div className="text-slate-400 font-medium">Satisfied Clients</div>
             </div>
             
-            <div className="flex items-center justify-center p-6 bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 hover:border-amber-400/50 transition-all duration-300">
-              <Shield className="w-8 h-8 text-amber-400 mr-3" />
-              <div className="text-left">
-                <div className="text-2xl font-bold text-white">5 Years</div>
-                <div className="text-gray-400">Experience</div>
-              </div>
+            <div className="group bg-white/5 backdrop-blur-xl rounded-3xl p-8 border border-white/10 hover:border-amber-400/50 transition-all duration-500 hover:bg-white/10">
+              <Shield className="w-10 h-10 text-amber-400 mx-auto mb-4 group-hover:scale-110 transition-transform duration-300" />
+              <div className="text-4xl font-black text-white mb-2">5+</div>
+              <div className="text-slate-400 font-medium">Years Experience</div>
             </div>
             
-            <div className="flex items-center justify-center p-6 bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 hover:border-amber-400/50 transition-all duration-300">
-              <Award className="w-8 h-8 text-amber-400 mr-3" />
-              <div className="text-left">
-                <div className="text-2xl font-bold text-white">100%</div>
-                <div className="text-gray-400">Satisfaction</div>
-              </div>
+            <div className="group bg-white/5 backdrop-blur-xl rounded-3xl p-8 border border-white/10 hover:border-amber-400/50 transition-all duration-500 hover:bg-white/10">
+              <Award className="w-10 h-10 text-amber-400 mx-auto mb-4 group-hover:scale-110 transition-transform duration-300" />
+              <div className="text-4xl font-black text-white mb-2">100%</div>
+              <div className="text-slate-400 font-medium">Quality Guarantee</div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-        <div className="w-6 h-10 border-2 border-gray-400 rounded-full flex justify-center">
-          <div className="w-1 h-3 bg-gray-400 rounded-full mt-2 animate-pulse"></div>
+      {/* Modern scroll indicator */}
+      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
+        <div className="w-6 h-10 border-2 border-slate-500 rounded-full flex justify-center opacity-60 hover:opacity-100 transition-opacity">
+          <div className="w-1 h-3 bg-amber-400 rounded-full mt-2 animate-bounce"></div>
         </div>
       </div>
     </section>
