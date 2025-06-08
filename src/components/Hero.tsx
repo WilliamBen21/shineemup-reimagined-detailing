@@ -8,8 +8,8 @@ const Hero = () => {
       {/* Background Image */}
       <div className="absolute inset-0">
         <img
-          src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80"
-          alt="Car detailing background"
+          src="/lovable-uploads/5e95c32e-e7a2-4e02-b725-ec8d4324ff94.png"
+          alt="Professional semi-truck detailing"
           className="w-full h-full object-cover opacity-30"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-slate-900/90 to-slate-800/70"></div>
@@ -39,30 +39,30 @@ const Hero = () => {
             </button>
           </div>
 
-          {/* Right Content - Image Grid */}
+          {/* Right Content - Real Car Photos Grid */}
           <div className="relative">
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-4">
                 <img
-                  src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
-                  alt="Car detail 1"
+                  src="/lovable-uploads/e130fda3-08de-46f3-b191-e997be6476c1.png"
+                  alt="Professional car detailing - glossy black finish"
                   className="w-full h-48 object-cover rounded-2xl"
                 />
                 <img
-                  src="https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
-                  alt="Car detail 2"
+                  src="/lovable-uploads/b8aa2085-7b5b-4afa-91c4-3ba6bdbc6549.png"
+                  alt="Clean wheel and tire detailing"
                   className="w-full h-32 object-cover rounded-2xl"
                 />
               </div>
               <div className="space-y-4 pt-8">
                 <img
-                  src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
-                  alt="Car detail 3"
+                  src="/lovable-uploads/4efcf53f-d9c3-49ab-a97c-171af63cbe0b.png"
+                  alt="Red SUV exterior detailing"
                   className="w-full h-32 object-cover rounded-2xl"
                 />
                 <img
-                  src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
-                  alt="Car detail 4"
+                  src="/lovable-uploads/ee5be719-a6a7-4b09-a760-953bbd247229.png"
+                  alt="Professional sedan detail"
                   className="w-full h-48 object-cover rounded-2xl"
                 />
               </div>

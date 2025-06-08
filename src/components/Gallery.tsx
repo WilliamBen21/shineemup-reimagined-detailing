@@ -8,34 +8,49 @@ const Gallery = () => {
 
   const galleryImages = [
     {
-      src: 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-      title: 'Luxury Sedan Detail',
+      src: '/lovable-uploads/09b4a6c7-5c99-4cb9-b4e1-1c466ec59a26.png',
+      title: 'Professional Owner',
+      category: 'Team'
+    },
+    {
+      src: '/lovable-uploads/e130fda3-08de-46f3-b191-e997be6476c1.png',
+      title: 'Luxury Vehicle Detail',
       category: 'Exterior'
     },
     {
-      src: 'https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-      title: 'Interior Restoration',
-      category: 'Interior'
-    },
-    {
-      src: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-      title: 'Sports Car Ceramic Coating',
-      category: 'Protection'
-    },
-    {
-      src: 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-      title: 'Premium Detail Package',
+      src: '/lovable-uploads/ee5be719-a6a7-4b09-a760-953bbd247229.png',
+      title: 'Sedan Restoration',
       category: 'Full Service'
     },
     {
-      src: 'https://images.unsplash.com/photo-1531297484001-80022131f5a1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-      title: 'Engine Bay Detailing',
+      src: '/lovable-uploads/4efcf53f-d9c3-49ab-a97c-171af63cbe0b.png',
+      title: 'SUV Exterior Shine',
+      category: 'Exterior'
+    },
+    {
+      src: '/lovable-uploads/6bf0b62b-1dca-460d-8276-801cb902c4e0.png',
+      title: 'SUV Side Profile Detail',
+      category: 'Exterior'
+    },
+    {
+      src: '/lovable-uploads/b8aa2085-7b5b-4afa-91c4-3ba6bdbc6549.png',
+      title: 'Wheel & Tire Detailing',
       category: 'Specialty'
     },
     {
-      src: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-      title: 'Leather Conditioning',
+      src: '/lovable-uploads/f65562fb-f595-4cc4-a520-dac2550736e4.png',
+      title: 'Semi-Truck Interior',
       category: 'Interior'
+    },
+    {
+      src: '/lovable-uploads/5e95c32e-e7a2-4e02-b725-ec8d4324ff94.png',
+      title: 'Professional Semi-Truck Detail',
+      category: 'Commercial'
+    },
+    {
+      src: '/lovable-uploads/ba560691-aabc-4b6c-9da7-5e2ee3af9e6b.png',
+      title: 'Commercial Vehicle Finish',
+      category: 'Commercial'
     }
   ];
 
