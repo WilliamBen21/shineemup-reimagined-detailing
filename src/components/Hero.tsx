@@ -1,3 +1,4 @@
+
 import React, { useEffect } from 'react';
 import { ArrowRight } from 'lucide-react';
 
@@ -8,6 +9,14 @@ const Hero = () => {
 
   const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
     console.error('Image failed to load:', e.currentTarget.src);
+  };
+
+  const handleBookNowClick = () => {
+    // Scroll to booking section
+    const bookingSection = document.querySelector('#booking');
+    if (bookingSection) {
+      bookingSection.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   return (
@@ -54,7 +63,10 @@ const Hero = () => {
             </div>
 
             <div className="flex items-center space-x-6">
-              <button className="group bg-blue-500 hover:bg-blue-600 text-white px-8 py-4 rounded-full font-bold text-lg transition-all duration-300 hover:scale-105 flex items-center shadow-lg shadow-blue-500/25">
+              <button 
+                onClick={handleBookNowClick}
+                className="group bg-blue-500 hover:bg-blue-600 text-white px-8 py-4 rounded-full font-bold text-lg transition-all duration-300 hover:scale-105 flex items-center shadow-lg shadow-blue-500/25"
+              >
                 BOOK NOW
                 <ArrowRight className="ml-3 w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
               </button>
