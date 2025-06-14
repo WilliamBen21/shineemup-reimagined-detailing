@@ -132,6 +132,45 @@ export type Database = {
         }
         Relationships: []
       }
+      reviews: {
+        Row: {
+          created_at: string
+          customer_email: string | null
+          customer_name: string
+          id: string
+          is_approved: boolean
+          rating: number
+          review_text: string
+          service_type: string | null
+          updated_at: string
+          vehicle_info: string | null
+        }
+        Insert: {
+          created_at?: string
+          customer_email?: string | null
+          customer_name: string
+          id?: string
+          is_approved?: boolean
+          rating: number
+          review_text: string
+          service_type?: string | null
+          updated_at?: string
+          vehicle_info?: string | null
+        }
+        Update: {
+          created_at?: string
+          customer_email?: string | null
+          customer_name?: string
+          id?: string
+          is_approved?: boolean
+          rating?: number
+          review_text?: string
+          service_type?: string | null
+          updated_at?: string
+          vehicle_info?: string | null
+        }
+        Relationships: []
+      }
       services: {
         Row: {
           category: string
