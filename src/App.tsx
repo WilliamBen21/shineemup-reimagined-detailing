@@ -25,13 +25,25 @@ const App = () => {
       <div className="relative">
         <Navigation />
         <main className="space-y-24 md:space-y-32">
-          <Hero />
-          <Services />
-          <About />
-          <Gallery />
+          <section id="home">
+            <Hero />
+          </section>
+          <section id="services">
+            <Services />
+          </section>
+          <section id="about">
+            <About />
+          </section>
+          <section id="gallery">
+            <Gallery />
+          </section>
           <Testimonials />
-          <BookingCalendar />
-          <Contact />
+          <section id="booking">
+            <BookingCalendar />
+          </section>
+          <section id="contact">
+            <Contact />
+          </section>
         </main>
 
         {/* Footer Gradient */}

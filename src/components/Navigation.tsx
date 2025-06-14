@@ -22,6 +22,16 @@ const Navigation = () => {
     { name: 'contact', href: '#contact' },
   ];
 
+  const handleBookNowClick = () => {
+    // Scroll to booking section
+    const bookingSection = document.querySelector('#booking');
+    if (bookingSection) {
+      bookingSection.scrollIntoView({ behavior: 'smooth' });
+    }
+    // Close mobile menu if open
+    setIsOpen(false);
+  };
+
   return (
     <nav
       className={`fixed w-full z-50 transition-all duration-500 ${
@@ -83,7 +93,10 @@ const Navigation = () => {
               <Phone className="w-4 h-4 mr-2 text-blue-500" />
               <span className="text-gray-300">(555) 123-4567</span>
             </div>
-            <button className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2.5 rounded-full font-semibold text-sm transition-all duration-300 shadow-lg shadow-blue-500/25 flex items-center">
+            <button 
+              onClick={handleBookNowClick}
+              className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2.5 rounded-full font-semibold text-sm transition-all duration-300 shadow-lg shadow-blue-500/25 flex items-center"
+            >
               <Calendar className="w-4 h-4 mr-2" />
               BOOK NOW
             </button>
@@ -120,7 +133,10 @@ const Navigation = () => {
                 <Phone className="w-4 h-4 mr-3 text-blue-500" />
                 <span>(555) 123-4567</span>
               </div>
-              <button className="w-full mt-4 bg-blue-500 text-white px-6 py-3 rounded-full font-semibold transition-all duration-300 shadow-lg shadow-blue-500/25 flex items-center justify-center">
+              <button 
+                onClick={handleBookNowClick}
+                className="w-full mt-4 bg-blue-500 text-white px-6 py-3 rounded-full font-semibold transition-all duration-300 shadow-lg shadow-blue-500/25 flex items-center justify-center"
+              >
                 <Calendar className="w-4 h-4 mr-2" />
                 BOOK NOW
               </button>
