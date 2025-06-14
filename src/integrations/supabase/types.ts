@@ -9,13 +9,185 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      bookings: {
+        Row: {
+          booking_date: string
+          booking_time: string
+          confirmation_number: string | null
+          created_at: string
+          customer_id: string
+          id: string
+          notes: string | null
+          service_id: string
+          status: string
+          total_price_cents: number | null
+          updated_at: string
+          vehicle_make: string | null
+          vehicle_model: string | null
+          vehicle_year: string | null
+        }
+        Insert: {
+          booking_date: string
+          booking_time: string
+          confirmation_number?: string | null
+          created_at?: string
+          customer_id: string
+          id?: string
+          notes?: string | null
+          service_id: string
+          status?: string
+          total_price_cents?: number | null
+          updated_at?: string
+          vehicle_make?: string | null
+          vehicle_model?: string | null
+          vehicle_year?: string | null
+        }
+        Update: {
+          booking_date?: string
+          booking_time?: string
+          confirmation_number?: string | null
+          created_at?: string
+          customer_id?: string
+          id?: string
+          notes?: string | null
+          service_id?: string
+          status?: string
+          total_price_cents?: number | null
+          updated_at?: string
+          vehicle_make?: string | null
+          vehicle_model?: string | null
+          vehicle_year?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "bookings_customer_id_fkey"
+            columns: ["customer_id"]
+            isOneToOne: false
+            referencedRelation: "customers"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "bookings_service_id_fkey"
+            columns: ["service_id"]
+            isOneToOne: false
+            referencedRelation: "services"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      business_hours: {
+        Row: {
+          created_at: string
+          day_of_week: number
+          end_time: string
+          id: string
+          is_active: boolean
+          start_time: string
+        }
+        Insert: {
+          created_at?: string
+          day_of_week: number
+          end_time: string
+          id?: string
+          is_active?: boolean
+          start_time: string
+        }
+        Update: {
+          created_at?: string
+          day_of_week?: number
+          end_time?: string
+          id?: string
+          is_active?: boolean
+          start_time?: string
+        }
+        Relationships: []
+      }
+      customers: {
+        Row: {
+          created_at: string
+          email: string
+          first_name: string
+          id: string
+          last_name: string
+          phone: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          first_name: string
+          id?: string
+          last_name: string
+          phone?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          first_name?: string
+          id?: string
+          last_name?: string
+          phone?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      services: {
+        Row: {
+          category: string
+          created_at: string
+          description: string | null
+          duration_minutes: number
+          features: string[] | null
+          id: string
+          is_active: boolean
+          name: string
+          price_cents: number
+          updated_at: string
+        }
+        Insert: {
+          category: string
+          created_at?: string
+          description?: string | null
+          duration_minutes: number
+          features?: string[] | null
+          id?: string
+          is_active?: boolean
+          name: string
+          price_cents: number
+          updated_at?: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          description?: string | null
+          duration_minutes?: number
+          features?: string[] | null
+          id?: string
+          is_active?: boolean
+          name?: string
+          price_cents?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      generate_confirmation_number: {
+        Args: Record<PropertyKey, never>
+        Returns: string
+      }
+      is_time_slot_available: {
+        Args: {
+          check_date: string
+          check_time: string
+          service_duration: number
+        }
+        Returns: boolean
+      }
     }
     Enums: {
       [_ in never]: never
