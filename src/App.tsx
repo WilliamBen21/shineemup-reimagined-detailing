@@ -1,3 +1,4 @@
+
 import React from 'react';
 import Navigation from './components/Navigation';
 import Hero from './components/Hero';
@@ -6,10 +7,11 @@ import About from './components/About';
 import Gallery from './components/Gallery';
 import Testimonials from './components/Testimonials';
 import Contact from './components/Contact';
-import BookingForm from './components/BookingForm';
 import BookingCalendar from './components/BookingCalendar';
 
 const App = () => {
+  console.log('App component rendering...');
+  
   return (
     <div className="min-h-screen bg-[#080808] text-white overflow-x-hidden">
       {/* Premium Background Effects */}

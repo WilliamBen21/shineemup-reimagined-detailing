@@ -8,13 +8,20 @@ export const useAvailability = () => {
   const checkAvailability = async (date: string, time: string, serviceDuration: number) => {
     setIsChecking(true);
     try {
+      console.log('Checking availability for:', { date, time, serviceDuration });
+      
       const { data, error } = await supabase.rpc('is_time_slot_available', {
         check_date: date,
         check_time: time,
         service_duration: serviceDuration
       });
 
-      if (error) throw error;
+      if (error) {
+        console.error('Availability check error:', error);
+        throw error;
+      }
+      
+      console.log('Availability result:', data);
       return data;
     } catch (error) {
       console.error('Error checking availability:', error);
@@ -26,6 +33,8 @@ export const useAvailability = () => {
 
   const getAvailableSlots = async (date: string) => {
     try {
+      console.log('Getting available slots for date:', date);
+      
       // Get business hours for the day of week
       const dayOfWeek = new Date(date).getDay();
       const { data: businessHours } = await supabase
@@ -33,9 +42,12 @@ export const useAvailability = () => {
         .select('start_time, end_time')
         .eq('day_of_week', dayOfWeek)
         .eq('is_active', true)
-        .single();
+        .maybeSingle();
 
-      if (!businessHours) return [];
+      if (!businessHours) {
+        console.log('No business hours found for day:', dayOfWeek);
+        return [];
+      }
 
       // Get existing bookings for the date
       const { data: bookings } = await supabase
@@ -71,6 +83,7 @@ export const useAvailability = () => {
         }
       }
 
+      console.log('Available slots:', slots);
       return slots;
     } catch (error) {
       console.error('Error getting available slots:', error);

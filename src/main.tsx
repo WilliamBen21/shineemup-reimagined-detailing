@@ -1,13 +1,17 @@
+
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import './index.css';
+
+console.log('Main.tsx loading...');
 
 // Error Boundary Component
 class ErrorBoundary extends React.Component<{ children: React.ReactNode }> {
   state = { hasError: false, error: null };
 
   static getDerivedStateFromError(error: Error) {
+    console.error('Error boundary caught error:', error);
     return { hasError: true, error };
   }
 
@@ -45,7 +49,8 @@ class ErrorBoundary extends React.Component<{ children: React.ReactNode }> {
   }
 }
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+const root = ReactDOM.createRoot(document.getElementById('root')!);
+root.render(
   <React.StrictMode>
     <ErrorBoundary>
       <App />

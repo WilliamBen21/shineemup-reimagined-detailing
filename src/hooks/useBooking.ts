@@ -28,6 +28,8 @@ export const useBooking = () => {
   const createBooking = async (bookingData: BookingData) => {
     setIsLoading(true);
     try {
+      console.log('Creating booking with data:', bookingData);
+      
       // First, create or get customer
       let customerId: string;
       
@@ -36,10 +38,11 @@ export const useBooking = () => {
         .from('customers')
         .select('id')
         .eq('email', bookingData.customerInfo.email)
-        .single();
+        .maybeSingle();
 
       if (existingCustomer) {
         customerId = existingCustomer.id;
+        console.log('Found existing customer:', customerId);
       } else {
         // Create new customer
         const { data: newCustomer, error: customerError } = await supabase
@@ -53,8 +56,12 @@ export const useBooking = () => {
           .select('id')
           .single();
 
-        if (customerError) throw customerError;
+        if (customerError) {
+          console.error('Customer creation error:', customerError);
+          throw customerError;
+        }
         customerId = newCustomer.id;
+        console.log('Created new customer:', customerId);
       }
 
       // Get service details for price
@@ -64,7 +71,10 @@ export const useBooking = () => {
         .eq('id', bookingData.serviceId)
         .single();
 
-      if (serviceError) throw serviceError;
+      if (serviceError) {
+        console.error('Service fetch error:', serviceError);
+        throw serviceError;
+      }
 
       // Create booking
       const { data: booking, error: bookingError } = await supabase
@@ -83,7 +93,12 @@ export const useBooking = () => {
         .select('confirmation_number')
         .single();
 
-      if (bookingError) throw bookingError;
+      if (bookingError) {
+        console.error('Booking creation error:', bookingError);
+        throw bookingError;
+      }
+
+      console.log('Booking created successfully:', booking);
 
       toast({
         title: "Booking Confirmed!",
