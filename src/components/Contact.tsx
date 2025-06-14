@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Phone, Mail, MapPin, Clock } from 'lucide-react';
 
@@ -6,8 +7,8 @@ const Contact = () => {
     {
       icon: Phone,
       title: 'Phone',
-      details: '+1 (555) 123-4567',
-      link: 'tel:+15551234567'
+      details: '+1 (704) 519-7228',
+      link: 'tel:+17045197228'
     },
     {
       icon: Mail,
@@ -120,7 +121,7 @@ const Contact = () => {
                   id="phone"
                   name="phone"
                   className="w-full bg-black/30 border border-blue-500/10 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500/30 transition-colors"
-                  placeholder="(555) 123-4567"
+                  placeholder="(704) 519-7228"
                 />
               </div>
               <div>

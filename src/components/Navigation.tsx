@@ -91,7 +91,7 @@ const Navigation = () => {
           <div className="hidden md:flex items-center space-x-6">
             <div className="flex items-center text-sm">
               <Phone className="w-4 h-4 mr-2 text-blue-500" />
-              <span className="text-gray-300">(555) 123-4567</span>
+              <span className="text-gray-300">(704) 519-7228</span>
             </div>
             <button 
               onClick={handleBookNowClick}
@@ -131,7 +131,7 @@ const Navigation = () => {
             <div className="pt-4 border-t border-blue-500/10">
               <div className="flex items-center text-gray-300 px-4 py-2">
                 <Phone className="w-4 h-4 mr-3 text-blue-500" />
-                <span>(555) 123-4567</span>
+                <span>(704) 519-7228</span>
               </div>
               <button 
                 onClick={handleBookNowClick}
