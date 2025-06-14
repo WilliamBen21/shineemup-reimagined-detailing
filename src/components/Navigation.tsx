@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Phone, Calendar, Clock, MapPin } from 'lucide-react';
 
@@ -40,7 +41,7 @@ const Navigation = () => {
               </div>
               <div className="flex items-center">
                 <MapPin className="w-4 h-4 mr-2 text-blue-500" />
-                <span>123 Detail Street, Auto City</span>
+                <span>Charlotte, NC</span>
               </div>
             </div>
             <div className="flex items-center space-x-4">
