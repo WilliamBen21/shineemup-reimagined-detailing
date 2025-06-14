@@ -5,28 +5,31 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ShineEmUp - Premium Car Detailing Services | Professional Auto Care</title>
-    <meta name="description" content="Transform your vehicle with ShineEmUp's premium car detailing services. Expert paint correction, ceramic coating, interior detailing, and mobile services. Book your appointment today!" />
-    <meta name="keywords" content="car detailing, auto detailing, paint correction, ceramic coating, mobile detailing, interior cleaning, exterior detailing, wax, polish, professional car care" />
+    <title>ShineEmUp - Premium Car Detailing Services in Charlotte, NC | Professional Auto Care</title>
+    <meta name="description" content="Transform your vehicle with ShineEmUp's premium car detailing services in Charlotte, NC. Expert paint correction, ceramic coating, interior detailing, and mobile services. Book your appointment today!" />
+    <meta name="keywords" content="car detailing Charlotte NC, auto detailing Charlotte, paint correction Charlotte, ceramic coating Charlotte, mobile detailing Charlotte NC, interior cleaning Charlotte, exterior detailing Charlotte, wax polish Charlotte, professional car care Charlotte NC" />
     <meta name="author" content="ShineEmUp Detailing" />
     <meta name="robots" content="index, follow" />
     <meta name="language" content="English" />
+    <meta name="geo.region" content="US-NC" />
+    <meta name="geo.placename" content="Charlotte" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://shineemup.com/" />
-    <meta property="og:title" content="ShineEmUp - Premium Car Detailing Services | Professional Auto Care" />
-    <meta property="og:description" content="Transform your vehicle with ShineEmUp's premium car detailing services. Expert paint correction, ceramic coating, interior detailing, and mobile services." />
+    <meta property="og:title" content="ShineEmUp - Premium Car Detailing Services in Charlotte, NC | Professional Auto Care" />
+    <meta property="og:description" content="Transform your vehicle with ShineEmUp's premium car detailing services in Charlotte, NC. Expert paint correction, ceramic coating, interior detailing, and mobile services." />
     <meta property="og:image" content="/lovable-uploads/ba560691-aabc-4b6c-9da7-5e2ee3af9e6b.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:site_name" content="ShineEmUp Detailing" />
+    <meta property="og:locale" content="en_US" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content="https://shineemup.com/" />
-    <meta name="twitter:title" content="ShineEmUp - Premium Car Detailing Services | Professional Auto Care" />
-    <meta name="twitter:description" content="Transform your vehicle with ShineEmUp's premium car detailing services. Expert paint correction, ceramic coating, interior detailing, and mobile services." />
+    <meta name="twitter:title" content="ShineEmUp - Premium Car Detailing Services in Charlotte, NC | Professional Auto Care" />
+    <meta name="twitter:description" content="Transform your vehicle with ShineEmUp's premium car detailing services in Charlotte, NC. Expert paint correction, ceramic coating, interior detailing, and mobile services." />
     <meta name="twitter:image" content="/lovable-uploads/ba560691-aabc-4b6c-9da7-5e2ee3af9e6b.png" />
 
     <!-- Local Business Schema -->
@@ -35,9 +38,27 @@
       "@context": "https://schema.org",
       "@type": "LocalBusiness",
       "name": "ShineEmUp Detailing",
-      "description": "Premium car detailing services including paint correction, ceramic coating, and interior detailing",
+      "description": "Premium car detailing services including paint correction, ceramic coating, and interior detailing in Charlotte, NC",
       "serviceType": "Car Detailing Service",
-      "areaServed": "Local Area",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Charlotte",
+        "addressRegion": "NC",
+        "addressCountry": "US"
+      },
+      "areaServed": {
+        "@type": "City",
+        "name": "Charlotte",
+        "containedInPlace": {
+          "@type": "State",
+          "name": "North Carolina"
+        }
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 35.2271,
+        "longitude": -80.8431
+      },
       "hasOfferCatalog": {
         "@type": "OfferCatalog",
         "name": "Car Detailing Services",
@@ -46,21 +67,32 @@
             "@type": "Offer",
             "itemOffered": {
               "@type": "Service",
-              "name": "Paint Correction"
+              "name": "Paint Correction",
+              "areaServed": "Charlotte, NC"
             }
           },
           {
             "@type": "Offer",
             "itemOffered": {
               "@type": "Service",
-              "name": "Ceramic Coating"
+              "name": "Ceramic Coating",
+              "areaServed": "Charlotte, NC"
             }
           },
           {
             "@type": "Offer",
             "itemOffered": {
               "@type": "Service",
-              "name": "Interior Detailing"
+              "name": "Interior Detailing",
+              "areaServed": "Charlotte, NC"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Mobile Detailing",
+              "areaServed": "Charlotte, NC"
             }
           }
         ]
