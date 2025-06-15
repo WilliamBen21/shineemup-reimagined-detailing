@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Phone, Calendar, Clock, MapPin } from 'lucide-react';
@@ -20,7 +19,7 @@ const Navigation = () => {
     { name: 'home', href: '/', isRoute: true },
     { name: 'services', href: '#services', isRoute: false },
     { name: 'gallery', href: '/gallery', isRoute: true },
-    { name: 'about', href: '#about', isRoute: false },
+    { name: 'about', href: '/about', isRoute: true },
     { name: 'reviews', href: '#reviews', isRoute: false },
     { name: 'contact', href: '#contact', isRoute: false },
   ];

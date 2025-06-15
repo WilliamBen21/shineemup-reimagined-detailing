@@ -2,7 +2,6 @@ import React from 'react';
 import Navigation from '../components/Navigation';
 import Hero from '../components/Hero';
 import Services from '../components/Services';
-import About from '../components/About';
 import Reviews from '../components/Reviews';
 import Contact from '../components/Contact';
 import BookingCalendar from '../components/BookingCalendar';
@@ -52,14 +51,8 @@ const HomePage = () => {
             </div>
           </section>
           
-          {/* Newsletter signup between services and about */}
+          {/* Newsletter signup between services and reviews */}
           <NewsletterSignup />
-          
-          <section id="about" className="scroll-mt-16 md:scroll-mt-20">
-            <div className="container mx-auto px-4">
-              <About />
-            </div>
-          </section>
           
           <section id="reviews" className="scroll-mt-16 md:scroll-mt-20">
             <div className="container mx-auto px-4">
