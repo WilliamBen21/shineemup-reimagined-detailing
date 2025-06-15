@@ -11,6 +11,37 @@ const NewsletterSignup: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
 
+  const sendEmail = async (email: string) => {
+    try {
+      console.log('Sending newsletter welcome email...');
+      
+      const response = await fetch(`${supabase.supabaseUrl}/functions/v1/send-lead-magnet-email`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${supabase.supabaseKey}`,
+        },
+        body: JSON.stringify({
+          name: '', // Newsletter signup doesn't collect name
+          email,
+          type: 'newsletter'
+        }),
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || 'Failed to send email');
+      }
+
+      const result = await response.json();
+      console.log('Newsletter email sent successfully:', result);
+      return result;
+    } catch (error) {
+      console.error('Error sending newsletter email:', error);
+      throw error;
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email) return;
@@ -20,6 +51,7 @@ const NewsletterSignup: React.FC = () => {
     try {
       console.log('Saving newsletter signup to database...', { email });
       
+      // Save to database first
       const { data, error } = await supabase
         .from('lead_signups')
         .insert({
@@ -36,9 +68,18 @@ const NewsletterSignup: React.FC = () => {
 
       console.log('Newsletter signup saved successfully:', data);
       
+      // Send welcome email after successful database save
+      try {
+        await sendEmail(email.trim());
+        console.log('Newsletter welcome email sent successfully');
+      } catch (emailError) {
+        console.error('Failed to send welcome email, but signup was saved:', emailError);
+        // Don't throw here - we still want to show success since the signup was saved
+      }
+      
       toast({
         title: "Welcome!",
-        description: "You've been added to our newsletter. Thank you!",
+        description: "You've been added to our newsletter. Check your email for a welcome message!",
       });
       
       setEmail('');

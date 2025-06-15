@@ -26,6 +26,37 @@ const LeadMagnetModal: React.FC<LeadMagnetModalProps> = ({ isOpen, onClose, trig
     "Use dedicated wheel cleaners for stubborn brake dust"
   ];
 
+  const sendEmail = async (name: string, email: string) => {
+    try {
+      console.log('Sending lead magnet email...');
+      
+      const response = await fetch(`${supabase.supabaseUrl}/functions/v1/send-lead-magnet-email`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${supabase.supabaseKey}`,
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          type: 'lead_magnet'
+        }),
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || 'Failed to send email');
+      }
+
+      const result = await response.json();
+      console.log('Email sent successfully:', result);
+      return result;
+    } catch (error) {
+      console.error('Error sending email:', error);
+      throw error;
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -33,6 +64,7 @@ const LeadMagnetModal: React.FC<LeadMagnetModalProps> = ({ isOpen, onClose, trig
     try {
       console.log('Saving lead signup to database...', { name, email, trigger });
       
+      // Save to database first
       const { data, error } = await supabase
         .from('lead_signups')
         .insert({
@@ -48,6 +80,15 @@ const LeadMagnetModal: React.FC<LeadMagnetModalProps> = ({ isOpen, onClose, trig
       }
 
       console.log('Lead signup saved successfully:', data);
+      
+      // Send email after successful database save
+      try {
+        await sendEmail(name.trim(), email.trim());
+        console.log('Welcome email sent successfully');
+      } catch (emailError) {
+        console.error('Failed to send email, but signup was saved:', emailError);
+        // Don't throw here - we still want to show success since the signup was saved
+      }
       
       toast({
         title: "Success!",
