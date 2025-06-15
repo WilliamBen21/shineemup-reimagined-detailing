@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
@@ -111,15 +110,15 @@ const BookingCalendar = () => {
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 xl:gap-12">
-            {/* Service Selection */}
-            <div className="space-y-8">
+          <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
+            {/* Service Selection - Left Column */}
+            <div className="xl:col-span-1 space-y-8">
               {/* Service Type Tabs */}
-              <div className="flex flex-wrap gap-4 mb-6">
+              <div className="flex flex-col gap-3">
                 <button
                   type="button"
                   onClick={() => setSelectedCategory('car')}
-                  className={`flex-1 sm:flex-none flex items-center justify-center px-4 py-2 rounded-lg transition-all duration-200 ${
+                  className={`flex items-center justify-center px-4 py-3 rounded-lg transition-all duration-200 ${
                     selectedCategory === 'car'
                       ? 'bg-blue-500 text-white'
                       : 'bg-blue-500/10 text-blue-400 hover:bg-blue-500/20'
@@ -131,7 +130,7 @@ const BookingCalendar = () => {
                 <button
                   type="button"
                   onClick={() => setSelectedCategory('truck')}
-                  className={`flex-1 sm:flex-none flex items-center justify-center px-4 py-2 rounded-lg transition-all duration-200 ${
+                  className={`flex items-center justify-center px-4 py-3 rounded-lg transition-all duration-200 ${
                     selectedCategory === 'truck'
                       ? 'bg-blue-500 text-white'
                       : 'bg-blue-500/10 text-blue-400 hover:bg-blue-500/20'
@@ -143,7 +142,7 @@ const BookingCalendar = () => {
                 <button
                   type="button"
                   onClick={() => setSelectedCategory('interior')}
-                  className={`flex-1 sm:flex-none flex items-center justify-center px-4 py-2 rounded-lg transition-all duration-200 ${
+                  className={`flex items-center justify-center px-4 py-3 rounded-lg transition-all duration-200 ${
                     selectedCategory === 'interior'
                       ? 'bg-blue-500 text-white'
                       : 'bg-blue-500/10 text-blue-400 hover:bg-blue-500/20'
@@ -155,7 +154,7 @@ const BookingCalendar = () => {
               </div>
 
               {/* Service Options */}
-              <div className="space-y-4 max-h-[600px] overflow-y-auto pr-2">
+              <div className="space-y-4 max-h-[800px] overflow-y-auto pr-2">
                 {services[selectedCategory]?.map((service) => (
                   <button
                     key={service.id}
@@ -167,7 +166,7 @@ const BookingCalendar = () => {
                         : 'bg-black/40 hover:bg-black/60 text-gray-300'
                     }`}
                   >
-                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4 mb-4">
+                    <div className="flex flex-col gap-4 mb-4">
                       <div>
                         <h4 className="text-lg font-bold mb-1">{service.name}</h4>
                         <p className="text-sm opacity-80">{service.description}</p>
@@ -181,7 +180,7 @@ const BookingCalendar = () => {
                         <span>{formatPrice(service.price_cents).replace('$', '')}</span>
                       </div>
                     </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
+                    <div className="grid grid-cols-1 gap-2 text-sm">
                       {service.features.map((feature, index) => (
                         <div key={index} className="flex items-center">
                           <span className="w-1.5 h-1.5 bg-current rounded-full mr-2"></span>
@@ -194,44 +193,52 @@ const BookingCalendar = () => {
               </div>
             </div>
 
-            {/* Calendar and Time Selection */}
-            <div className="bg-black/40 backdrop-blur-xl rounded-2xl p-4 sm:p-8 border border-blue-500/10">
-              <h3 className="text-2xl font-bold text-white mb-6">Select Date & Time</h3>
-              <div className="relative mb-8">
-                <div className="calendar-wrapper">
-                  <DatePicker
-                    selected={selectedDate}
-                    onChange={(date: Date | null) => setSelectedDate(date)}
-                    minDate={new Date()}
-                    inline
-                    calendarClassName="!bg-black/40"
-                  />
-                </div>
-              </div>
-              {selectedDate && (
-                <div className="mt-8">
-                  <h4 className="text-lg font-semibold text-white mb-4">Available Time Slots</h4>
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                    {availableSlots.map((time) => (
-                      <button
-                        key={time}
-                        type="button"
-                        onClick={() => setSelectedTime(time)}
-                        className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                          selectedTime === time
-                            ? 'bg-blue-500 text-white'
-                            : 'bg-blue-500/10 text-blue-400 hover:bg-blue-500/20'
-                        }`}
-                      >
-                        {time}
-                      </button>
-                    ))}
+            {/* Calendar and Time Selection - Center Column */}
+            <div className="xl:col-span-2 bg-black/40 backdrop-blur-xl rounded-2xl p-8 border border-blue-500/10">
+              <h3 className="text-2xl font-bold text-white mb-8">Select Date & Time</h3>
+              
+              {/* Larger Calendar Container */}
+              <div className="flex flex-col lg:flex-row gap-8">
+                {/* Calendar */}
+                <div className="flex-1">
+                  <div className="calendar-wrapper flex justify-center">
+                    <DatePicker
+                      selected={selectedDate}
+                      onChange={(date: Date | null) => setSelectedDate(date)}
+                      minDate={new Date()}
+                      inline
+                      calendarClassName="!bg-black/60 !border-blue-500/20 !text-white !text-lg"
+                      className="!w-full"
+                    />
                   </div>
-                  {availableSlots.length === 0 && (
-                    <p className="text-gray-400 text-sm">No available slots for this date.</p>
-                  )}
                 </div>
-              )}
+
+                {/* Time Slots */}
+                {selectedDate && (
+                  <div className="flex-1 lg:max-w-sm">
+                    <h4 className="text-xl font-semibold text-white mb-6">Available Times</h4>
+                    <div className="grid grid-cols-2 gap-4">
+                      {availableSlots.map((time) => (
+                        <button
+                          key={time}
+                          type="button"
+                          onClick={() => setSelectedTime(time)}
+                          className={`px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 ${
+                            selectedTime === time
+                              ? 'bg-blue-500 text-white shadow-lg'
+                              : 'bg-blue-500/10 text-blue-400 hover:bg-blue-500/20 border border-blue-500/20'
+                          }`}
+                        >
+                          {time}
+                        </button>
+                      ))}
+                    </div>
+                    {availableSlots.length === 0 && (
+                      <p className="text-gray-400 text-sm">No available slots for this date.</p>
+                    )}
+                  </div>
+                )}
+              </div>
             </div>
           </div>
 
