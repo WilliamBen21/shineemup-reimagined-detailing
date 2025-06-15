@@ -1,6 +1,13 @@
 
 import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight, X, Camera } from 'lucide-react';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from '@/components/ui/carousel';
 
 const Gallery = () => {
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
@@ -75,8 +82,66 @@ const Gallery = () => {
       src: '/lovable-uploads/a589a599-a1b2-4415-b7eb-f841bea144c0.png',
       alt: 'Mobile detailing service',
       category: 'Mobile'
+    },
+    {
+      src: '/lovable-uploads/1a120f65-c6f5-4df5-b1f0-abedbf5589de.png',
+      alt: 'Rear floor area before cleaning',
+      category: 'Before & After'
+    },
+    {
+      src: '/lovable-uploads/f57f51c3-8e2a-4d43-8a3b-3305534b1a2a.png',
+      alt: 'Back seat floor cleaning',
+      category: 'Before & After'
+    },
+    {
+      src: '/lovable-uploads/24e586c9-8c0f-4a31-887f-57fe98c5200b.png',
+      alt: 'Center console deep clean',
+      category: 'Interior'
+    },
+    {
+      src: '/lovable-uploads/acfa41b8-939c-4676-b821-9a27301c676d.png',
+      alt: 'Front floor mat cleaning',
+      category: 'Interior'
+    },
+    {
+      src: '/lovable-uploads/2cc2ed89-d7ae-4707-97a4-c1b46c0e923e.png',
+      alt: 'Driver floor mat restoration',
+      category: 'Interior'
+    },
+    {
+      src: '/lovable-uploads/93cb3224-8bd4-466a-820a-7606e3d549b6.png',
+      alt: 'Leather seat conditioning',
+      category: 'Interior'
+    },
+    {
+      src: '/lovable-uploads/5387fcc3-d8e0-4b67-a695-a09c6a1d45cb.png',
+      alt: 'Clean floor carpet result',
+      category: 'Interior'
+    },
+    {
+      src: '/lovable-uploads/99210d3b-0610-4306-b2a2-1efefd17ee2d.png',
+      alt: 'Rear seat deep clean',
+      category: 'Interior'
+    },
+    {
+      src: '/lovable-uploads/960875c7-d68b-4a25-b500-34687b54adc8.png',
+      alt: 'Ford interior dashboard',
+      category: 'Interior'
+    },
+    {
+      src: '/lovable-uploads/3f43ecec-d54a-45d8-8d26-0d6eb93a3969.png',
+      alt: 'Ford center console detail',
+      category: 'Interior'
     }
   ];
+
+  // Group images by category for better organization
+  const categories = ['All', 'Exterior', 'Interior', 'Before & After', 'Paint', 'Protection', 'Complete', 'Commercial', 'Mobile'];
+  const [selectedCategory, setSelectedCategory] = useState('All');
+
+  const filteredImages = selectedCategory === 'All' 
+    ? images 
+    : images.filter(image => image.category === selectedCategory);
 
   const handlePrevious = () => {
     if (selectedImage !== null) {
@@ -109,31 +174,82 @@ const Gallery = () => {
             Witness Our
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600"> Craftsmanship</span>
           </h2>
-          <p className="text-gray-400 max-w-2xl mx-auto text-lg">
+          <p className="text-gray-400 max-w-2xl mx-auto text-lg mb-8">
             Browse through our gallery of meticulously detailed vehicles and see the level of perfection we achieve.
           </p>
+
+          {/* Category Filter */}
+          <div className="flex flex-wrap justify-center gap-2 mb-8">
+            {categories.map((category) => (
+              <button
+                key={category}
+                onClick={() => setSelectedCategory(category)}
+                className={`px-4 py-2 rounded-full text-sm transition-all duration-300 ${
+                  selectedCategory === category
+                    ? 'bg-blue-500 text-white'
+                    : 'bg-blue-500/10 text-blue-400 hover:bg-blue-500/20 border border-blue-500/20'
+                }`}
+              >
+                {category}
+              </button>
+            ))}
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {images.map((image, index) => (
+        {/* Carousel Gallery */}
+        <Carousel className="w-full max-w-6xl mx-auto">
+          <CarouselContent className="-ml-2 md:-ml-4">
+            {filteredImages.map((image, index) => (
+              <CarouselItem key={index} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3">
+                <div
+                  className="relative group cursor-pointer"
+                  onClick={() => setSelectedImage(images.indexOf(image))}
+                >
+                  <div className="absolute inset-0.5 bg-gradient-to-b from-blue-500/20 to-transparent rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
+                  <div className="relative overflow-hidden rounded-2xl border border-blue-500/10 group-hover:border-blue-500/30 transition-colors duration-300">
+                    <img
+                      src={image.src}
+                      alt={image.alt}
+                      className="w-full h-64 object-cover transform group-hover:scale-110 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <div className="absolute bottom-0 left-0 right-0 p-6">
+                        <div className="bg-blue-500/10 backdrop-blur-sm border border-blue-500/20 rounded-full px-3 py-1 text-sm text-blue-400 inline-block mb-2">
+                          {image.category}
+                        </div>
+                        <h3 className="text-white font-bold text-lg">{image.alt}</h3>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious className="bg-black/50 hover:bg-black/70 text-white border-blue-500/20" />
+          <CarouselNext className="bg-black/50 hover:bg-black/70 text-white border-blue-500/20" />
+        </Carousel>
+
+        {/* Grid View for larger screens as backup */}
+        <div className="hidden xl:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-16">
+          {filteredImages.slice(0, 8).map((image, index) => (
             <div
               key={index}
               className="relative group cursor-pointer"
-              onClick={() => setSelectedImage(index)}
+              onClick={() => setSelectedImage(images.indexOf(image))}
             >
               <div className="absolute inset-0.5 bg-gradient-to-b from-blue-500/20 to-transparent rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
               <div className="relative overflow-hidden rounded-2xl border border-blue-500/10 group-hover:border-blue-500/30 transition-colors duration-300">
                 <img
                   src={image.src}
                   alt={image.alt}
-                  className="w-full h-64 object-cover transform group-hover:scale-110 transition-transform duration-500"
+                  className="w-full h-48 object-cover transform group-hover:scale-110 transition-transform duration-500"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <div className="absolute bottom-0 left-0 right-0 p-6">
-                    <div className="bg-blue-500/10 backdrop-blur-sm border border-blue-500/20 rounded-full px-3 py-1 text-sm text-blue-400 inline-block mb-2">
+                  <div className="absolute bottom-0 left-0 right-0 p-4">
+                    <div className="bg-blue-500/10 backdrop-blur-sm border border-blue-500/20 rounded-full px-2 py-1 text-xs text-blue-400 inline-block mb-1">
                       {image.category}
                     </div>
-                    <h3 className="text-white font-bold text-lg">{image.alt}</h3>
+                    <h3 className="text-white font-bold text-sm">{image.alt}</h3>
                   </div>
                 </div>
               </div>
