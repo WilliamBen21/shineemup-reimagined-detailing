@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight, X, Camera } from 'lucide-react';
 
@@ -29,6 +30,51 @@ const Gallery = () => {
       src: '/lovable-uploads/5e95c32e-e7a2-4e02-b725-ec8d4324ff94.png',
       alt: 'Full detail',
       category: 'Complete'
+    },
+    {
+      src: '/lovable-uploads/0346f3fe-84de-40ac-8573-acddd1ec916b.png',
+      alt: 'Volvo exterior detail',
+      category: 'Exterior'
+    },
+    {
+      src: '/lovable-uploads/1f19271d-1f55-4f46-9ba8-b675c53841e4.png',
+      alt: 'Volvo side profile',
+      category: 'Exterior'
+    },
+    {
+      src: '/lovable-uploads/2b7b9845-d3cd-4d5c-964b-98c17ae253a2.png',
+      alt: 'Dashboard detail',
+      category: 'Interior'
+    },
+    {
+      src: '/lovable-uploads/f85f1739-addf-43ef-9f4e-18d55c118d41.png',
+      alt: 'Steering wheel and gauges',
+      category: 'Interior'
+    },
+    {
+      src: '/lovable-uploads/c6d372db-06df-4b6c-8e05-881eb1513e44.png',
+      alt: 'Floor mat detail',
+      category: 'Interior'
+    },
+    {
+      src: '/lovable-uploads/5516f763-e196-4cc9-9c36-442fdad9eaa8.png',
+      alt: 'Interior seat detail',
+      category: 'Interior'
+    },
+    {
+      src: '/lovable-uploads/9c3ca17c-2c0a-4059-8912-d23e31b4a4d5.png',
+      alt: 'Floor carpet cleaning',
+      category: 'Interior'
+    },
+    {
+      src: '/lovable-uploads/2c57e98f-4de4-46e8-9331-0152c63b4a7f.png',
+      alt: 'Commercial truck detail',
+      category: 'Commercial'
+    },
+    {
+      src: '/lovable-uploads/a589a599-a1b2-4415-b7eb-f841bea144c0.png',
+      alt: 'Mobile detailing service',
+      category: 'Mobile'
     }
   ];
 
