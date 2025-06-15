@@ -1,36 +1,7 @@
 
-
 import React from 'react';
-import { Shield, Award, Clock, Users } from 'lucide-react';
 
 const About = () => {
-  const stats = [
-    {
-      icon: Shield,
-      value: '10+',
-      label: 'Years of Excellence',
-      description: 'Dedicated to automotive perfection'
-    },
-    {
-      icon: Award,
-      value: '5000+',
-      label: 'Vehicles Detailed',
-      description: 'Each treated with meticulous care'
-    },
-    {
-      icon: Clock,
-      value: '100%',
-      label: 'Satisfaction Rate',
-      description: 'Client satisfaction guaranteed'
-    },
-    {
-      icon: Users,
-      value: '2500+',
-      label: 'Regular Clients',
-      description: 'Trust our premium service'
-    }
-  ];
-
   return (
     <section id="about" className="py-24 bg-[#080808] relative overflow-hidden">
       {/* Premium Background Effects */}
@@ -103,35 +74,9 @@ const About = () => {
             </div>
           </div>
         </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {stats.map((stat, index) => {
-            const IconComponent = stat.icon;
-            return (
-              <div
-                key={index}
-                className="relative group"
-              >
-                <div className="absolute inset-0.5 bg-gradient-to-b from-blue-500/20 to-transparent rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
-                <div className="relative bg-black/40 backdrop-blur-xl rounded-2xl p-8 border border-blue-500/10 hover:border-blue-500/30 transition-colors duration-300">
-                  <div className="relative mb-4">
-                    <div className="absolute inset-0 bg-blue-500/20 rounded-full blur-xl transform group-hover:scale-110 transition duration-500"></div>
-                    <div className="relative inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full group-hover:scale-110 transition-transform duration-300">
-                      <IconComponent className="w-6 h-6 text-white" />
-                    </div>
-                  </div>
-                  <h3 className="text-3xl font-bold text-white mb-2">{stat.value}</h3>
-                  <p className="text-blue-400 font-medium mb-2">{stat.label}</p>
-                  <p className="text-gray-400 text-sm">{stat.description}</p>
-                </div>
-              </div>
-            );
-          })}
-        </div>
       </div>
     </section>
   );
 };
 
 export default About;
-
