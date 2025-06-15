@@ -2,15 +2,9 @@
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { navigateToBooking } from '@/utils/bookingNavigation';
 
 const MobileDetailingCTA = () => {
-  const handleBookNowClick = () => {
-    const bookingSection = document.querySelector('#booking');
-    if (bookingSection) {
-      bookingSection.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   return (
     <section className="py-16">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -23,7 +17,7 @@ const MobileDetailingCTA = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 
-              onClick={handleBookNowClick}
+              onClick={navigateToBooking}
               className="bg-blue-500 hover:bg-blue-600 text-white px-8 py-4 rounded-full font-bold text-lg"
             >
               Book Mobile Service
