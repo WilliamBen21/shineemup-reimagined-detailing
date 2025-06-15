@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Shield, Award, Clock, Users } from 'lucide-react';
 
@@ -105,12 +106,6 @@ const About = () => {
               Professional Excellence,
               <span className="text-blue-400"> Personal Touch</span>
             </h3>
-            <p className="text-gray-400 text-lg leading-relaxed">
-              Our team combines years of professional experience with a personal commitment to excellence. We understand that your vehicle is more than just transportation—it's an investment that deserves the highest level of care and attention.
-            </p>
-            <p className="text-gray-400 text-lg leading-relaxed">
-              From our professional approach to our meticulous attention to detail, we ensure every client receives the premium service they deserve.
-            </p>
           </div>
         </div>
 
