@@ -1,10 +1,12 @@
 
 import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Phone, Calendar, Clock, MapPin } from 'lucide-react';
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -15,21 +17,39 @@ const Navigation = () => {
   }, []);
 
   const navItems = [
-    { name: 'home', href: '#home' },
-    { name: 'services', href: '#services' },
-    { name: 'gallery', href: '#gallery' },
-    { name: 'about', href: '#about' },
-    { name: 'reviews', href: '#reviews' },
-    { name: 'contact', href: '#contact' },
+    { name: 'home', href: '/', isRoute: true },
+    { name: 'services', href: '#services', isRoute: false },
+    { name: 'gallery', href: '/gallery', isRoute: true },
+    { name: 'about', href: '#about', isRoute: false },
+    { name: 'reviews', href: '#reviews', isRoute: false },
+    { name: 'contact', href: '#contact', isRoute: false },
   ];
 
   const handleBookNowClick = () => {
-    // Scroll to booking section
-    const bookingSection = document.querySelector('#booking');
-    if (bookingSection) {
-      bookingSection.scrollIntoView({ behavior: 'smooth' });
+    if (location.pathname === '/') {
+      // On home page, scroll to booking section
+      const bookingSection = document.querySelector('#booking');
+      if (bookingSection) {
+        bookingSection.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      // On other pages, navigate to home page first
+      window.location.href = '/#booking';
     }
     // Close mobile menu if open
+    setIsOpen(false);
+  };
+
+  const handleNavClick = (item: typeof navItems[0]) => {
+    if (item.isRoute) {
+      setIsOpen(false);
+      return;
+    }
+    
+    if (location.pathname !== '/') {
+      // Navigate to home page with hash
+      window.location.href = `/${item.href}`;
+    }
     setIsOpen(false);
   };
 
@@ -68,22 +88,33 @@ const Navigation = () => {
         <div className="flex justify-between items-center h-16 md:h-20">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <h1 className="text-lg md:text-2xl font-black text-white tracking-tight">
+            <Link to="/" className="text-lg md:text-2xl font-black text-white tracking-tight">
               SHINE<span className="text-blue-500">'EM</span> UP
-            </h1>
+            </Link>
           </div>
 
           {/* Desktop navigation */}
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-6 lg:space-x-8">
               {navItems.map((item) => (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  className="text-gray-300 hover:text-blue-400 px-2 lg:px-3 py-2 text-sm font-medium transition-colors duration-300 capitalize"
-                >
-                  {item.name}
-                </a>
+                item.isRoute ? (
+                  <Link
+                    key={item.name}
+                    to={item.href}
+                    className="text-gray-300 hover:text-blue-400 px-2 lg:px-3 py-2 text-sm font-medium transition-colors duration-300 capitalize"
+                  >
+                    {item.name}
+                  </Link>
+                ) : (
+                  <a
+                    key={item.name}
+                    href={item.href}
+                    onClick={() => handleNavClick(item)}
+                    className="text-gray-300 hover:text-blue-400 px-2 lg:px-3 py-2 text-sm font-medium transition-colors duration-300 capitalize"
+                  >
+                    {item.name}
+                  </a>
+                )
               ))}
             </div>
           </div>
@@ -120,14 +151,25 @@ const Navigation = () => {
         <div className="md:hidden bg-black/95 backdrop-blur-xl border-t border-blue-500/10">
           <div className="px-4 pt-4 pb-6 space-y-2">
             {navItems.map((item) => (
-              <a
-                key={item.name}
-                href={item.href}
-                className="block text-gray-300 hover:text-blue-400 px-4 py-3 text-base font-medium transition-colors duration-200 capitalize rounded-lg hover:bg-blue-500/10"
-                onClick={() => setIsOpen(false)}
-              >
-                {item.name}
-              </a>
+              item.isRoute ? (
+                <Link
+                  key={item.name}
+                  to={item.href}
+                  className="block text-gray-300 hover:text-blue-400 px-4 py-3 text-base font-medium transition-colors duration-200 capitalize rounded-lg hover:bg-blue-500/10"
+                  onClick={() => setIsOpen(false)}
+                >
+                  {item.name}
+                </Link>
+              ) : (
+                <a
+                  key={item.name}
+                  href={item.href}
+                  className="block text-gray-300 hover:text-blue-400 px-4 py-3 text-base font-medium transition-colors duration-200 capitalize rounded-lg hover:bg-blue-500/10"
+                  onClick={() => handleNavClick(item)}
+                >
+                  {item.name}
+                </a>
+              )
             ))}
             <div className="pt-4 border-t border-blue-500/10 space-y-3">
               <div className="flex items-center text-gray-300 px-4 py-2">
