@@ -49,10 +49,10 @@ const CarDetailingGuidePage = () => {
                 <div className="flex flex-col sm:flex-row gap-4 justify-center px-4">
                   <Button 
                     onClick={handleBookNowClick}
-                    className="bg-blue-500 hover:bg-blue-600 text-white px-6 md:px-8 py-3 md:py-4 rounded-full font-bold text-base md:text-lg transition-all duration-300 hover:scale-105 flex items-center justify-center w-full sm:w-auto"
+                    className="bg-blue-500 hover:bg-blue-600 text-white px-4 sm:px-6 md:px-8 py-3 md:py-4 rounded-full font-bold text-sm sm:text-base md:text-lg transition-all duration-300 hover:scale-105 flex items-center justify-center w-full sm:w-auto min-h-[48px] h-auto whitespace-normal text-center leading-tight"
                   >
-                    <span className="break-words text-center">Skip the DIY - Book Professional Service</span>
-                    <ArrowRight className="ml-2 w-5 h-5 flex-shrink-0" />
+                    <span className="break-words text-center px-2">Skip the DIY - Book Professional Service</span>
+                    <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
                   </Button>
                 </div>
               </div>
@@ -294,10 +294,10 @@ const CarDetailingGuidePage = () => {
                   </p>
                   <Button 
                     onClick={handleBookNowClick}
-                    className="bg-blue-500 hover:bg-blue-600 text-white px-6 md:px-8 py-3 md:py-4 rounded-full font-bold text-base md:text-lg w-full sm:w-auto"
+                    className="bg-blue-500 hover:bg-blue-600 text-white px-4 sm:px-6 md:px-8 py-3 md:py-4 rounded-full font-bold text-sm sm:text-base md:text-lg w-full sm:w-auto min-h-[48px] h-auto whitespace-normal text-center leading-tight"
                   >
-                    <span className="break-words">Book Professional Detailing</span>
-                    <ArrowRight className="ml-2 w-5 h-5 flex-shrink-0" />
+                    <span className="break-words px-2">Book Professional Detailing</span>
+                    <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
                   </Button>
                 </div>
               </div>
