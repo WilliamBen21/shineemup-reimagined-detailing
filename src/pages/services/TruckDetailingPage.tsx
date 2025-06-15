@@ -3,12 +3,10 @@ import React from 'react';
 import { ArrowRight, Truck, Shield, Star, CheckCircle } from 'lucide-react';
 import Navigation from '../../components/Navigation';
 import { Button } from '@/components/ui/button';
+import { navigateToBooking } from '@/utils/bookingNavigation';
+import BookingCalendar from '../../components/BookingCalendar';
 
 const TruckDetailingPage = () => {
-  const handleBookNowClick = () => {
-    window.location.href = '/#booking';
-  };
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white overflow-x-hidden">
       {/* Background Effects */}
@@ -49,7 +47,7 @@ const TruckDetailingPage = () => {
                   
                   <div className="flex flex-col sm:flex-row gap-4 mb-8">
                     <Button 
-                      onClick={handleBookNowClick}
+                      onClick={navigateToBooking}
                       className="bg-blue-500 hover:bg-blue-600 text-white px-8 py-4 rounded-full font-bold text-lg transition-all duration-300 hover:scale-105 flex items-center justify-center"
                     >
                       Book Truck Detailing
@@ -211,7 +209,7 @@ const TruckDetailingPage = () => {
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Button 
-                    onClick={handleBookNowClick}
+                    onClick={navigateToBooking}
                     className="bg-blue-500 hover:bg-blue-600 text-white px-8 py-4 rounded-full font-bold text-lg"
                   >
                     Book Truck Detailing
@@ -223,6 +221,11 @@ const TruckDetailingPage = () => {
                 </div>
               </div>
             </div>
+          </section>
+
+          {/* Booking Section */}
+          <section id="booking" className="scroll-mt-24">
+            <BookingCalendar />
           </section>
         </main>
       </div>
