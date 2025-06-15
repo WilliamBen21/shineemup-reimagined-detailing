@@ -161,5 +161,29 @@ export const galleryImages: GalleryImage[] = [
     category: 'interior',
     title: 'Console & Infotainment',
     description: 'Detailed cleaning of all interior electronics and surfaces'
+  },
+  {
+    id: '29',
+    src: '/lovable-uploads/48df4ce6-1a11-4952-a47c-f31551a0e4ca.png',
+    alt: 'Vehicle center console and gear shifter detailed',
+    category: 'interior',
+    title: 'Center Console Detailed',
+    description: 'Professional cleaning of center console and climate controls'
+  },
+  {
+    id: '30',
+    src: '/lovable-uploads/4ef49c8e-b552-4001-898b-fd032a170186.png',
+    alt: 'Driver seat and floor area cleaned',
+    category: 'interior',
+    title: 'Driver Area Complete',
+    description: 'Complete driver area detailing with leather conditioning'
+  },
+  {
+    id: '31',
+    src: '/lovable-uploads/23aa7f89-6970-49c0-9f6b-4b71c3202b70.png',
+    alt: 'Floor mat and pedal area detailed',
+    category: 'interior',
+    title: 'Floor Mat Detailing',
+    description: 'WeatherTech floor mats and pedal area professionally cleaned'
   }
 ];
