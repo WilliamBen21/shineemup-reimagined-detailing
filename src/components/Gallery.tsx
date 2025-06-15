@@ -165,7 +165,7 @@ const Gallery = () => {
     {
       src: '/lovable-uploads/f9c6eeef-dfb2-4ebd-989e-eee1a8406215.png',
       alt: 'Ford Escape mobile detail setup',
-      category: 'Commercial'
+      category: 'Exterior'
     }
   ];
 
