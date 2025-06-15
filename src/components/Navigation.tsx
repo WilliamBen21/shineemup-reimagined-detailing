@@ -65,22 +65,22 @@ const Navigation = () => {
 
       {/* Main Navigation */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-20">
+        <div className="flex justify-between items-center h-16 md:h-20">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <h1 className="text-2xl font-black text-white tracking-tight">
+            <h1 className="text-lg md:text-2xl font-black text-white tracking-tight">
               SHINE<span className="text-blue-500">'EM</span> UP
             </h1>
           </div>
 
           {/* Desktop navigation */}
           <div className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-8">
+            <div className="ml-10 flex items-baseline space-x-6 lg:space-x-8">
               {navItems.map((item) => (
                 <a
                   key={item.name}
                   href={item.href}
-                  className="text-gray-300 hover:text-blue-400 px-3 py-2 text-sm font-medium transition-colors duration-300 capitalize"
+                  className="text-gray-300 hover:text-blue-400 px-2 lg:px-3 py-2 text-sm font-medium transition-colors duration-300 capitalize"
                 >
                   {item.name}
                 </a>
@@ -89,14 +89,14 @@ const Navigation = () => {
           </div>
 
           {/* Contact info and CTA */}
-          <div className="hidden md:flex items-center space-x-6">
+          <div className="hidden lg:flex items-center space-x-4 xl:space-x-6">
             <div className="flex items-center text-sm">
               <Phone className="w-4 h-4 mr-2 text-blue-500" />
               <span className="text-gray-300">(704) 519-7228</span>
             </div>
             <button 
               onClick={handleBookNowClick}
-              className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2.5 rounded-full font-semibold text-sm transition-all duration-300 shadow-lg shadow-blue-500/25 flex items-center"
+              className="bg-blue-500 hover:bg-blue-600 text-white px-4 xl:px-6 py-2.5 rounded-full font-semibold text-sm transition-all duration-300 shadow-lg shadow-blue-500/25 flex items-center"
             >
               <Calendar className="w-4 h-4 mr-2" />
               BOOK NOW
@@ -107,7 +107,7 @@ const Navigation = () => {
           <div className="md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-gray-400 hover:text-white transition-colors"
+              className="text-gray-400 hover:text-white transition-colors p-2"
             >
               {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
@@ -123,16 +123,20 @@ const Navigation = () => {
               <a
                 key={item.name}
                 href={item.href}
-                className="block text-gray-300 hover:text-blue-400 px-4 py-3 text-base font-medium transition-colors duration-200 capitalize"
+                className="block text-gray-300 hover:text-blue-400 px-4 py-3 text-base font-medium transition-colors duration-200 capitalize rounded-lg hover:bg-blue-500/10"
                 onClick={() => setIsOpen(false)}
               >
                 {item.name}
               </a>
             ))}
-            <div className="pt-4 border-t border-blue-500/10">
+            <div className="pt-4 border-t border-blue-500/10 space-y-3">
               <div className="flex items-center text-gray-300 px-4 py-2">
                 <Phone className="w-4 h-4 mr-3 text-blue-500" />
-                <span>(704) 519-7228</span>
+                <span className="text-sm">(704) 519-7228</span>
+              </div>
+              <div className="flex items-center text-gray-300 px-4 py-2">
+                <MapPin className="w-4 h-4 mr-3 text-blue-500" />
+                <span className="text-sm">Charlotte, NC</span>
               </div>
               <button 
                 onClick={handleBookNowClick}
