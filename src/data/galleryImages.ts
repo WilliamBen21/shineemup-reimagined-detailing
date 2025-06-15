@@ -1,4 +1,5 @@
 
+
 import { GalleryImage } from '@/types/gallery';
 
 export const galleryImages: GalleryImage[] = [
@@ -337,5 +338,22 @@ export const galleryImages: GalleryImage[] = [
     category: 'commercial',
     title: 'Commercial Truck Complete',
     description: 'Finished professional detailing of commercial fleet vehicle'
+  },
+  {
+    id: '51',
+    src: '/lovable-uploads/420acbad-5105-4256-9fa9-c56525f03b0c.png',
+    alt: 'Professional mobile car wash service in parking lot',
+    category: 'exterior',
+    title: 'Mobile Wash Service',
+    description: 'On-location professional car detailing and washing service'
+  },
+  {
+    id: '52',
+    src: '/lovable-uploads/224987e8-851a-433e-8b76-ae832110c105.png',
+    alt: 'Ford alloy wheel detailed and cleaned',
+    category: 'exterior',
+    title: 'Wheel Detail Work',
+    description: 'Professional wheel cleaning and tire shine service'
   }
 ];
+
