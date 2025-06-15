@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
+import { supabase } from '@/integrations/supabase/client';
 
 interface LeadMagnetModalProps {
   isOpen: boolean;
@@ -30,8 +31,23 @@ const LeadMagnetModal: React.FC<LeadMagnetModalProps> = ({ isOpen, onClose, trig
     setIsSubmitting(true);
 
     try {
-      // Simulate API call - replace with actual lead capture API
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      console.log('Saving lead signup to database...', { name, email, trigger });
+      
+      const { data, error } = await supabase
+        .from('lead_signups')
+        .insert({
+          name: name.trim(),
+          email: email.trim().toLowerCase(),
+          signup_type: 'lead_magnet',
+          source: trigger
+        });
+
+      if (error) {
+        console.error('Error saving lead signup:', error);
+        throw error;
+      }
+
+      console.log('Lead signup saved successfully:', data);
       
       toast({
         title: "Success!",
@@ -42,6 +58,7 @@ const LeadMagnetModal: React.FC<LeadMagnetModalProps> = ({ isOpen, onClose, trig
       setName('');
       setShowPreview(true);
     } catch (error) {
+      console.error('Error submitting lead form:', error);
       toast({
         title: "Error",
         description: "Something went wrong. Please try again.",

@@ -4,6 +4,7 @@ import { Mail, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
+import { supabase } from '@/integrations/supabase/client';
 
 const NewsletterSignup: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -17,8 +18,23 @@ const NewsletterSignup: React.FC = () => {
     setIsSubmitting(true);
 
     try {
-      // Simulate API call - replace with actual newsletter signup
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      console.log('Saving newsletter signup to database...', { email });
+      
+      const { data, error } = await supabase
+        .from('lead_signups')
+        .insert({
+          name: '', // Newsletter signup doesn't collect name
+          email: email.trim().toLowerCase(),
+          signup_type: 'newsletter',
+          source: 'newsletter'
+        });
+
+      if (error) {
+        console.error('Error saving newsletter signup:', error);
+        throw error;
+      }
+
+      console.log('Newsletter signup saved successfully:', data);
       
       toast({
         title: "Welcome!",
@@ -27,6 +43,7 @@ const NewsletterSignup: React.FC = () => {
       
       setEmail('');
     } catch (error) {
+      console.error('Error submitting newsletter form:', error);
       toast({
         title: "Error",
         description: "Failed to subscribe. Please try again.",

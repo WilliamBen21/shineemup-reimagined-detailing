@@ -132,6 +132,36 @@ export type Database = {
         }
         Relationships: []
       }
+      lead_signups: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          name: string
+          signup_type: string
+          source: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          name: string
+          signup_type?: string
+          source?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          name?: string
+          signup_type?: string
+          source?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       reviews: {
         Row: {
           created_at: string
