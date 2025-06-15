@@ -1,4 +1,5 @@
 
+
 import React from 'react';
 import { ArrowRight, MapPin, Clock, Shield, Star } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -64,8 +65,8 @@ const MobileDetailingPage = () => {
                 
                 <div className="relative">
                   <img
-                    src="/lovable-uploads/2b7b9845-d3cd-4d5c-964b-98c17ae253a2.png"
-                    alt="Mobile car detailing service in Charlotte NC - Professional sedan detailing"
+                    src="/lovable-uploads/937b9d22-8abb-48af-9aeb-344878e1a00a.png"
+                    alt="Mobile car detailing service in Charlotte NC - Professional white vehicle detailing"
                     className="w-full h-auto rounded-2xl shadow-2xl"
                   />
                 </div>
@@ -281,3 +282,4 @@ const MobileDetailingPage = () => {
 };
 
 export default MobileDetailingPage;
+
