@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Phone, Mail, MapPin, Clock } from 'lucide-react';
 
@@ -19,7 +18,7 @@ const Contact = () => {
     {
       icon: MapPin,
       title: 'Location',
-      details: '123 Detail Street, City, ST 12345',
+      details: 'Charlotte, NC',
       link: 'https://maps.google.com'
     },
     {
