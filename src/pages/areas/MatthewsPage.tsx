@@ -1,12 +1,12 @@
-
 import React from 'react';
 import { ArrowRight, MapPin, Clock, Users, Star } from 'lucide-react';
 import Navigation from '../../components/Navigation';
 import { Button } from '@/components/ui/button';
+import { navigateToBooking } from '@/utils/bookingNavigation';
 
 const MatthewsPage = () => {
   const handleBookNowClick = () => {
-    window.location.href = '/#booking';
+    navigateToBooking();
   };
 
   return (
