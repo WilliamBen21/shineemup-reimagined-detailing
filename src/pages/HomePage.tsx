@@ -1,4 +1,3 @@
-
 import React from 'react';
 import Navigation from '../components/Navigation';
 import Hero from '../components/Hero';
@@ -7,8 +6,18 @@ import About from '../components/About';
 import Reviews from '../components/Reviews';
 import Contact from '../components/Contact';
 import BookingCalendar from '../components/BookingCalendar';
+import LeadMagnetModal from '../components/lead-capture/LeadMagnetModal';
+import NewsletterSignup from '../components/lead-capture/NewsletterSignup';
+import StickyContactBar from '../components/lead-capture/StickyContactBar';
+import CTASection from '../components/lead-capture/CTASection';
+import { useLeadCapture } from '../hooks/useLeadCapture';
 
 const HomePage = () => {
+  const { modalOpen, trigger, closeModal } = useLeadCapture({
+    scrollThreshold: 40, // Show after 40% scroll
+    timeDelay: 45000, // Show after 45 seconds
+  });
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white overflow-x-hidden relative">
       {/* Modern Background Effects */}
@@ -43,6 +52,9 @@ const HomePage = () => {
             </div>
           </section>
           
+          {/* Newsletter signup between services and about */}
+          <NewsletterSignup />
+          
           <section id="about" className="scroll-mt-16 md:scroll-mt-20">
             <div className="container mx-auto px-4">
               <About />
@@ -54,6 +66,9 @@ const HomePage = () => {
               <Reviews />
             </div>
           </section>
+          
+          {/* CTA section before booking */}
+          <CTASection />
           
           <section id="booking" className="scroll-mt-16 md:scroll-mt-20">
             <div className="container mx-auto px-4">
@@ -76,6 +91,17 @@ const HomePage = () => {
           </div>
         </footer>
       </div>
+
+      {/* Lead Capture Components */}
+      <LeadMagnetModal 
+        isOpen={modalOpen} 
+        onClose={closeModal} 
+        trigger={trigger || 'exit'} 
+      />
+      
+      {/* Sticky contact bar - add bottom padding to content to avoid overlap */}
+      <StickyContactBar />
+      <div className="h-16"></div> {/* Spacer for sticky bar */}
     </div>
   );
 };
