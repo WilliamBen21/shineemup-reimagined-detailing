@@ -84,16 +84,6 @@ const Gallery = () => {
       category: 'Mobile'
     },
     {
-      src: '/lovable-uploads/1a120f65-c6f5-4df5-b1f0-abedbf5589de.png',
-      alt: 'Rear floor area before cleaning',
-      category: 'Before & After'
-    },
-    {
-      src: '/lovable-uploads/f57f51c3-8e2a-4d43-8a3b-3305534b1a2a.png',
-      alt: 'Back seat floor cleaning',
-      category: 'Before & After'
-    },
-    {
       src: '/lovable-uploads/24e586c9-8c0f-4a31-887f-57fe98c5200b.png',
       alt: 'Center console deep clean',
       category: 'Interior'
@@ -132,11 +122,57 @@ const Gallery = () => {
       src: '/lovable-uploads/3f43ecec-d54a-45d8-8d26-0d6eb93a3969.png',
       alt: 'Ford center console detail',
       category: 'Interior'
+    },
+    // New images added
+    {
+      src: '/lovable-uploads/db0c07ae-afbf-4b1c-ba36-7f1f1416da74.png',
+      alt: 'Ford Escape rear seat interior',
+      category: 'Interior'
+    },
+    {
+      src: '/lovable-uploads/77f0ed61-b6da-4df9-8b8b-89bcabb0e8b8.png',
+      alt: 'Ford Escape exterior side view',
+      category: 'Exterior'
+    },
+    {
+      src: '/lovable-uploads/122ff893-c161-4016-a8e4-81a8af76f68d.png',
+      alt: 'Ford Escape rear quarter panel',
+      category: 'Exterior'
+    },
+    {
+      src: '/lovable-uploads/93335753-337e-4b43-8175-7ca59be12cf1.png',
+      alt: 'Ford Escape front interior detail',
+      category: 'Interior'
+    },
+    {
+      src: '/lovable-uploads/c28f09d7-0451-4fb8-b720-7355d6c1b98c.png',
+      alt: 'Ford wheel and tire detail',
+      category: 'Exterior'
+    },
+    {
+      src: '/lovable-uploads/76c9fd11-ac49-4d6c-8ce6-a06715cc288a.png',
+      alt: 'Ford Escape night exterior detail',
+      category: 'Exterior'
+    },
+    {
+      src: '/lovable-uploads/7c46d89e-1cf7-4dd2-87be-10e488b6578c.png',
+      alt: 'Ford Escape night side profile',
+      category: 'Exterior'
+    },
+    {
+      src: '/lovable-uploads/b702f76e-85e6-456d-9a76-774723e57066.png',
+      alt: 'Ford floor mat WeatherTech detail',
+      category: 'Interior'
+    },
+    {
+      src: '/lovable-uploads/f9c6eeef-dfb2-4ebd-989e-eee1a8406215.png',
+      alt: 'Ford Escape mobile detail setup',
+      category: 'Mobile'
     }
   ];
 
   // Group images by category for better organization
-  const categories = ['All', 'Exterior', 'Interior', 'Before & After', 'Paint', 'Protection', 'Complete', 'Commercial', 'Mobile'];
+  const categories = ['All', 'Exterior', 'Interior', 'Paint', 'Protection', 'Complete', 'Commercial', 'Mobile'];
   const [selectedCategory, setSelectedCategory] = useState('All');
 
   const filteredImages = selectedCategory === 'All' 
