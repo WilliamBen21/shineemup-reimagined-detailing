@@ -1,5 +1,5 @@
 
-import React from 'react';
+import * as React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import GalleryPage from './pages/GalleryPage';
@@ -14,7 +14,7 @@ import MatthewsPage from './pages/areas/MatthewsPage';
 import ConcordPage from './pages/areas/ConcordPage';
 import CarDetailingGuidePage from './pages/guides/CarDetailingGuidePage';
 
-const App = () => {
+const App: React.FC = () => {
   console.log('App component rendering...');
   
   return (
