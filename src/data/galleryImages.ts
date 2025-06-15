@@ -1,3 +1,4 @@
+
 import { GalleryImage } from '@/types/gallery';
 
 export const galleryImages: GalleryImage[] = [
@@ -264,5 +265,77 @@ export const galleryImages: GalleryImage[] = [
     category: 'commercial',
     title: 'Commercial Front Detail',
     description: 'Professional commercial vehicle front end detailing'
+  },
+  {
+    id: '42',
+    src: '/lovable-uploads/2dc3bba9-1d65-43b0-8a50-0902f797e586.png',
+    alt: 'Commercial truck driver seat and cabin interior with cup holder console',
+    category: 'commercial',
+    title: 'Truck Driver Cabin Interior',
+    description: 'Professional interior cleaning of commercial truck driver area'
+  },
+  {
+    id: '43',
+    src: '/lovable-uploads/3422a297-9fc3-4020-bc38-879902985ab9.png',
+    alt: 'Commercial truck microwave and kitchen appliances',
+    category: 'commercial',
+    title: 'Truck Kitchen Appliances',
+    description: 'Deep cleaning of commercial vehicle kitchen and appliance areas'
+  },
+  {
+    id: '44',
+    src: '/lovable-uploads/5319f4d8-dcaf-4cd7-b5d7-a87fdb69d3ac.png',
+    alt: 'Commercial truck sleeper cab with bed and climate controls',
+    category: 'commercial',
+    title: 'Sleeper Cab Interior',
+    description: 'Complete sleeper cab cleaning and interior restoration'
+  },
+  {
+    id: '45',
+    src: '/lovable-uploads/2607f4f6-891a-4dd2-9076-a067fe056ba2.png',
+    alt: 'Commercial truck bunk bed area with ladder and storage',
+    category: 'commercial',
+    title: 'Truck Bunk Bed Area',
+    description: 'Professional cleaning of commercial truck sleeping quarters'
+  },
+  {
+    id: '46',
+    src: '/lovable-uploads/71296bf2-8241-4be6-aa1d-1ebadadec4a9.png',
+    alt: 'Red and white Mecklenburg Transportation commercial truck front view',
+    category: 'commercial',
+    title: 'Mecklenburg Fleet Truck',
+    description: 'Professional exterior detailing of commercial fleet vehicle'
+  },
+  {
+    id: '47',
+    src: '/lovable-uploads/641494a5-6943-477b-a8c1-39cf358267d7.png',
+    alt: 'Commercial truck fifth wheel and coupling mechanism detail',
+    category: 'commercial',
+    title: 'Fifth Wheel Detail',
+    description: 'Specialized cleaning of commercial truck coupling systems'
+  },
+  {
+    id: '48',
+    src: '/lovable-uploads/a78c063b-66d1-457a-8428-0f5082a40f55.png',
+    alt: 'Commercial truck dual wheels and undercarriage detail',
+    category: 'commercial',
+    title: 'Commercial Wheel Detail',
+    description: 'Professional wheel and undercarriage cleaning service'
+  },
+  {
+    id: '49',
+    src: '/lovable-uploads/cf610651-8609-499f-ae88-3a69fdcfb91a.png',
+    alt: 'Red and white Mecklenburg commercial truck side profile view',
+    category: 'commercial',
+    title: 'Fleet Truck Side Profile',
+    description: 'Complete exterior detailing of commercial transportation vehicle'
+  },
+  {
+    id: '50',
+    src: '/lovable-uploads/87d24645-8610-450e-9c2f-0b7b05fa72e0.png',
+    alt: 'Red and white Mecklenburg commercial truck finished exterior detail',
+    category: 'commercial',
+    title: 'Commercial Truck Complete',
+    description: 'Finished professional detailing of commercial fleet vehicle'
   }
 ];
