@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Mail, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -15,11 +14,11 @@ const NewsletterSignup: React.FC = () => {
     try {
       console.log('Sending newsletter welcome email...');
       
-      const response = await fetch(`${supabase.supabaseUrl}/functions/v1/send-lead-magnet-email`, {
+      const response = await fetch('https://mbhmtiykgqswehnktwdc.supabase.co/functions/v1/send-lead-magnet-email', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${supabase.supabaseKey}`,
+          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1iaG10aXlrZ3Fzd2Vobmt0d2RjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk5NDEwMTYsImV4cCI6MjA2NTUxNzAxNn0.JJfw0IXQvHiTNAT_faX-SkDBr3aJQplUNEjPSAURv-A',
         },
         body: JSON.stringify({
           name: '', // Newsletter signup doesn't collect name
