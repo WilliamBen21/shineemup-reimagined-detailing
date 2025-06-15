@@ -22,38 +22,42 @@ const BookingProgress: React.FC<BookingProgressProps> = ({ currentStep }) => {
 
   return (
     <div className="mb-8 sm:mb-12">
-      <div className="flex items-center justify-between px-2 sm:px-4">
+      <div className="relative flex items-center justify-between px-2 sm:px-4 max-w-2xl mx-auto">
         {steps.map((step, index) => (
-          <div key={step.number} className="flex flex-col items-center flex-1">
-            <div className={`flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full border-2 transition-all duration-300 ${
-              currentStep >= step.number
-                ? 'bg-blue-500 border-blue-500 text-white'
-                : 'border-gray-600 text-gray-400'
-            }`}>
-              {currentStep > step.number ? (
-                <Check className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5" />
-              ) : (
-                <step.icon className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5" />
-              )}
-            </div>
-            <div className="mt-2 text-center">
-              <p className={`text-[10px] sm:text-xs font-medium ${
-                currentStep >= step.number ? 'text-blue-400' : 'text-gray-400'
+          <React.Fragment key={step.number}>
+            <div className="flex flex-col items-center z-10 bg-[#080808]">
+              <div className={`flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 transition-all duration-300 ${
+                currentStep >= step.number
+                  ? 'bg-blue-500 border-blue-500 text-white'
+                  : 'border-gray-600 text-gray-400'
               }`}>
-                Step {step.number}
-              </p>
-              <p className={`text-[9px] sm:text-[10px] md:text-xs ${
-                currentStep >= step.number ? 'text-white' : 'text-gray-500'
-              }`}>
-                {step.title}
-              </p>
+                {currentStep > step.number ? (
+                  <Check className="w-4 h-4 sm:w-5 sm:h-5" />
+                ) : (
+                  <step.icon className="w-4 h-4 sm:w-5 sm:h-5" />
+                )}
+              </div>
+              <div className="mt-3 text-center">
+                <p className={`text-xs font-medium ${
+                  currentStep >= step.number ? 'text-blue-400' : 'text-gray-400'
+                }`}>
+                  Step {step.number}
+                </p>
+                <p className={`text-[10px] sm:text-xs max-w-[80px] leading-tight ${
+                  currentStep >= step.number ? 'text-white' : 'text-gray-500'
+                }`}>
+                  {step.title}
+                </p>
+              </div>
             </div>
+            
+            {/* Connecting Line */}
             {index < steps.length - 1 && (
-              <div className={`hidden sm:block absolute top-4 sm:top-5 md:top-6 left-1/2 w-full h-0.5 ${
+              <div className={`flex-1 h-0.5 mx-2 sm:mx-4 ${
                 currentStep > step.number ? 'bg-blue-500' : 'bg-gray-600'
-              }`} style={{ transform: 'translateX(50%)', width: '100%', maxWidth: '80px' }} />
+              }`} />
             )}
-          </div>
+          </React.Fragment>
         ))}
       </div>
     </div>
