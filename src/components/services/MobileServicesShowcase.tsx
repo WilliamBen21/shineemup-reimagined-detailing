@@ -14,7 +14,7 @@ const MobileServicesShowcase = () => {
       description: 'Vacuum, steam cleaning, leather conditioning, dashboard protection, and odor elimination.'
     },
     {
-      image: '/lovable-uploads/b8aa2085-7b5b-4afa-91c4-3ba6bdbc6549.png',
+      image: '/lovable-uploads/2dc34923-d77c-4118-8a90-b4eaf95e48ed.png',
       title: 'Mobile Paint Correction',
       description: 'Swirl mark removal, scratch repair, and paint restoration performed at your convenience.'
     }
