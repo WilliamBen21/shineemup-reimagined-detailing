@@ -3,67 +3,83 @@ import { GalleryImage } from '@/types/gallery';
 
 export const galleryImages: GalleryImage[] = [
   {
-    id: '1',
-    src: '/lovable-uploads/0346f3fe-84de-40ac-8573-acddd1ec916b.png',
-    alt: 'Black luxury vehicle exterior detailing',
+    id: '9',
+    src: '/lovable-uploads/136e9cc5-cced-421b-b0b5-b583f832ac77.png',
+    alt: 'Black luxury SUV detailed exterior',
     category: 'exterior',
-    title: 'Premium Exterior Detail',
-    description: 'Professional paint correction and ceramic coating application'
+    title: 'Luxury SUV Detail',
+    description: 'Premium exterior detailing with ceramic coating'
   },
   {
-    id: '2',
-    src: '/lovable-uploads/09b4a6c7-5c99-4cb9-b4e1-1c466ec59a26.png',
-    alt: 'Black vehicle paint finish',
+    id: '10',
+    src: '/lovable-uploads/e1faa183-6f0e-40fd-92be-a1b8a7a20ca4.png',
+    alt: 'Black luxury SUV side profile',
     category: 'exterior',
-    title: 'Paint Perfection',
+    title: 'SUV Side Profile',
+    description: 'Professional paint correction and protection'
+  },
+  {
+    id: '11',
+    src: '/lovable-uploads/76ec4081-a06a-440c-a995-974aafaa267f.png',
+    alt: 'Black luxury SUV detailed finish',
+    category: 'exterior',
+    title: 'Perfect Black Finish',
     description: 'Mirror-like finish achieved through expert detailing'
   },
   {
-    id: '3',
-    src: '/lovable-uploads/122ff893-c161-4016-a8e4-81a8af76f68d.png',
-    alt: 'Black luxury car detailed exterior',
+    id: '12',
+    src: '/lovable-uploads/96cca1d7-c80a-4c13-aded-08a70043fe8e.png',
+    alt: 'Dark sedan professional detail',
     category: 'exterior',
-    title: 'Luxury Vehicle Detail',
+    title: 'Sedan Exterior Detail',
     description: 'Complete exterior restoration and protection'
   },
   {
-    id: '4',
-    src: '/lovable-uploads/1a120f65-c6f5-4df5-b1f0-abedbf5589de.png',
-    alt: 'Red Ford Escape exterior detail',
+    id: '13',
+    src: '/lovable-uploads/35be53d5-2e86-429b-b803-152b935f8c42.png',
+    alt: 'Dark sedan side view',
+    category: 'exterior',
+    title: 'Sedan Side Detail',
+    description: 'Professional exterior cleaning and enhancement'
+  },
+  {
+    id: '14',
+    src: '/lovable-uploads/937b9d22-8abb-48af-9aeb-344878e1a00a.png',
+    alt: 'Red Ford Escape detailed exterior',
     category: 'exterior',
     title: 'Ford Escape Detail',
     description: 'Complete exterior wash and protection service'
   },
   {
-    id: '5',
-    src: '/lovable-uploads/1f19271d-1f55-4f46-9ba8-b675c53841e4.png',
-    alt: 'Red vehicle detailed finish',
+    id: '15',
+    src: '/lovable-uploads/29e4674f-e54b-42de-8c87-d1ab2773509d.png',
+    alt: 'Red Ford Escape rear view',
     category: 'exterior',
-    title: 'Brilliant Red Finish',
-    description: 'Professional paint enhancement and protection'
-  },
-  {
-    id: '6',
-    src: '/lovable-uploads/24e586c9-8c0f-4a31-887f-57fe98c5200b.png',
-    alt: 'Red Ford vehicle exterior',
-    category: 'exterior',
-    title: 'SUV Exterior Detail',
+    title: 'SUV Rear Detail',
     description: 'Comprehensive exterior detailing service'
   },
   {
-    id: '7',
-    src: '/lovable-uploads/2b7b9845-d3cd-4d5c-964b-98c17ae253a2.png',
-    alt: 'Ford vehicle detail work',
+    id: '16',
+    src: '/lovable-uploads/02fba44b-26fa-4e0f-b8a4-a228aeb5db64.png',
+    alt: 'Red Ford Escape night detail',
     category: 'exterior',
-    title: 'Professional Detailing',
-    description: 'Expert exterior cleaning and protection'
+    title: 'Night Detail Work',
+    description: 'Professional detailing under lighting'
   },
   {
-    id: '8',
-    src: '/lovable-uploads/2c57e98f-4de4-46e8-9331-0152c63b4a7f.png',
-    alt: 'Red vehicle exterior finish',
+    id: '17',
+    src: '/lovable-uploads/a5acbb0e-6594-487a-afc7-8084ac1593a8.png',
+    alt: 'Red Ford Escape with hood open',
     category: 'exterior',
-    title: 'Pristine Exterior',
-    description: 'Complete exterior detailing transformation'
+    title: 'Engine Bay Access',
+    description: 'Complete vehicle detailing including engine bay'
+  },
+  {
+    id: '18',
+    src: '/lovable-uploads/83b53457-a206-4d78-8875-7dde76c0e1e0.png',
+    alt: 'Red Ford Escape night side view',
+    category: 'exterior',
+    title: 'Night Side Profile',
+    description: 'Expert exterior detailing transformation'
   }
 ];
