@@ -1,6 +1,6 @@
-
 import React from 'react';
 import { ArrowRight, MapPin, Clock, Shield, Star } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import Navigation from '../../components/Navigation';
 import { Button } from '@/components/ui/button';
 
@@ -183,6 +183,67 @@ const MobileDetailingPage = () => {
                     Swirl mark removal, scratch repair, and paint restoration performed at your convenience.
                   </p>
                 </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Related Services Section */}
+          <section className="py-16">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="text-center mb-12">
+                <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+                  Related Services & Areas
+                </h2>
+                <p className="text-gray-400">
+                  Explore our other specialized services and service areas
+                </p>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <Link 
+                  to="/services/truck-detailing"
+                  className="group bg-black/40 backdrop-blur-xl rounded-2xl p-6 border border-blue-500/20 hover:border-blue-400/40 transition-all duration-300"
+                >
+                  <h3 className="text-xl font-bold text-white mb-3 group-hover:text-blue-400 transition-colors">
+                    Truck Detailing
+                  </h3>
+                  <p className="text-gray-400 mb-4">
+                    Specialized detailing for trucks, semi-trucks, and commercial vehicles in Charlotte.
+                  </p>
+                  <div className="flex items-center text-blue-400 group-hover:translate-x-1 transition-transform duration-300">
+                    Learn More <ArrowRight className="ml-2 w-4 h-4" />
+                  </div>
+                </Link>
+                
+                <Link 
+                  to="/areas/south-charlotte"
+                  className="group bg-black/40 backdrop-blur-xl rounded-2xl p-6 border border-blue-500/20 hover:border-blue-400/40 transition-all duration-300"
+                >
+                  <h3 className="text-xl font-bold text-white mb-3 group-hover:text-blue-400 transition-colors">
+                    South Charlotte
+                  </h3>
+                  <p className="text-gray-400 mb-4">
+                    Premium mobile detailing services in South Charlotte, Ballantyne, and Pineville.
+                  </p>
+                  <div className="flex items-center text-blue-400 group-hover:translate-x-1 transition-transform duration-300">
+                    View Area <ArrowRight className="ml-2 w-4 h-4" />
+                  </div>
+                </Link>
+                
+                <Link 
+                  to="/guides/car-detailing-guide"
+                  className="group bg-black/40 backdrop-blur-xl rounded-2xl p-6 border border-blue-500/20 hover:border-blue-400/40 transition-all duration-300"
+                >
+                  <h3 className="text-xl font-bold text-white mb-3 group-hover:text-blue-400 transition-colors">
+                    Detailing Guide
+                  </h3>
+                  <p className="text-gray-400 mb-4">
+                    Complete guide to car detailing, tips, and maintenance for Charlotte car owners.
+                  </p>
+                  <div className="flex items-center text-blue-400 group-hover:translate-x-1 transition-transform duration-300">
+                    Read Guide <ArrowRight className="ml-2 w-4 h-4" />
+                  </div>
+                </Link>
               </div>
             </div>
           </section>

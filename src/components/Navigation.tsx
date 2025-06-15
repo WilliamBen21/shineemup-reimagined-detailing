@@ -1,10 +1,13 @@
+
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Phone, Calendar, Clock, MapPin } from 'lucide-react';
+import { Menu, X, Phone, Calendar, Clock, MapPin, ChevronDown } from 'lucide-react';
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [servicesDropdownOpen, setServicesDropdownOpen] = useState(false);
+  const [areasDropdownOpen, setAreasDropdownOpen] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -17,25 +20,32 @@ const Navigation = () => {
 
   const navItems = [
     { name: 'home', href: '/', isRoute: true },
-    { name: 'services', href: '#services', isRoute: false },
+    { name: 'services', href: '#services', isRoute: false, hasDropdown: true },
+    { name: 'areas', href: '#areas', isRoute: false, hasDropdown: true },
     { name: 'gallery', href: '/gallery', isRoute: true },
     { name: 'about', href: '/about', isRoute: true },
     { name: 'reviews', href: '#reviews', isRoute: false },
     { name: 'contact', href: '#contact', isRoute: false },
   ];
 
+  const servicePages = [
+    { name: 'Mobile Detailing', href: '/services/mobile-detailing' },
+    { name: 'Truck Detailing', href: '/services/truck-detailing' },
+  ];
+
+  const areaPages = [
+    { name: 'South Charlotte', href: '/areas/south-charlotte' },
+  ];
+
   const handleBookNowClick = () => {
     if (location.pathname === '/') {
-      // On home page, scroll to booking section
       const bookingSection = document.querySelector('#booking');
       if (bookingSection) {
         bookingSection.scrollIntoView({ behavior: 'smooth' });
       }
     } else {
-      // On other pages, navigate to home page first
       window.location.href = '/#booking';
     }
-    // Close mobile menu if open
     setIsOpen(false);
   };
 
@@ -46,7 +56,6 @@ const Navigation = () => {
     }
     
     if (location.pathname !== '/') {
-      // Navigate to home page with hash
       window.location.href = `/${item.href}`;
     }
     setIsOpen(false);
@@ -96,24 +105,78 @@ const Navigation = () => {
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-6 lg:space-x-8">
               {navItems.map((item) => (
-                item.isRoute ? (
-                  <Link
-                    key={item.name}
-                    to={item.href}
-                    className="text-gray-300 hover:text-blue-400 px-2 lg:px-3 py-2 text-sm font-medium transition-colors duration-300 capitalize"
-                  >
-                    {item.name}
-                  </Link>
-                ) : (
-                  <a
-                    key={item.name}
-                    href={item.href}
-                    onClick={() => handleNavClick(item)}
-                    className="text-gray-300 hover:text-blue-400 px-2 lg:px-3 py-2 text-sm font-medium transition-colors duration-300 capitalize"
-                  >
-                    {item.name}
-                  </a>
-                )
+                <div key={item.name} className="relative">
+                  {item.hasDropdown ? (
+                    <div 
+                      className="relative"
+                      onMouseEnter={() => {
+                        if (item.name === 'services') setServicesDropdownOpen(true);
+                        if (item.name === 'areas') setAreasDropdownOpen(true);
+                      }}
+                      onMouseLeave={() => {
+                        if (item.name === 'services') setServicesDropdownOpen(false);
+                        if (item.name === 'areas') setAreasDropdownOpen(false);
+                      }}
+                    >
+                      <button className="text-gray-300 hover:text-blue-400 px-2 lg:px-3 py-2 text-sm font-medium transition-colors duration-300 capitalize flex items-center">
+                        {item.name}
+                        <ChevronDown className="ml-1 w-4 h-4" />
+                      </button>
+                      
+                      {/* Dropdown Menu */}
+                      <div className={`absolute top-full left-0 mt-1 w-48 bg-black/95 backdrop-blur-xl border border-blue-500/20 rounded-lg shadow-lg transition-all duration-200 ${
+                        (item.name === 'services' && servicesDropdownOpen) || 
+                        (item.name === 'areas' && areasDropdownOpen) 
+                          ? 'opacity-100 visible transform translate-y-0' 
+                          : 'opacity-0 invisible transform -translate-y-2'
+                      }`}>
+                        <div className="py-2">
+                          {item.name === 'services' && servicePages.map((service) => (
+                            <Link
+                              key={service.name}
+                              to={service.href}
+                              className="block px-4 py-2 text-sm text-gray-300 hover:text-blue-400 hover:bg-blue-500/10 transition-colors"
+                            >
+                              {service.name}
+                            </Link>
+                          ))}
+                          {item.name === 'areas' && areaPages.map((area) => (
+                            <Link
+                              key={area.name}
+                              to={area.href}
+                              className="block px-4 py-2 text-sm text-gray-300 hover:text-blue-400 hover:bg-blue-500/10 transition-colors"
+                            >
+                              {area.name}
+                            </Link>
+                          ))}
+                          {item.name === 'services' && (
+                            <Link
+                              to="/guides/car-detailing-guide"
+                              className="block px-4 py-2 text-sm text-gray-300 hover:text-blue-400 hover:bg-blue-500/10 transition-colors border-t border-blue-500/20 mt-2 pt-2"
+                            >
+                              Detailing Guide
+                            </Link>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  ) : item.isRoute ? (
+                    <Link
+                      to={item.href}
+                      className="text-gray-300 hover:text-blue-400 px-2 lg:px-3 py-2 text-sm font-medium transition-colors duration-300 capitalize"
+                    >
+                      {item.name}
+                    </Link>
+                  ) : (
+                    <a
+                      href={item.href}
+                      onClick={() => handleNavClick(item)}
+                      className="text-gray-300 hover:text-blue-400 px-2 lg:px-3 py-2 text-sm font-medium transition-colors duration-300 capitalize"
+                    >
+                      {item.name}
+                    </a>
+                  )}
+                </div>
               ))}
             </div>
           </div>
@@ -150,25 +213,62 @@ const Navigation = () => {
         <div className="md:hidden bg-black/95 backdrop-blur-xl border-t border-blue-500/10">
           <div className="px-4 pt-4 pb-6 space-y-2">
             {navItems.map((item) => (
-              item.isRoute ? (
-                <Link
-                  key={item.name}
-                  to={item.href}
-                  className="block text-gray-300 hover:text-blue-400 px-4 py-3 text-base font-medium transition-colors duration-200 capitalize rounded-lg hover:bg-blue-500/10"
-                  onClick={() => setIsOpen(false)}
-                >
-                  {item.name}
-                </Link>
-              ) : (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  className="block text-gray-300 hover:text-blue-400 px-4 py-3 text-base font-medium transition-colors duration-200 capitalize rounded-lg hover:bg-blue-500/10"
-                  onClick={() => handleNavClick(item)}
-                >
-                  {item.name}
-                </a>
-              )
+              <div key={item.name}>
+                {item.hasDropdown ? (
+                  <div className="space-y-1">
+                    <div className="text-gray-300 px-4 py-3 text-base font-medium capitalize">
+                      {item.name}
+                    </div>
+                    <div className="pl-6 space-y-1">
+                      {item.name === 'services' && servicePages.map((service) => (
+                        <Link
+                          key={service.name}
+                          to={service.href}
+                          className="block text-gray-400 hover:text-blue-400 px-4 py-2 text-sm transition-colors duration-200 rounded-lg hover:bg-blue-500/10"
+                          onClick={() => setIsOpen(false)}
+                        >
+                          {service.name}
+                        </Link>
+                      ))}
+                      {item.name === 'areas' && areaPages.map((area) => (
+                        <Link
+                          key={area.name}
+                          to={area.href}
+                          className="block text-gray-400 hover:text-blue-400 px-4 py-2 text-sm transition-colors duration-200 rounded-lg hover:bg-blue-500/10"
+                          onClick={() => setIsOpen(false)}
+                        >
+                          {area.name}
+                        </Link>
+                      ))}
+                      {item.name === 'services' && (
+                        <Link
+                          to="/guides/car-detailing-guide"
+                          className="block text-gray-400 hover:text-blue-400 px-4 py-2 text-sm transition-colors duration-200 rounded-lg hover:bg-blue-500/10"
+                          onClick={() => setIsOpen(false)}
+                        >
+                          Detailing Guide
+                        </Link>
+                      )}
+                    </div>
+                  </div>
+                ) : item.isRoute ? (
+                  <Link
+                    to={item.href}
+                    className="block text-gray-300 hover:text-blue-400 px-4 py-3 text-base font-medium transition-colors duration-200 capitalize rounded-lg hover:bg-blue-500/10"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {item.name}
+                  </Link>
+                ) : (
+                  <a
+                    href={item.href}
+                    className="block text-gray-300 hover:text-blue-400 px-4 py-3 text-base font-medium transition-colors duration-200 capitalize rounded-lg hover:bg-blue-500/10"
+                    onClick={() => handleNavClick(item)}
+                  >
+                    {item.name}
+                  </a>
+                )}
+              </div>
             ))}
             <div className="pt-4 border-t border-blue-500/10 space-y-3">
               <div className="flex items-center text-gray-300 px-4 py-2">
