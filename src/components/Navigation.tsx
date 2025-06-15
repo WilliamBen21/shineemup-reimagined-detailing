@@ -1,7 +1,7 @@
-
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Phone, Calendar, Clock, MapPin, ChevronDown } from 'lucide-react';
+import { navigateToBooking } from '@/utils/bookingNavigation';
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -42,14 +42,7 @@ const Navigation = () => {
   ];
 
   const handleBookNowClick = () => {
-    if (location.pathname === '/') {
-      const bookingSection = document.querySelector('#booking');
-      if (bookingSection) {
-        bookingSection.scrollIntoView({ behavior: 'smooth' });
-      }
-    } else {
-      window.location.href = '/#booking';
-    }
+    navigateToBooking();
     setIsOpen(false);
   };
 
