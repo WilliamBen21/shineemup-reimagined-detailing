@@ -4,6 +4,7 @@ import Navigation from './components/Navigation';
 import Hero from './components/Hero';
 import Services from './components/Services';
 import About from './components/About';
+import Gallery from './components/Gallery';
 import Reviews from './components/Reviews';
 import Contact from './components/Contact';
 import BookingCalendar from './components/BookingCalendar';
@@ -32,6 +33,9 @@ const App = () => {
           </section>
           <section id="about">
             <About />
+          </section>
+          <section id="gallery">
+            <Gallery />
           </section>
           <Reviews />
           <section id="booking">
