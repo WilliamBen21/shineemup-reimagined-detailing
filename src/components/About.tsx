@@ -1,4 +1,5 @@
 
+
 import React from 'react';
 import { Shield, Award, Clock, Users } from 'lucide-react';
 
@@ -89,9 +90,9 @@ const About = () => {
           </div>
         </div>
 
-        {/* Professional Image and Content Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16 items-center">
-          <div className="relative">
+        {/* Professional Image */}
+        <div className="mb-16 flex justify-center">
+          <div className="relative max-w-md">
             <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-2xl blur-xl transform rotate-3"></div>
             <div className="relative bg-black/40 backdrop-blur-xl rounded-2xl p-2 border border-blue-500/20">
               <img 
@@ -100,12 +101,6 @@ const About = () => {
                 className="w-full h-auto rounded-xl object-cover"
               />
             </div>
-          </div>
-          <div className="space-y-6">
-            <h3 className="text-3xl font-bold text-white">
-              Professional Excellence,
-              <span className="text-blue-400"> Personal Touch</span>
-            </h3>
           </div>
         </div>
 
@@ -139,3 +134,4 @@ const About = () => {
 };
 
 export default About;
+
