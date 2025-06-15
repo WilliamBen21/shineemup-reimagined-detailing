@@ -51,10 +51,10 @@ const NorthCharlottePage = () => {
                   <div className="flex flex-col sm:flex-row gap-4 mb-8">
                     <Button 
                       onClick={handleBookNowClick}
-                      className="bg-blue-500 hover:bg-blue-600 text-white px-8 py-4 rounded-full font-bold text-lg transition-all duration-300 hover:scale-105 flex items-center justify-center"
+                      className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-4 rounded-full font-bold text-base sm:text-lg transition-all duration-300 hover:scale-105 flex items-center justify-center whitespace-nowrap min-w-fit"
                     >
-                      Book North Charlotte Service
-                      <ArrowRight className="ml-2 w-5 h-5" />
+                      <span className="text-sm sm:text-base">Book North Charlotte Service</span>
+                      <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
                     </Button>
                     <a href="tel:(704) 519-7228" className="btn-secondary flex items-center justify-center">
                       Call (704) 519-7228
@@ -195,10 +195,10 @@ const NorthCharlottePage = () => {
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Button 
                     onClick={handleBookNowClick}
-                    className="bg-blue-500 hover:bg-blue-600 text-white px-8 py-4 rounded-full font-bold text-lg"
+                    className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-4 rounded-full font-bold text-base sm:text-lg whitespace-nowrap min-w-fit"
                   >
-                    Book North Charlotte Service
-                    <ArrowRight className="ml-2 w-5 h-5" />
+                    <span className="text-sm sm:text-base">Book North Charlotte Service</span>
+                    <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
                   </Button>
                   <a href="tel:(704) 519-7228" className="btn-secondary">
                     Call (704) 519-7228
