@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Phone, Calendar, Clock, MapPin, ChevronDown } from 'lucide-react';
@@ -35,6 +34,10 @@ const Navigation = () => {
 
   const areaPages = [
     { name: 'South Charlotte', href: '/areas/south-charlotte' },
+    { name: 'North Charlotte', href: '/areas/north-charlotte' },
+    { name: 'East Charlotte', href: '/areas/east-charlotte' },
+    { name: 'Matthews', href: '/areas/matthews' },
+    { name: 'Concord', href: '/areas/concord' },
   ];
 
   const handleBookNowClick = () => {
