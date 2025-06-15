@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Phone, Calendar, Clock, MapPin, ChevronDown } from 'lucide-react';
@@ -186,10 +187,13 @@ const Navigation = () => {
 
           {/* Contact info and CTA */}
           <div className="hidden lg:flex items-center space-x-4 xl:space-x-6">
-            <div className="flex items-center text-sm">
-              <Phone className="w-4 h-4 mr-2 text-blue-500" />
-              <span className="text-gray-300">(704) 519-7228</span>
-            </div>
+            <a
+              href="tel:+17045197228"
+              className="flex items-center text-sm whitespace-nowrap"
+            >
+              <Phone className="w-4 h-4 mr-2 text-blue-500 flex-shrink-0" />
+              <span className="text-gray-300 hover:text-blue-400 transition-colors">(704) 519-7228</span>
+            </a>
             <button 
               onClick={handleBookNowClick}
               className="bg-blue-500 hover:bg-blue-600 text-white px-4 xl:px-6 py-2.5 rounded-full font-semibold text-sm transition-all duration-300 shadow-lg shadow-blue-500/25 flex items-center"
@@ -274,10 +278,13 @@ const Navigation = () => {
               </div>
             ))}
             <div className="pt-4 border-t border-blue-500/10 space-y-3">
-              <div className="flex items-center text-gray-300 px-4 py-2">
+              <a
+                href="tel:+17045197228"
+                className="flex items-center text-gray-300 hover:text-blue-400 px-4 py-2 transition-colors"
+              >
                 <Phone className="w-4 h-4 mr-3 text-blue-500" />
                 <span className="text-sm">(704) 519-7228</span>
-              </div>
+              </a>
               <div className="flex items-center text-gray-300 px-4 py-2">
                 <MapPin className="w-4 h-4 mr-3 text-blue-500" />
                 <span className="text-sm">Charlotte, NC</span>
