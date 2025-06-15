@@ -8,10 +8,10 @@ interface ServiceCardProps {
 
 const ServiceCard: React.FC<ServiceCardProps> = ({ service }) => {
   return (
-    <div className="relative group">
+    <div className="relative group w-full max-w-sm lg:max-w-none">
       <div className="absolute inset-0.5 bg-gradient-to-b from-blue-500/20 to-transparent rounded-xl sm:rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-500" />
       <div className="relative bg-black/40 backdrop-blur-xl rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 border border-blue-500/10 hover:border-blue-500/30 transition-colors duration-300 h-full">
-        <div className="text-center sm:text-left">
+        <div className="text-center lg:text-left">
           <h4 className="text-lg sm:text-xl md:text-2xl font-bold text-white mb-2 sm:mb-3 leading-tight">
             {service.name}
           </h4>
