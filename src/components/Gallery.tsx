@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight, X, Camera } from 'lucide-react';
 import {
@@ -170,7 +169,6 @@ const Gallery = () => {
     }
   ];
 
-  // Updated categories - removed Paint, Protection, Complete, and Mobile
   const categories = ['All', 'Exterior', 'Interior', 'Commercial'];
   const [selectedCategory, setSelectedCategory] = useState('All');
 
