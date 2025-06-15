@@ -1,5 +1,3 @@
-
-
 import { GalleryImage } from '@/types/gallery';
 
 export const galleryImages: GalleryImage[] = [
@@ -82,6 +80,86 @@ export const galleryImages: GalleryImage[] = [
     category: 'exterior',
     title: 'Night Side Profile',
     description: 'Expert exterior detailing transformation'
+  },
+  {
+    id: '53',
+    src: '/lovable-uploads/db4db635-20e2-45b7-ba99-ee10dadcbcd9.png',
+    alt: 'Black Range Rover detailed exterior in driveway',
+    category: 'exterior',
+    title: 'Range Rover Driveway Detail',
+    description: 'Professional mobile detailing service at your location'
+  },
+  {
+    id: '54',
+    src: '/lovable-uploads/e559eeda-f605-4b8d-8dfd-bbd948b716e4.png',
+    alt: 'Burgundy convertible detailed side profile',
+    category: 'exterior',
+    title: 'Convertible Detail Work',
+    description: 'Expert paint correction and protection on luxury convertible'
+  },
+  {
+    id: '55',
+    src: '/lovable-uploads/f5332253-eaff-4cd8-be28-6c570ba2fd3d.png',
+    alt: 'Silver Jeep Wrangler detailed exterior at night',
+    category: 'exterior',
+    title: 'Jeep Wrangler Night Detail',
+    description: 'Complete exterior detailing for off-road vehicles'
+  },
+  {
+    id: '56',
+    src: '/lovable-uploads/ee2cc08a-703e-44ed-ae1e-ccebcf179283.png',
+    alt: 'White Porsche Cayman detailed side view',
+    category: 'exterior',
+    title: 'Porsche Sports Car Detail',
+    description: 'Premium sports car exterior detailing and protection'
+  },
+  {
+    id: '57',
+    src: '/lovable-uploads/5eb00418-9c11-4e2e-897a-5a8eb6271924.png',
+    alt: 'White Volkswagen Jetta detailed side profile',
+    category: 'exterior',
+    title: 'Jetta Exterior Detail',
+    description: 'Complete sedan exterior cleaning and protection'
+  },
+  {
+    id: '58',
+    src: '/lovable-uploads/87ceb60b-d612-4ef2-a3ae-804e3a836c18.png',
+    alt: 'White Volkswagen Jetta detailed rear three-quarter view',
+    category: 'exterior',
+    title: 'Jetta Rear Detail View',
+    description: 'Professional exterior detailing with paint enhancement'
+  },
+  {
+    id: '59',
+    src: '/lovable-uploads/a9f1e454-0ec4-4544-8cfb-99dc6a1fa357.png',
+    alt: 'White Porsche Boxster front view detailed',
+    category: 'exterior',
+    title: 'Porsche Boxster Front Detail',
+    description: 'Luxury sports car front end detailing and restoration'
+  },
+  {
+    id: '60',
+    src: '/lovable-uploads/156271bf-7de4-4631-8eb0-734634ea1456.png',
+    alt: 'White Porsche Cayman detailed side profile view',
+    category: 'exterior',
+    title: 'Cayman Side Profile Detail',
+    description: 'Expert Porsche exterior detailing with premium finish'
+  },
+  {
+    id: '61',
+    src: '/lovable-uploads/e9e8c351-b923-4219-945d-a7e74a7b78d9.png',
+    alt: 'Black Range Rover Sport detailed side view',
+    category: 'exterior',
+    title: 'Range Rover Sport Detail',
+    description: 'Premium SUV exterior detailing with mirror finish'
+  },
+  {
+    id: '62',
+    src: '/lovable-uploads/ab16f85a-e9b8-411e-8826-cf7d29edad55.png',
+    alt: 'Black Range Rover Sport side profile with mobile detailing setup',
+    category: 'exterior',
+    title: 'Mobile Range Rover Detail',
+    description: 'On-location professional SUV detailing service'
   },
   {
     id: '19',
@@ -356,4 +434,3 @@ export const galleryImages: GalleryImage[] = [
     description: 'Professional wheel cleaning and tire shine service'
   }
 ];
-
