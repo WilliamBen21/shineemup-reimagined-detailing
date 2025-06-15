@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Shield, Award, Clock, Users } from 'lucide-react';
 
@@ -49,15 +48,44 @@ const About = () => {
             <span>Our Legacy</span>
           </div>
           <h2 className="text-4xl md:text-5xl font-black text-white mb-6 tracking-tight">
-            A Decade of Excellence in
+            Shine 'Em Up Detailing
             <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600">
-              Automotive Detailing
+              Charlotte's Premier Auto & Truck Detailing Service
             </span>
           </h2>
-          <p className="text-gray-400 max-w-2xl mx-auto text-lg">
-            We've built our reputation on uncompromising quality, attention to detail, and a commitment to automotive excellence that sets us apart.
+          <p className="text-gray-400 max-w-3xl mx-auto text-lg leading-relaxed">
+            At Shine 'Em Up Detailing, we're passionate about making vehicles look their best. Based in Charlotte, NC, we specialize in professional detailing for cars, trucks, and semi-trucks, delivering everything from routine washes to full interior and exterior restorations.
           </p>
+        </div>
+
+        {/* Business Description Section */}
+        <div className="mb-16">
+          <div className="bg-black/40 backdrop-blur-xl rounded-2xl p-8 border border-blue-500/20">
+            <h3 className="text-2xl font-bold text-white mb-6 text-center">Our Services</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="space-y-3">
+                <h4 className="text-blue-400 font-semibold text-lg">✔ Comprehensive Auto Detailing</h4>
+                <p className="text-gray-400">Hand washes, waxing, paint correction, carpet shampooing, and more</p>
+              </div>
+              <div className="space-y-3">
+                <h4 className="text-blue-400 font-semibold text-lg">✔ Truck & Semi-Truck Detailing</h4>
+                <p className="text-gray-400">Deep interior cleaning, sleeper waxing, rim polishing, and full exterior detailing</p>
+              </div>
+              <div className="space-y-3">
+                <h4 className="text-blue-400 font-semibold text-lg">✔ Flexible Packages & Pricing</h4>
+                <p className="text-gray-400">Choose individual services or all-inclusive detailing packages tailored to your needs</p>
+              </div>
+            </div>
+            <div className="mt-8 text-center">
+              <p className="text-gray-300 text-lg leading-relaxed mb-4">
+                With a commitment to quality and attention to detail, we ensure every vehicle leaves looking polished, pristine, and road-ready. Whether it's a daily driver or a long-haul rig, trust Shine 'Em Up Detailing to keep it looking its best.
+              </p>
+              <div className="text-blue-400 font-medium">
+                📍 Charlotte, NC | 🚗 Detailing with Precision & Care 🚛
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Professional Image and Content Grid */}
