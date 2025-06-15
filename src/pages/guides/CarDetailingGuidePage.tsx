@@ -1,13 +1,268 @@
 
-import React from 'react';
-import { ArrowRight, Book, Clock, Shield, Star, CheckCircle } from 'lucide-react';
+import React, { useState } from 'react';
+import { ArrowRight, Book, Clock, Shield, Star, CheckCircle, Car, Mail } from 'lucide-react';
 import Navigation from '../../components/Navigation';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { useToast } from '@/hooks/use-toast';
+import { supabase } from '@/integrations/supabase/client';
 
 const CarDetailingGuidePage = () => {
+  const [hasAccess, setHasAccess] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    vehicleType: '',
+    vehicleMake: '',
+    vehicleModel: '',
+    vehicleYear: ''
+  });
+  const { toast } = useToast();
+
   const handleBookNowClick = () => {
     window.location.href = '/#booking';
   };
+
+  const sendEmail = async (name: string, email: string, vehicleInfo: string) => {
+    try {
+      const response = await fetch('https://mbhmtiykgqswehnktwdc.supabase.co/functions/v1/send-lead-magnet-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1iaG10aXlrZ3Fzd2Vobmt0d2RjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk5NDEwMTYsImV4cCI6MjA2NTUxNzAxNn0.JJfw0IXQvHiTNAT_faX-SkDBr3aJQplUNEjPSAURv-A',
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          type: 'car_guide_access',
+          vehicleInfo
+        }),
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || 'Failed to send email');
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error('Error sending email:', error);
+      throw error;
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    try {
+      const vehicleInfo = `${formData.vehicleYear} ${formData.vehicleMake} ${formData.vehicleModel} (${formData.vehicleType})`;
+      
+      // Save to database
+      const { error } = await supabase
+        .from('lead_signups')
+        .insert({
+          name: formData.name.trim(),
+          email: formData.email.trim().toLowerCase(),
+          signup_type: 'car_guide_access',
+          source: 'guide_gate',
+          vehicle_info: vehicleInfo
+        });
+
+      if (error) {
+        console.error('Error saving lead signup:', error);
+        throw error;
+      }
+
+      // Send email
+      try {
+        await sendEmail(formData.name.trim(), formData.email.trim(), vehicleInfo);
+      } catch (emailError) {
+        console.error('Failed to send email, but signup was saved:', emailError);
+      }
+      
+      toast({
+        title: "Welcome!",
+        description: "You now have access to our complete car detailing guide!",
+      });
+      
+      setHasAccess(true);
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      toast({
+        title: "Error",
+        description: "Something went wrong. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleInputChange = (field: string, value: string) => {
+    setFormData(prev => ({
+      ...prev,
+      [field]: value
+    }));
+  };
+
+  if (!hasAccess) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white overflow-x-hidden">
+        {/* Background Effects */}
+        <div className="fixed inset-0 pointer-events-none overflow-hidden">
+          <div className="absolute top-0 left-1/4 w-64 h-64 md:w-96 md:h-96 bg-blue-600/10 rounded-full blur-3xl animate-pulse-slow"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-48 h-48 md:w-80 md:h-80 bg-purple-600/8 rounded-full blur-3xl animate-float"></div>
+        </div>
+
+        <div className="relative z-10">
+          <Navigation />
+          
+          <main className="pt-24 pb-16">
+            <section className="py-16 md:py-24">
+              <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="max-w-2xl mx-auto">
+                  <div className="text-center mb-8">
+                    <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-500/20 rounded-full mb-6">
+                      <Book className="w-8 h-8 text-blue-400" />
+                    </div>
+                    
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-white mb-4 tracking-tight leading-tight">
+                      Access Your Free
+                      <br />
+                      <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600">
+                        Car Detailing Guide
+                      </span>
+                    </h1>
+                    
+                    <p className="text-lg text-gray-400 mb-8 leading-relaxed">
+                      Get personalized car care tips based on your vehicle. Enter your details below to access our complete guide.
+                    </p>
+                  </div>
+
+                  <div className="bg-black/40 backdrop-blur-xl rounded-2xl p-6 md:p-8 border border-blue-500/20">
+                    <form onSubmit={handleSubmit} className="space-y-6">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                          <Label htmlFor="name" className="text-gray-400 text-sm">Name</Label>
+                          <Input
+                            id="name"
+                            type="text"
+                            value={formData.name}
+                            onChange={(e) => handleInputChange('name', e.target.value)}
+                            className="bg-black/40 border-blue-500/20 text-white mt-1"
+                            placeholder="Your name"
+                            required
+                          />
+                        </div>
+                        
+                        <div>
+                          <Label htmlFor="email" className="text-gray-400 text-sm">Email</Label>
+                          <Input
+                            id="email"
+                            type="email"
+                            value={formData.email}
+                            onChange={(e) => handleInputChange('email', e.target.value)}
+                            className="bg-black/40 border-blue-500/20 text-white mt-1"
+                            placeholder="your@email.com"
+                            required
+                          />
+                        </div>
+                      </div>
+
+                      <div>
+                        <Label className="text-gray-400 text-sm mb-3 block">
+                          <Car className="w-4 h-4 inline mr-2" />
+                          Vehicle Information
+                        </Label>
+                        
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <div>
+                            <Select onValueChange={(value) => handleInputChange('vehicleType', value)} required>
+                              <SelectTrigger className="bg-black/40 border-blue-500/20 text-white">
+                                <SelectValue placeholder="Vehicle Type" />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value="car">Car</SelectItem>
+                                <SelectItem value="suv">SUV</SelectItem>
+                                <SelectItem value="truck">Truck</SelectItem>
+                                <SelectItem value="van">Van</SelectItem>
+                                <SelectItem value="motorcycle">Motorcycle</SelectItem>
+                              </SelectContent>
+                            </Select>
+                          </div>
+                          
+                          <div>
+                            <Input
+                              type="text"
+                              value={formData.vehicleYear}
+                              onChange={(e) => handleInputChange('vehicleYear', e.target.value)}
+                              className="bg-black/40 border-blue-500/20 text-white"
+                              placeholder="Year (e.g. 2020)"
+                              required
+                            />
+                          </div>
+                        </div>
+                        
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                          <div>
+                            <Input
+                              type="text"
+                              value={formData.vehicleMake}
+                              onChange={(e) => handleInputChange('vehicleMake', e.target.value)}
+                              className="bg-black/40 border-blue-500/20 text-white"
+                              placeholder="Make (e.g. Toyota)"
+                              required
+                            />
+                          </div>
+                          
+                          <div>
+                            <Input
+                              type="text"
+                              value={formData.vehicleModel}
+                              onChange={(e) => handleInputChange('vehicleModel', e.target.value)}
+                              className="bg-black/40 border-blue-500/20 text-white"
+                              placeholder="Model (e.g. Camry)"
+                              required
+                            />
+                          </div>
+                        </div>
+                      </div>
+
+                      <Button
+                        type="submit"
+                        disabled={isSubmitting}
+                        className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white py-3 rounded-full font-bold text-lg"
+                      >
+                        {isSubmitting ? (
+                          <>
+                            <div className="animate-spin w-5 h-5 border-2 border-white/30 border-t-white rounded-full mr-2"></div>
+                            Getting Your Guide...
+                          </>
+                        ) : (
+                          <>
+                            Access Free Guide
+                            <ArrowRight className="w-5 h-5 ml-2" />
+                          </>
+                        )}
+                      </Button>
+                    </form>
+
+                    <p className="text-xs text-gray-500 text-center mt-4">
+                      No spam, ever. Get personalized tips for your specific vehicle.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </main>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white overflow-x-hidden">
