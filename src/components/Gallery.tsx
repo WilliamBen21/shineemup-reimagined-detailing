@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight, X, Camera } from 'lucide-react';
 import {
@@ -26,17 +25,17 @@ const Gallery = () => {
     {
       src: '/lovable-uploads/b8aa2085-7b5b-4afa-91c4-3ba6bdbc6549.png',
       alt: 'Paint correction',
-      category: 'Paint'
+      category: 'Exterior'
     },
     {
       src: '/lovable-uploads/ee5be719-a6a7-4b09-a760-953bbd247229.png',
       alt: 'Ceramic coating',
-      category: 'Protection'
+      category: 'Exterior'
     },
     {
       src: '/lovable-uploads/5e95c32e-e7a2-4e02-b725-ec8d4324ff94.png',
       alt: 'Full detail',
-      category: 'Complete'
+      category: 'Exterior'
     },
     {
       src: '/lovable-uploads/0346f3fe-84de-40ac-8573-acddd1ec916b.png',
@@ -81,7 +80,7 @@ const Gallery = () => {
     {
       src: '/lovable-uploads/a589a599-a1b2-4415-b7eb-f841bea144c0.png',
       alt: 'Mobile detailing service',
-      category: 'Mobile'
+      category: 'Commercial'
     },
     {
       src: '/lovable-uploads/24e586c9-8c0f-4a31-887f-57fe98c5200b.png',
@@ -123,7 +122,6 @@ const Gallery = () => {
       alt: 'Ford center console detail',
       category: 'Interior'
     },
-    // New images added
     {
       src: '/lovable-uploads/db0c07ae-afbf-4b1c-ba36-7f1f1416da74.png',
       alt: 'Ford Escape rear seat interior',
@@ -167,12 +165,12 @@ const Gallery = () => {
     {
       src: '/lovable-uploads/f9c6eeef-dfb2-4ebd-989e-eee1a8406215.png',
       alt: 'Ford Escape mobile detail setup',
-      category: 'Mobile'
+      category: 'Commercial'
     }
   ];
 
-  // Group images by category for better organization
-  const categories = ['All', 'Exterior', 'Interior', 'Paint', 'Protection', 'Complete', 'Commercial', 'Mobile'];
+  // Updated categories - removed Paint, Protection, Complete, and Mobile
+  const categories = ['All', 'Exterior', 'Interior', 'Commercial'];
   const [selectedCategory, setSelectedCategory] = useState('All');
 
   const filteredImages = selectedCategory === 'All' 
@@ -232,7 +230,6 @@ const Gallery = () => {
           </div>
         </div>
 
-        {/* Carousel Gallery */}
         <Carousel className="w-full max-w-6xl mx-auto">
           <CarouselContent className="-ml-2 md:-ml-4">
             {filteredImages.map((image, index) => (
