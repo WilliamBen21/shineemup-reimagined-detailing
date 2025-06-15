@@ -20,7 +20,7 @@ const Gallery = () => {
     : galleryImages.filter(img => img.category === activeCategory);
 
   return (
-    <section id="gallery" className="py-24 bg-[#080808] relative overflow-hidden">
+    <section id="gallery" className="py-16 bg-[#080808] relative overflow-hidden">
       {/* Premium Background Effects */}
       <div className="absolute inset-0 bg-gradient-to-b from-blue-500/5 to-transparent"></div>
       <div className="absolute inset-0">
@@ -29,12 +29,12 @@ const Gallery = () => {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        <div className="text-center mb-16">
+        <div className="text-center mb-12">
           <div className="inline-flex items-center space-x-2 bg-blue-500/10 border border-blue-500/20 rounded-full px-4 py-2 text-sm text-blue-400 mb-4">
             <Sparkles className="w-4 h-4 mr-1" />
             <span>Our Work</span>
           </div>
-          <h2 className="text-4xl md:text-5xl font-black text-white mb-6 tracking-tight">
+          <h2 className="text-4xl md:text-5xl font-black text-white mb-4 tracking-tight">
             Gallery of
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600"> Excellence</span>
           </h2>
@@ -45,7 +45,7 @@ const Gallery = () => {
         </div>
 
         {/* Category Filter */}
-        <div className="flex justify-center mb-12">
+        <div className="flex justify-center mb-8">
           <div className="flex space-x-2 bg-black/40 backdrop-blur-xl rounded-2xl p-2 border border-blue-500/10">
             {categories.map((category) => (
               <button
@@ -64,7 +64,7 @@ const Gallery = () => {
         </div>
 
         {/* Gallery Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {filteredImages.map((image) => (
             <div
               key={image.id}
@@ -80,7 +80,7 @@ const Gallery = () => {
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                 </div>
-                <div className="p-4">
+                <div className="p-3">
                   {image.title && (
                     <h3 className="text-white font-semibold mb-1">{image.title}</h3>
                   )}
@@ -117,7 +117,7 @@ const Gallery = () => {
 
         {/* No images message */}
         {filteredImages.length === 0 && (
-          <div className="text-center py-12">
+          <div className="text-center py-8">
             <p className="text-gray-400 text-lg">No images available in this category yet.</p>
           </div>
         )}
