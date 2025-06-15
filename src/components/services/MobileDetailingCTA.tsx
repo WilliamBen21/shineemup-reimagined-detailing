@@ -5,7 +5,10 @@ import { Button } from '@/components/ui/button';
 
 const MobileDetailingCTA = () => {
   const handleBookNowClick = () => {
-    window.location.href = '/#booking';
+    const bookingSection = document.querySelector('#booking');
+    if (bookingSection) {
+      bookingSection.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   return (

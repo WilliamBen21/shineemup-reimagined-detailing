@@ -7,6 +7,7 @@ import ServiceAreas from '../../components/services/ServiceAreas';
 import MobileServicesShowcase from '../../components/services/MobileServicesShowcase';
 import RelatedServices from '../../components/services/RelatedServices';
 import MobileDetailingCTA from '../../components/services/MobileDetailingCTA';
+import BookingCalendar from '../../components/BookingCalendar';
 
 const MobileDetailingPage = () => {
   return (
@@ -27,6 +28,11 @@ const MobileDetailingPage = () => {
           <MobileServicesShowcase />
           <RelatedServices />
           <MobileDetailingCTA />
+          
+          {/* Booking Section */}
+          <section id="booking" className="scroll-mt-24">
+            <BookingCalendar />
+          </section>
         </main>
       </div>
     </div>
