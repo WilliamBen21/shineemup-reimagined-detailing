@@ -194,20 +194,20 @@ const BookingCalendar = () => {
             </div>
 
             {/* Calendar and Time Selection - Center Column */}
-            <div className="xl:col-span-2 bg-black/40 backdrop-blur-xl rounded-2xl p-8 border border-blue-500/10">
-              <h3 className="text-2xl font-bold text-white mb-8">Select Date & Time</h3>
+            <div className="xl:col-span-2 bg-black/40 backdrop-blur-xl rounded-2xl p-6 border border-blue-500/10">
+              <h3 className="text-2xl font-bold text-white mb-6">Select Date & Time</h3>
               
-              {/* Larger Calendar Container */}
-              <div className="flex flex-col lg:flex-row gap-8">
+              {/* Compact Calendar Container */}
+              <div className="flex flex-col lg:flex-row gap-6">
                 {/* Calendar */}
-                <div className="flex-1">
+                <div className="flex-1 max-w-md">
                   <div className="calendar-wrapper flex justify-center">
                     <DatePicker
                       selected={selectedDate}
                       onChange={(date: Date | null) => setSelectedDate(date)}
                       minDate={new Date()}
                       inline
-                      calendarClassName="!bg-black/60 !border-blue-500/20 !text-white !text-lg"
+                      calendarClassName="!bg-black/60 !border-blue-500/20 !text-white"
                       className="!w-full"
                     />
                   </div>
