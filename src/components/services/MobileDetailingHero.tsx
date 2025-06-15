@@ -58,8 +58,8 @@ const MobileDetailingHero = () => {
           
           <div className="relative">
             <img
-              src="/lovable-uploads/5e95c32e-e7a2-4e02-b725-ec8d4324ff94.png"
-              alt="Professional mobile car detailing service in Charlotte NC"
+              src="/lovable-uploads/937b9d22-8abb-48af-9aeb-344878e1a00a.png"
+              alt="Professional mobile car detailing service - Clean sedan in Charlotte NC"
               className="w-full h-auto rounded-2xl shadow-2xl"
             />
             <div className="absolute -bottom-6 -left-6 bg-blue-500/90 backdrop-blur-xl rounded-xl p-4 text-white">
