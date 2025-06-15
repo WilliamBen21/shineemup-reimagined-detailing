@@ -3,6 +3,7 @@ import { ArrowRight, MapPin, Clock, Users, Star } from 'lucide-react';
 import Navigation from '../../components/Navigation';
 import { Button } from '@/components/ui/button';
 import { navigateToBooking } from '@/utils/bookingNavigation';
+import BookingCalendar from '../../components/BookingCalendar';
 
 const ConcordPage = () => {
   const handleBookNowClick = () => {
@@ -175,6 +176,11 @@ const ConcordPage = () => {
               </div>
             </div>
           </section>
+
+          {/* Booking Section */}
+          <div id="booking">
+            <BookingCalendar />
+          </div>
 
           {/* CTA Section */}
           <section className="py-16">
