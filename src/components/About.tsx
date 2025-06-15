@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Shield, Award, Clock, Users } from 'lucide-react';
 
@@ -57,6 +58,32 @@ const About = () => {
           <p className="text-gray-400 max-w-2xl mx-auto text-lg">
             We've built our reputation on uncompromising quality, attention to detail, and a commitment to automotive excellence that sets us apart.
           </p>
+        </div>
+
+        {/* Professional Image and Content Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16 items-center">
+          <div className="relative">
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-2xl blur-xl transform rotate-3"></div>
+            <div className="relative bg-black/40 backdrop-blur-xl rounded-2xl p-2 border border-blue-500/20">
+              <img 
+                src="/lovable-uploads/31eeee87-f67f-4a08-8591-e9fc688c4851.png" 
+                alt="Professional team member"
+                className="w-full h-auto rounded-xl object-cover"
+              />
+            </div>
+          </div>
+          <div className="space-y-6">
+            <h3 className="text-3xl font-bold text-white">
+              Professional Excellence,
+              <span className="text-blue-400"> Personal Touch</span>
+            </h3>
+            <p className="text-gray-400 text-lg leading-relaxed">
+              Our team combines years of professional experience with a personal commitment to excellence. We understand that your vehicle is more than just transportation—it's an investment that deserves the highest level of care and attention.
+            </p>
+            <p className="text-gray-400 text-lg leading-relaxed">
+              From our professional approach to our meticulous attention to detail, we ensure every client receives the premium service they deserve.
+            </p>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
