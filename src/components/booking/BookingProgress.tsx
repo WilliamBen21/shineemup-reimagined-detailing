@@ -25,37 +25,44 @@ const BookingProgress: React.FC<BookingProgressProps> = ({ currentStep }) => {
       <div className="relative flex items-center justify-between px-2 sm:px-4 max-w-2xl mx-auto">
         {steps.map((step, index) => (
           <React.Fragment key={step.number}>
-            <div className="flex flex-col items-center z-10 bg-[#080808]">
-              <div className={`flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 transition-all duration-300 ${
+            <div className="flex flex-col items-center z-10 bg-[#080808] group">
+              <div className={`flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 transition-all duration-500 ease-out transform hover:scale-110 ${
                 currentStep >= step.number
-                  ? 'bg-blue-500 border-blue-500 text-white'
-                  : 'border-gray-600 text-gray-400'
+                  ? 'bg-blue-500 border-blue-500 text-white shadow-lg shadow-blue-500/25 animate-pulse-slow'
+                  : 'border-gray-600 text-gray-400 hover:border-blue-400/50 hover:text-blue-400/70'
               }`}>
                 {currentStep > step.number ? (
-                  <Check className="w-4 h-4 sm:w-5 sm:h-5" />
+                  <Check className="w-4 h-4 sm:w-5 sm:h-5 animate-fade-in-up" />
                 ) : (
-                  <step.icon className="w-4 h-4 sm:w-5 sm:h-5" />
+                  <step.icon className="w-4 h-4 sm:w-5 sm:h-5 transition-transform duration-300 group-hover:rotate-6" />
                 )}
               </div>
-              <div className="mt-3 text-center">
-                <p className={`text-xs font-medium ${
-                  currentStep >= step.number ? 'text-blue-400' : 'text-gray-400'
+              <div className="mt-3 text-center transition-all duration-300 group-hover:-translate-y-0.5">
+                <p className={`text-xs font-medium transition-colors duration-300 ${
+                  currentStep >= step.number ? 'text-blue-400' : 'text-gray-400 group-hover:text-blue-400/70'
                 }`}>
                   Step {step.number}
                 </p>
-                <p className={`text-[10px] sm:text-xs max-w-[80px] leading-tight ${
-                  currentStep >= step.number ? 'text-white' : 'text-gray-500'
+                <p className={`text-[10px] sm:text-xs max-w-[80px] leading-tight transition-colors duration-300 ${
+                  currentStep >= step.number ? 'text-white' : 'text-gray-500 group-hover:text-gray-400'
                 }`}>
                   {step.title}
                 </p>
               </div>
             </div>
             
-            {/* Connecting Line */}
+            {/* Connecting Line with animated progress */}
             {index < steps.length - 1 && (
-              <div className={`flex-1 h-0.5 mx-2 sm:mx-4 ${
-                currentStep > step.number ? 'bg-blue-500' : 'bg-gray-600'
-              }`} />
+              <div className="flex-1 h-0.5 mx-2 sm:mx-4 bg-gray-600 relative overflow-hidden">
+                <div 
+                  className={`absolute inset-0 bg-gradient-to-r from-blue-500 to-blue-400 transition-all duration-700 ease-out ${
+                    currentStep > step.number ? 'w-full opacity-100' : 'w-0 opacity-0'
+                  }`}
+                  style={{
+                    boxShadow: currentStep > step.number ? '0 0 8px rgba(59, 130, 246, 0.5)' : 'none'
+                  }}
+                />
+              </div>
             )}
           </React.Fragment>
         ))}
