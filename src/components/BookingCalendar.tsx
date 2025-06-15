@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Calendar, Clock, DollarSign, Car, Truck, User, Mail, Phone, Check, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useServices } from '@/hooks/useServices';
@@ -263,35 +262,55 @@ const BookingCalendar = () => {
             <div className="space-y-6">
               <h3 className="text-2xl font-bold text-white mb-6">Select Date & Time</h3>
               
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
                 {/* Calendar */}
                 <div>
-                  <h4 className="text-lg font-semibold text-white mb-4">Choose Date</h4>
-                  <div className="bg-black/60 rounded-lg p-4 border border-blue-500/20">
+                  <h4 className="text-lg font-semibold text-white mb-6">Choose Date</h4>
+                  <div className="bg-black/60 rounded-xl p-8 border border-blue-500/20 shadow-2xl">
                     <CalendarComponent
                       mode="single"
                       selected={selectedDate}
                       onSelect={setSelectedDate}
                       disabled={(date) => date < new Date()}
-                      className="w-full"
+                      className="w-full scale-110 transform"
+                      classNames={{
+                        months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
+                        month: "space-y-4",
+                        caption: "flex justify-center pt-2 relative items-center",
+                        caption_label: "text-lg font-bold text-white",
+                        nav: "space-x-1 flex items-center",
+                        nav_button: "h-8 w-8 bg-blue-500/10 border border-blue-500/20 text-blue-400 hover:bg-blue-500/20 hover:text-white transition-colors rounded-md",
+                        nav_button_previous: "absolute left-2",
+                        nav_button_next: "absolute right-2",
+                        table: "w-full border-collapse space-y-1",
+                        head_row: "flex mb-2",
+                        head_cell: "text-blue-400 rounded-md w-12 h-12 font-semibold text-sm flex items-center justify-center",
+                        row: "flex w-full mt-2",
+                        cell: "h-12 w-12 text-center text-sm p-0 relative hover:bg-blue-500/10 rounded-lg transition-colors",
+                        day: "h-12 w-12 p-0 font-medium text-white hover:bg-blue-500/20 hover:text-white focus:bg-blue-500 focus:text-white rounded-lg transition-all duration-200",
+                        day_selected: "bg-blue-500 text-white font-bold shadow-lg ring-2 ring-blue-400/50",
+                        day_today: "bg-blue-500/20 text-blue-300 font-semibold",
+                        day_outside: "text-gray-600 opacity-50",
+                        day_disabled: "text-gray-700 opacity-30 cursor-not-allowed",
+                      }}
                     />
                   </div>
                 </div>
 
                 {/* Time Slots */}
                 <div>
-                  <h4 className="text-lg font-semibold text-white mb-4">Available Times</h4>
+                  <h4 className="text-lg font-semibold text-white mb-6">Available Times</h4>
                   {selectedDate ? (
-                    <div className="grid grid-cols-2 gap-3">
+                    <div className="grid grid-cols-2 gap-4">
                       {availableSlots.map((time) => (
                         <button
                           key={time}
                           type="button"
                           onClick={() => setSelectedTime(time)}
-                          className={`px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 ${
+                          className={`px-6 py-4 rounded-xl text-sm font-medium transition-all duration-200 ${
                             selectedTime === time
-                              ? 'bg-blue-500 text-white shadow-lg'
-                              : 'bg-blue-500/10 text-blue-400 hover:bg-blue-500/20 border border-blue-500/20'
+                              ? 'bg-blue-500 text-white shadow-lg ring-2 ring-blue-400/50'
+                              : 'bg-blue-500/10 text-blue-400 hover:bg-blue-500/20 border border-blue-500/20 hover:border-blue-500/40'
                           }`}
                         >
                           {time}
@@ -299,13 +318,16 @@ const BookingCalendar = () => {
                       ))}
                     </div>
                   ) : (
-                    <div className="text-center text-gray-400 py-8">
-                      Please select a date first
+                    <div className="text-center text-gray-400 py-12 bg-black/40 rounded-xl border border-gray-700">
+                      <Calendar className="w-12 h-12 mx-auto mb-4 opacity-50" />
+                      <p className="text-lg">Please select a date first</p>
                     </div>
                   )}
                   {selectedDate && availableSlots.length === 0 && (
-                    <div className="text-center text-gray-400 py-8">
-                      No available slots for this date
+                    <div className="text-center text-gray-400 py-12 bg-black/40 rounded-xl border border-gray-700">
+                      <Clock className="w-12 h-12 mx-auto mb-4 opacity-50" />
+                      <p className="text-lg">No available slots for this date</p>
+                      <p className="text-sm mt-2">Please try selecting another date</p>
                     </div>
                   )}
                 </div>
