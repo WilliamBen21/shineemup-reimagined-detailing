@@ -1,14 +1,59 @@
+
 import React from 'react';
-import { ArrowRight, MapPin, Clock, Users, Star } from 'lucide-react';
+import { MapPin, Clock, Users } from 'lucide-react';
 import Navigation from '../../components/Navigation';
-import { Button } from '@/components/ui/button';
 import { navigateToBooking } from '@/utils/bookingNavigation';
 import BookingCalendar from '../../components/BookingCalendar';
+import AreaPageHero from '../../components/areas/AreaPageHero';
+import AreasServed from '../../components/areas/AreasServed';
+import WhyChooseUs from '../../components/areas/WhyChooseUs';
+import TestimonialsSection from '../../components/areas/TestimonialsSection';
+import CTASection from '../../components/areas/CTASection';
 
 const NorthCharlottePage = () => {
   const handleBookNowClick = () => {
     navigateToBooking();
   };
+
+  const areasServed = [
+    { name: 'University City', description: 'Student-friendly detailing near UNCC campus' },
+    { name: 'NoDa', description: 'Hip neighborhood specialist car care services' },
+    { name: 'Plaza Midwood', description: 'Trendy area mobile detailing for urban professionals' },
+    { name: 'Hidden Valley', description: 'Residential community detailing services' },
+    { name: 'Newell', description: 'Family neighborhood car care specialists' },
+    { name: 'Derita', description: 'Local community mobile detailing expert' }
+  ];
+
+  const benefits = [
+    {
+      icon: MapPin,
+      title: 'University Area Expertise',
+      description: 'Understanding the unique needs of university students, young professionals, and growing families in North Charlotte.'
+    },
+    {
+      icon: Clock,
+      title: 'Flexible Student Scheduling',
+      description: 'Evening and weekend availability to work around class schedules and busy lifestyles in University City.'
+    },
+    {
+      icon: Users,
+      title: 'Community Focused',
+      description: 'Building relationships throughout NoDa, Plaza Midwood, and University area with personalized service.'
+    }
+  ];
+
+  const testimonials = [
+    {
+      quote: 'Perfect for my busy college schedule! Eric came to my apartment in University City and my car looks amazing. Super affordable too!',
+      author: 'Jake T.',
+      location: 'University City'
+    },
+    {
+      quote: 'Living in NoDa, I needed someone who could work around my creative schedule. Eric is flexible and does incredible work!',
+      author: 'Maria S.',
+      location: 'NoDa'
+    }
+  ];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white overflow-x-hidden">
@@ -22,191 +67,41 @@ const NorthCharlottePage = () => {
         <Navigation />
         
         <main className="pt-24 pb-16">
-          {/* Hero Section */}
-          <section className="py-16 md:py-24 bg-[#080808] relative overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-b from-blue-500/5 to-transparent" />
-            
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <div>
-                  <div className="inline-flex items-center space-x-2 bg-blue-500/10 border border-blue-500/20 rounded-full px-4 py-2 text-sm text-blue-400 mb-6">
-                    <MapPin className="w-4 h-4" />
-                    <span>Serving North Charlotte, NC</span>
-                  </div>
-                  
-                  <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-6 tracking-tight">
-                    Car Detailing
-                    <br />
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600">
-                      North Charlotte
-                    </span>
-                    <br />
-                    Expert
-                  </h1>
-                  
-                  <p className="text-xl text-gray-400 mb-8 leading-relaxed">
-                    Professional auto detailing services for North Charlotte residents. Serving University City, NoDa, Plaza Midwood, and surrounding communities with convenient mobile services.
-                  </p>
-                  
-                  <div className="flex flex-col sm:flex-row gap-4 mb-8">
-                    <Button 
-                      onClick={handleBookNowClick}
-                      className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-4 rounded-full font-bold text-base sm:text-lg transition-all duration-300 hover:scale-105 flex items-center justify-center whitespace-nowrap min-w-fit"
-                    >
-                      <span className="text-sm sm:text-base">Book North Charlotte Service</span>
-                      <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
-                    </Button>
-                    <a href="tel:(704) 519-7228" className="btn-secondary flex items-center justify-center">
-                      Call (704) 519-7228
-                    </a>
-                  </div>
-                </div>
-                
-                <div className="relative">
-                  <img
-                    src="/lovable-uploads/ee5be719-a6a7-4b09-a760-953bbd247229.png"
-                    alt="Car detailing service in North Charlotte NC"
-                    className="w-full h-auto rounded-2xl shadow-2xl"
-                  />
-                </div>
-              </div>
-            </div>
-          </section>
+          <AreaPageHero
+            areaName="North Charlotte"
+            serviceName="Expert"
+            description="Professional auto detailing services for North Charlotte residents. Serving University City, NoDa, Plaza Midwood, and surrounding communities with convenient mobile services."
+            onBookNowClick={handleBookNowClick}
+            imageAlt="Car detailing service in North Charlotte NC"
+          />
 
-          {/* North Charlotte Areas Served */}
-          <section className="py-16 bg-black/40">
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="text-center mb-12">
-                <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-                  North Charlotte Communities We Serve
-                </h2>
-                <p className="text-gray-400 max-w-2xl mx-auto">
-                  Expert car detailing services throughout North Charlotte's vibrant neighborhoods and university areas.
-                </p>
-              </div>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {[
-                  { name: 'University City', description: 'Student-friendly detailing near UNCC campus' },
-                  { name: 'NoDa', description: 'Hip neighborhood specialist car care services' },
-                  { name: 'Plaza Midwood', description: 'Trendy area mobile detailing for urban professionals' },
-                  { name: 'Hidden Valley', description: 'Residential community detailing services' },
-                  { name: 'Newell', description: 'Family neighborhood car care specialists' },
-                  { name: 'Derita', description: 'Local community mobile detailing expert' }
-                ].map((area) => (
-                  <div key={area.name} className="bg-black/40 backdrop-blur-xl rounded-lg p-6 border border-blue-500/20">
-                    <h3 className="text-xl font-bold text-white mb-2">{area.name}</h3>
-                    <p className="text-gray-400 text-sm">{area.description}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
+          <AreasServed
+            areaName="North Charlotte"
+            description="Expert car detailing services throughout North Charlotte's vibrant neighborhoods and university areas."
+            areas={areasServed}
+          />
 
-          {/* Why Choose Us for North Charlotte */}
-          <section className="py-16">
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="text-center mb-12">
-                <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-                  Why North Charlotte Chooses Shine 'Em Up
-                </h2>
-              </div>
-              
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div className="bg-black/40 backdrop-blur-xl rounded-2xl p-6 border border-blue-500/20">
-                  <MapPin className="w-12 h-12 text-blue-400 mb-4" />
-                  <h3 className="text-xl font-bold text-white mb-3">University Area Expertise</h3>
-                  <p className="text-gray-400">
-                    Understanding the unique needs of university students, young professionals, and growing families in North Charlotte.
-                  </p>
-                </div>
-                
-                <div className="bg-black/40 backdrop-blur-xl rounded-2xl p-6 border border-blue-500/20">
-                  <Clock className="w-12 h-12 text-blue-400 mb-4" />
-                  <h3 className="text-xl font-bold text-white mb-3">Flexible Student Scheduling</h3>
-                  <p className="text-gray-400">
-                    Evening and weekend availability to work around class schedules and busy lifestyles in University City.
-                  </p>
-                </div>
-                
-                <div className="bg-black/40 backdrop-blur-xl rounded-2xl p-6 border border-blue-500/20">
-                  <Users className="w-12 h-12 text-blue-400 mb-4" />
-                  <h3 className="text-xl font-bold text-white mb-3">Community Focused</h3>
-                  <p className="text-gray-400">
-                    Building relationships throughout NoDa, Plaza Midwood, and University area with personalized service.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </section>
+          <WhyChooseUs
+            areaName="North Charlotte"
+            benefits={benefits}
+          />
 
-          {/* Testimonials */}
-          <section className="py-16 bg-black/40">
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="text-center mb-12">
-                <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-                  What North Charlotte Says
-                </h2>
-              </div>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="bg-black/40 backdrop-blur-xl rounded-2xl p-6 border border-blue-500/20">
-                  <div className="flex items-center mb-4">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
-                    ))}
-                  </div>
-                  <p className="text-gray-300 mb-4">
-                    "Perfect for my busy college schedule! Eric came to my apartment in University City and my car looks amazing. Super affordable too!"
-                  </p>
-                  <p className="text-blue-400 font-medium">- Jake T., University City</p>
-                </div>
-                
-                <div className="bg-black/40 backdrop-blur-xl rounded-2xl p-6 border border-blue-500/20">
-                  <div className="flex items-center mb-4">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
-                    ))}
-                  </div>
-                  <p className="text-gray-300 mb-4">
-                    "Living in NoDa, I needed someone who could work around my creative schedule. Eric is flexible and does incredible work!"
-                  </p>
-                  <p className="text-blue-400 font-medium">- Maria S., NoDa</p>
-                </div>
-              </div>
-            </div>
-          </section>
+          <TestimonialsSection
+            areaName="North Charlotte"
+            testimonials={testimonials}
+          />
 
           {/* Booking Section */}
           <div id="booking">
             <BookingCalendar />
           </div>
 
-          {/* CTA Section */}
-          <section className="py-16">
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-              <div className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 rounded-2xl p-8 md:p-12">
-                <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-                  Ready to Experience North Charlotte's Best Car Detailing?
-                </h2>
-                <p className="text-gray-400 mb-8 max-w-2xl mx-auto">
-                  Join students, professionals, and families throughout North Charlotte who trust Shine 'Em Up for their car care needs.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Button 
-                    onClick={handleBookNowClick}
-                    className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-4 rounded-full font-bold text-base sm:text-lg whitespace-nowrap min-w-fit"
-                  >
-                    <span className="text-sm sm:text-base">Book North Charlotte Service</span>
-                    <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
-                  </Button>
-                  <a href="tel:(704) 519-7228" className="btn-secondary">
-                    Call (704) 519-7228
-                  </a>
-                </div>
-              </div>
-            </div>
-          </section>
+          <CTASection
+            areaName="North Charlotte"
+            title="Ready to Experience North Charlotte's Best Car Detailing?"
+            description="Join students, professionals, and families throughout North Charlotte who trust Shine 'Em Up for their car care needs."
+            onBookNowClick={handleBookNowClick}
+          />
         </main>
       </div>
     </div>
