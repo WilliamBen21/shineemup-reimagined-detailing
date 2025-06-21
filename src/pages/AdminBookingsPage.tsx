@@ -5,7 +5,7 @@ import BookingsTable from '@/components/admin/BookingsTable';
 
 const AdminBookingsPage = () => {
   return (
-    <div className="min-h-screen bg-[#080808]">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black">
       <Navigation />
       <BookingsTable />
     </div>
