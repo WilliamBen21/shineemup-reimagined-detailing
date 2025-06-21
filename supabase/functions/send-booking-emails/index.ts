@@ -60,6 +60,22 @@ const handler = async (req: Request): Promise<Response> => {
       ? `${vehicleInfo.year || ''} ${vehicleInfo.make || ''} ${vehicleInfo.model || ''}`.trim()
       : 'Not specified';
 
+    // Generate secure token for confirmation (using booking ID + current timestamp)
+    const supabase = createClient(
+      Deno.env.get('SUPABASE_URL') ?? '',
+      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
+    );
+
+    // Get booking created_at for token generation
+    const { data: booking } = await supabase
+      .from('bookings')
+      .select('created_at')
+      .eq('id', bookingId)
+      .single();
+
+    const confirmationToken = btoa(`${bookingId}-${booking?.created_at || new Date().toISOString()}`).slice(0, 16);
+    const confirmationUrl = `${Deno.env.get('SUPABASE_URL')}/functions/v1/confirm-booking?booking_id=${bookingId}&token=${confirmationToken}`;
+
     // Send customer confirmation email
     const customerEmailResponse = await resend.emails.send({
       from: "ShineEmUp Detailing <noreply@shineemupdetailing.com>",
@@ -128,7 +144,7 @@ const handler = async (req: Request): Promise<Response> => {
       `,
     });
 
-    // Send admin notification email
+    // Send admin notification email with confirmation button
     const adminEmailResponse = await resend.emails.send({
       from: "ShineEmUp Detailing <noreply@shineemupdetailing.com>",
       to: ["admin@shineemupdetailing.com"],
@@ -175,10 +191,20 @@ const handler = async (req: Request): Promise<Response> => {
                 </tr>
               </table>
             </div>
+
+            <!-- CONFIRMATION BUTTON - The key new feature -->
+            <div style="text-align: center; margin: 30px 0; padding: 20px; background: white; border-radius: 8px; border: 2px solid #10b981;">
+              <h3 style="margin-top: 0; color: #10b981;">🎯 Quick Action Required</h3>
+              <p style="margin: 15px 0; color: #374151;">Click the button below to confirm this booking:</p>
+              <a href="${confirmationUrl}" 
+                 style="background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 15px 30px; text-decoration: none; border-radius: 8px; font-weight: bold; display: inline-block; font-size: 16px; margin: 10px 0;">
+                ✅ CONFIRM BOOKING
+              </a>
+              <p style="margin: 15px 0 0 0; font-size: 12px; color: #6b7280;">This will update the booking status to "confirmed" in your system</p>
+            </div>
             
             <div style="background: #fef3c7; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #f59e0b;">
-              <h3 style="margin-top: 0; color: #d97706;">⚡ Action Required</h3>
-              <p style="margin: 0;">Remember to:</p>
+              <h3 style="margin-top: 0; color: #d97706;">⚡ Remember to:</h3>
               <ul style="margin: 10px 0 0 0; padding-left: 20px;">
                 <li>Add this booking to your calendar</li>
                 <li>Prepare materials for ${serviceName}</li>
@@ -188,7 +214,7 @@ const handler = async (req: Request): Promise<Response> => {
             
             <div style="text-align: center; margin: 30px 0;">
               <a href="https://shineemupdetailing.com/admin/bookings" 
-                 style="background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 15px 30px; text-decoration: none; border-radius: 8px; font-weight: bold; display: inline-block;">
+                 style="background: linear-gradient(135deg, #3b82f6, #8b5cf6); color: white; padding: 15px 30px; text-decoration: none; border-radius: 8px; font-weight: bold; display: inline-block;">
                 📊 View All Bookings
               </a>
             </div>
