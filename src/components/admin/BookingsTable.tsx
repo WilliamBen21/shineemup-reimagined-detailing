@@ -13,6 +13,7 @@ import {
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { exportToCSV } from '@/utils/csvExport';
 
 const BookingsTable = () => {
   const { data: bookings, isLoading, error } = useQuery({
@@ -45,6 +46,34 @@ const BookingsTable = () => {
       return data;
     },
   });
+
+  const handleExport = () => {
+    if (!bookings || bookings.length === 0) {
+      console.warn('No bookings data to export');
+      return;
+    }
+
+    // Transform the data for CSV export
+    const exportData = bookings.map(booking => ({
+      'Confirmation Number': booking.confirmation_number || 'N/A',
+      'Customer Name': `${booking.customers?.first_name || ''} ${booking.customers?.last_name || ''}`.trim(),
+      'Customer Email': booking.customers?.email || '',
+      'Customer Phone': booking.customers?.phone || '',
+      'Service Name': booking.services?.name || '',
+      'Service Category': booking.services?.category || '',
+      'Booking Date': new Date(booking.booking_date).toLocaleDateString(),
+      'Booking Time': booking.booking_time || '',
+      'Vehicle': [booking.vehicle_year, booking.vehicle_make, booking.vehicle_model].filter(Boolean).join(' ') || 'N/A',
+      'Status': booking.status || '',
+      'Total Price': booking.total_price_cents ? `$${(booking.total_price_cents / 100).toFixed(2)}` : 'N/A',
+      'Notes': booking.notes || '',
+      'Created At': new Date(booking.created_at).toLocaleString(),
+      'Updated At': new Date(booking.updated_at).toLocaleString()
+    }));
+
+    const today = new Date().toISOString().split('T')[0];
+    exportToCSV(exportData, `bookings-export-${today}`);
+  };
 
   if (isLoading) {
     return (
@@ -94,7 +123,12 @@ const BookingsTable = () => {
             <Filter className="w-4 h-4 mr-2" />
             Filter
           </Button>
-          <Button variant="outline" size="sm" className="border-gray-700 text-gray-300 hover:bg-gray-800">
+          <Button 
+            variant="outline" 
+            size="sm" 
+            className="border-gray-700 text-gray-300 hover:bg-gray-800"
+            onClick={handleExport}
+          >
             <Download className="w-4 h-4 mr-2" />
             Export
           </Button>
