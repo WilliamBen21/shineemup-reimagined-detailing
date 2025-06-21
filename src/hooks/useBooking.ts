@@ -38,7 +38,7 @@ export const useBooking = () => {
         throw new Error('Missing required booking information');
       }
 
-      // First, verify the service exists
+      // First, verify the service exists and get its details
       console.log('Verifying service exists for ID:', bookingData.serviceId);
       const { data: service, error: serviceError } = await supabase
         .from('services')
@@ -104,7 +104,7 @@ export const useBooking = () => {
         console.log('Created new customer with ID:', customerId);
       }
 
-      // Prepare booking data with explicit validation
+      // Prepare booking data
       const bookingInsertData = {
         customer_id: customerId,
         service_id: bookingData.serviceId,
@@ -115,20 +115,11 @@ export const useBooking = () => {
         vehicle_year: bookingData.vehicleInfo.year?.trim() || null,
         notes: bookingData.vehicleInfo.notes?.trim() || null,
         total_price_cents: service.price_cents,
-        status: 'pending'
+        status: 'pending' as const
       };
 
       console.log('=== BOOKING INSERT ATTEMPT ===');
       console.log('Booking data to insert:', JSON.stringify(bookingInsertData, null, 2));
-
-      // Validate UUIDs before inserting
-      const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
-      if (!uuidRegex.test(customerId)) {
-        throw new Error(`Invalid customer ID format: ${customerId}`);
-      }
-      if (!uuidRegex.test(bookingData.serviceId)) {
-        throw new Error(`Invalid service ID format: ${bookingData.serviceId}`);
-      }
 
       // Create booking
       const { data: booking, error: bookingError } = await supabase
@@ -139,20 +130,8 @@ export const useBooking = () => {
 
       if (bookingError) {
         console.error('=== BOOKING INSERT ERROR ===');
-        console.error('Error object:', JSON.stringify(bookingError, null, 2));
-        console.error('Error message:', bookingError.message);
-        console.error('Error details:', bookingError.details);
-        console.error('Error hint:', bookingError.hint);
-        console.error('Error code:', bookingError.code);
-        
-        // More specific error handling
-        if (bookingError.code === '23503') {
-          throw new Error('Database constraint violation - please contact support');
-        } else if (bookingError.code === '23505') {
-          throw new Error('A booking with this information already exists');
-        } else {
-          throw new Error(`Booking creation failed: ${bookingError.message}`);
-        }
+        console.error('Error details:', bookingError);
+        throw new Error(`Booking creation failed: ${bookingError.message}`);
       }
 
       if (!booking) {
@@ -161,7 +140,7 @@ export const useBooking = () => {
       }
 
       console.log('=== BOOKING CREATED SUCCESSFULLY ===');
-      console.log('Booking result:', JSON.stringify(booking, null, 2));
+      console.log('Booking result:', booking);
 
       toast({
         title: "Booking Confirmed!",
@@ -172,8 +151,6 @@ export const useBooking = () => {
     } catch (error: any) {
       console.error('=== BOOKING CREATION FAILED ===');
       console.error('Error:', error);
-      console.error('Error message:', error.message);
-      console.error('Full error object:', JSON.stringify(error, null, 2));
       
       toast({
         title: "Booking Failed",

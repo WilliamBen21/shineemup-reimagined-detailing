@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Calendar } from 'lucide-react';
 import { useServices } from '@/hooks/useServices';
 import { useBooking } from '@/hooks/useBooking';
@@ -39,27 +39,29 @@ const BookingCalendar = () => {
   const { createBooking, isLoading: bookingLoading } = useBooking();
   const { getAvailableSlots } = useAvailability();
 
+  // Memoize the fetchAvailableSlots function to prevent unnecessary re-renders
+  const fetchAvailableSlots = useCallback(async (date: Date) => {
+    console.log('Fetching slots for date:', date.toISOString().split('T')[0]);
+    const slots = await getAvailableSlots(date.toISOString().split('T')[0]);
+    console.log('Available slots received:', slots);
+    setAvailableSlots(slots);
+    
+    // Only reset selected time if it's not available in the new slots
+    if (selectedTime && !slots.includes(selectedTime)) {
+      console.log('Selected time not available in new slots, resetting');
+      setSelectedTime('');
+    }
+  }, [getAvailableSlots, selectedTime]);
+
   // Update available slots when date changes
   useEffect(() => {
     if (selectedDate) {
-      const fetchAvailableSlots = async () => {
-        console.log('Fetching slots for date:', selectedDate.toISOString().split('T')[0]);
-        const slots = await getAvailableSlots(selectedDate.toISOString().split('T')[0]);
-        console.log('Available slots received:', slots);
-        setAvailableSlots(slots);
-        
-        // Only reset selected time if it's not available in the new slots
-        if (selectedTime && !slots.includes(selectedTime)) {
-          console.log('Selected time not available in new slots, resetting');
-          setSelectedTime('');
-        }
-      };
-      fetchAvailableSlots();
+      fetchAvailableSlots(selectedDate);
     } else {
       setAvailableSlots([]);
       setSelectedTime('');
     }
-  }, [selectedDate, getAvailableSlots]);
+  }, [selectedDate, fetchAvailableSlots]);
 
   const handleSubmit = async () => {
     console.log('=== HANDLE SUBMIT CALLED ===');

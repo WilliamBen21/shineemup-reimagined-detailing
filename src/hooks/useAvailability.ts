@@ -1,48 +1,26 @@
 
-import { useState } from 'react';
+import { useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 
 export const useAvailability = () => {
-  const [isChecking, setIsChecking] = useState(false);
-
-  const checkAvailability = async (date: string, time: string, serviceDuration: number) => {
-    setIsChecking(true);
+  const getAvailableSlots = useCallback(async (date: string) => {
+    console.log('Getting available slots for date:', date);
+    
     try {
-      console.log('Checking availability for:', { date, time, serviceDuration });
-      
-      const { data, error } = await supabase.rpc('is_time_slot_available', {
-        check_date: date,
-        check_time: time,
-        service_duration: serviceDuration
-      });
-
-      if (error) {
-        console.error('Availability check error:', error);
-        throw error;
-      }
-      
-      console.log('Availability result:', data);
-      return data;
-    } catch (error) {
-      console.error('Error checking availability:', error);
-      return false;
-    } finally {
-      setIsChecking(false);
-    }
-  };
-
-  const getAvailableSlots = async (date: string) => {
-    try {
-      console.log('Getting available slots for date:', date);
-      
       // Get business hours for the day of week
       const dayOfWeek = new Date(date).getDay();
-      const { data: businessHours } = await supabase
+      
+      const { data: businessHours, error: hoursError } = await supabase
         .from('business_hours')
         .select('start_time, end_time')
         .eq('day_of_week', dayOfWeek)
         .eq('is_active', true)
         .maybeSingle();
+
+      if (hoursError) {
+        console.error('Error fetching business hours:', hoursError);
+        return [];
+      }
 
       if (!businessHours) {
         console.log('No business hours found for day:', dayOfWeek);
@@ -50,46 +28,48 @@ export const useAvailability = () => {
       }
 
       // Get existing bookings for the date
-      const { data: bookings } = await supabase
+      const { data: bookings, error: bookingsError } = await supabase
         .from('bookings')
-        .select('booking_time, services(duration_minutes)')
+        .select('booking_time, service_id, services(duration_minutes)')
         .eq('booking_date', date)
         .neq('status', 'cancelled');
 
-      // Generate time slots (every hour from start to end time)
-      const slots = [];
-      const startHour = parseInt(businessHours.start_time.split(':')[0]);
-      const endHour = parseInt(businessHours.end_time.split(':')[0]);
-
-      for (let hour = startHour; hour < endHour; hour++) {
-        const timeSlot = `${hour.toString().padStart(2, '0')}:00`;
-        
-        // Check if slot is available (not conflicting with existing bookings)
-        const isAvailable = !bookings?.some(booking => {
-          const bookingTime = booking.booking_time;
-          const bookingDuration = booking.services?.duration_minutes || 60;
-          const bookingEndTime = new Date(`2000-01-01T${bookingTime}`);
-          bookingEndTime.setMinutes(bookingEndTime.getMinutes() + bookingDuration);
-          
-          const slotTime = new Date(`2000-01-01T${timeSlot}:00`);
-          const slotEndTime = new Date(slotTime);
-          slotEndTime.setHours(slotEndTime.getHours() + 1);
-          
-          return (slotTime < bookingEndTime && slotEndTime > new Date(`2000-01-01T${bookingTime}`));
-        });
-
-        if (isAvailable) {
-          slots.push(timeSlot);
-        }
+      if (bookingsError) {
+        console.error('Error fetching bookings:', bookingsError);
+        return [];
       }
 
-      console.log('Available slots:', slots);
-      return slots;
+      // Generate time slots based on business hours
+      const startTime = businessHours.start_time;
+      const endTime = businessHours.end_time;
+      
+      const timeSlots = [];
+      const start = new Date(`2000-01-01 ${startTime}`);
+      const end = new Date(`2000-01-01 ${endTime}`);
+      
+      while (start < end) {
+        const timeString = start.toTimeString().slice(0, 5);
+        timeSlots.push(timeString);
+        start.setHours(start.getHours() + 1);
+      }
+
+      // Filter out booked slots
+      const bookedTimes = new Set();
+      bookings?.forEach(booking => {
+        if (booking.booking_time) {
+          bookedTimes.add(booking.booking_time);
+        }
+      });
+
+      const availableSlots = timeSlots.filter(slot => !bookedTimes.has(slot));
+      
+      console.log('Available slots:', availableSlots);
+      return availableSlots;
     } catch (error) {
-      console.error('Error getting available slots:', error);
+      console.error('Error in getAvailableSlots:', error);
       return [];
     }
-  };
+  }, []);
 
-  return { checkAvailability, getAvailableSlots, isChecking };
+  return { getAvailableSlots };
 };
