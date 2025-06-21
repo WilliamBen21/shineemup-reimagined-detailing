@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
@@ -60,7 +59,7 @@ const BookingsTable = () => {
       <div className="p-6 bg-[#080808] min-h-screen">
         <div className="max-w-7xl mx-auto">
           <div className="text-center text-red-400">
-            Error loading bookings: {error.message}
+            Error loading bookings: {error instanceof Error ? error.message : 'Unknown error occurred'}
           </div>
         </div>
       </div>
