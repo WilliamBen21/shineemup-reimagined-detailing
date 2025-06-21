@@ -62,7 +62,7 @@ const handler = async (req: Request): Promise<Response> => {
 
     // Send customer confirmation email
     const customerEmailResponse = await resend.emails.send({
-      from: "ShineEmUp Detailing <onboarding@resend.dev>",
+      from: "ShineEmUp Detailing <noreply@shineemupdetailing.com>",
       to: [customerEmail],
       subject: `Booking Confirmed - ${confirmationNumber}`,
       html: `
@@ -130,8 +130,8 @@ const handler = async (req: Request): Promise<Response> => {
 
     // Send admin notification email
     const adminEmailResponse = await resend.emails.send({
-      from: "ShineEmUp Detailing <onboarding@resend.dev>",
-      to: ["admin@shineemupdetailing.com"], // Replace with actual admin email
+      from: "ShineEmUp Detailing <noreply@shineemupdetailing.com>",
+      to: ["admin@shineemupdetailing.com"],
       subject: `New Booking Alert - ${confirmationNumber}`,
       html: `
         <div style="max-width: 600px; margin: 0 auto; font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
