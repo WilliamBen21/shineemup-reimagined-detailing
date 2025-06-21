@@ -120,9 +120,10 @@ const BookingCalendar = () => {
     }
   };
 
-  const handleTimeSelect = (time: string) => {
-    console.log('Time selected in BookingCalendar:', time);
+  const handleTimeSelection = (time: string) => {
+    console.log('Time selected in BookingCalendar handleTimeSelection:', time);
     setSelectedTime(time);
+    console.log('State should be updated to:', time);
   };
 
   if (servicesLoading) {
@@ -178,7 +179,7 @@ const BookingCalendar = () => {
               selectedDate={selectedDate}
               setSelectedDate={setSelectedDate}
               selectedTime={selectedTime}
-              setSelectedTime={handleTimeSelect}
+              setSelectedTime={handleTimeSelection}
               availableSlots={availableSlots}
             />
           )}

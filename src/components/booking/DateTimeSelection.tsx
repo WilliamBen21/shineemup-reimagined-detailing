@@ -18,11 +18,11 @@ const DateTimeSelection: React.FC<DateTimeSelectionProps> = ({
   setSelectedTime,
   availableSlots
 }) => {
-  const handleTimeSelection = (time: string) => {
-    console.log('Time slot clicked:', time);
-    console.log('Current selectedTime before update:', selectedTime);
+  const handleTimeClick = (time: string) => {
+    console.log('Time button clicked:', time);
+    console.log('Current selectedTime:', selectedTime);
     setSelectedTime(time);
-    console.log('setSelectedTime called with:', time);
+    console.log('After setSelectedTime called with:', time);
   };
 
   console.log('DateTimeSelection render - selectedTime:', selectedTime);
@@ -88,16 +88,16 @@ const DateTimeSelection: React.FC<DateTimeSelectionProps> = ({
                 <div className="grid grid-cols-2 gap-2 sm:gap-3 md:gap-4">
                   {availableSlots.map((time) => {
                     const isSelected = selectedTime === time;
-                    console.log(`Time ${time} - isSelected: ${isSelected}, selectedTime: ${selectedTime}`);
+                    console.log(`Rendering time ${time} - isSelected: ${isSelected}, selectedTime: "${selectedTime}"`);
                     
                     return (
                       <button
                         key={time}
                         type="button"
-                        onClick={() => handleTimeSelection(time)}
+                        onClick={() => handleTimeClick(time)}
                         className={`px-3 sm:px-4 md:px-6 py-3 sm:py-4 rounded-lg sm:rounded-xl text-xs sm:text-sm font-medium transition-all duration-200 ${
                           isSelected
-                            ? 'bg-blue-500 text-white shadow-lg ring-2 ring-blue-400/50 scale-105'
+                            ? 'bg-blue-500 text-white shadow-lg ring-2 ring-blue-400/50 transform scale-105'
                             : 'bg-blue-500/10 text-blue-400 hover:bg-blue-500/20 border border-blue-500/20 hover:border-blue-500/40 hover:scale-105'
                         }`}
                       >
