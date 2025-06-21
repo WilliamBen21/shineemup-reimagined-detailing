@@ -147,7 +147,7 @@ const handler = async (req: Request): Promise<Response> => {
     // Send admin notification email with confirmation button
     const adminEmailResponse = await resend.emails.send({
       from: "ShineEmUp Detailing <noreply@shineemupdetailing.com>",
-      to: ["admin@shineemupdetailing.com"],
+      to: ["shineemupdetailing2022@gmail.com"],
       subject: `New Booking Alert - ${confirmationNumber}`,
       html: `
         <div style="max-width: 600px; margin: 0 auto; font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
