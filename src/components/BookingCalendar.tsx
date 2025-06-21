@@ -43,7 +43,9 @@ const BookingCalendar = () => {
   useEffect(() => {
     if (selectedDate) {
       const fetchAvailableSlots = async () => {
+        console.log('Fetching slots for date:', selectedDate.toISOString().split('T')[0]);
         const slots = await getAvailableSlots(selectedDate.toISOString().split('T')[0]);
+        console.log('Available slots received:', slots);
         setAvailableSlots(slots);
         setSelectedTime(''); // Reset selected time
       };
@@ -76,14 +78,28 @@ const BookingCalendar = () => {
   };
 
   const canProceedToStep = (step: number) => {
+    console.log('Checking can proceed to step:', step);
+    console.log('Current state:', {
+      selectedService: !!selectedService,
+      selectedDate: !!selectedDate,
+      selectedTime,
+      customerInfo
+    });
+
     switch (step) {
       case 2:
-        return selectedService;
+        const canGoToStep2 = !!selectedService;
+        console.log('Can go to step 2:', canGoToStep2);
+        return canGoToStep2;
       case 3:
-        return selectedService && selectedDate && selectedTime;
+        const canGoToStep3 = !!selectedService && !!selectedDate && !!selectedTime;
+        console.log('Can go to step 3:', canGoToStep3);
+        return canGoToStep3;
       case 4:
-        return selectedService && selectedDate && selectedTime && 
-               customerInfo.firstName && customerInfo.lastName && customerInfo.email;
+        const canGoToStep4 = !!selectedService && !!selectedDate && !!selectedTime && 
+               !!customerInfo.firstName && !!customerInfo.lastName && !!customerInfo.email;
+        console.log('Can go to step 4:', canGoToStep4);
+        return canGoToStep4;
       default:
         return true;
     }

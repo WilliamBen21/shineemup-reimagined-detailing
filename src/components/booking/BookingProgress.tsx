@@ -24,7 +24,7 @@ const BookingProgress: React.FC<BookingProgressProps> = ({ currentStep }) => {
     <div className="mb-8 sm:mb-12">
       <div className="relative flex items-center justify-between px-2 sm:px-4 max-w-2xl mx-auto">
         {steps.map((step, index) => (
-          <React.Fragment key={step.number}>
+          <div key={step.number} className="flex items-center">
             <div className="flex flex-col items-center z-10 bg-[#080808] group">
               <div className={`flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 transition-all duration-500 ease-out transform hover:scale-110 ${
                 currentStep >= step.number
@@ -64,7 +64,7 @@ const BookingProgress: React.FC<BookingProgressProps> = ({ currentStep }) => {
                 />
               </div>
             )}
-          </React.Fragment>
+          </div>
         ))}
       </div>
     </div>
