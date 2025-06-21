@@ -31,10 +31,35 @@ export const useBooking = () => {
       console.log('=== BOOKING CREATION START ===');
       console.log('Input data:', JSON.stringify(bookingData, null, 2));
       
-      // First, create or get customer
+      // Validate required fields
+      if (!bookingData.serviceId || !bookingData.date || !bookingData.time || 
+          !bookingData.customerInfo.firstName || !bookingData.customerInfo.lastName || 
+          !bookingData.customerInfo.email) {
+        throw new Error('Missing required booking information');
+      }
+
+      // First, verify the service exists
+      console.log('Verifying service exists for ID:', bookingData.serviceId);
+      const { data: service, error: serviceError } = await supabase
+        .from('services')
+        .select('id, name, price_cents, duration_minutes')
+        .eq('id', bookingData.serviceId)
+        .single();
+
+      if (serviceError) {
+        console.error('Service verification error:', serviceError);
+        throw new Error(`Service not found: ${serviceError.message}`);
+      }
+
+      if (!service) {
+        throw new Error('Selected service does not exist');
+      }
+
+      console.log('Service verified:', service);
+
+      // Create or get customer
       let customerId: string;
       
-      // Check if customer exists
       console.log('Checking for existing customer with email:', bookingData.customerInfo.email);
       const { data: existingCustomer, error: customerCheckError } = await supabase
         .from('customers')
@@ -43,33 +68,32 @@ export const useBooking = () => {
         .maybeSingle();
 
       if (customerCheckError) {
-        console.error('ERROR checking existing customer:', customerCheckError);
-        throw new Error(`Customer check failed: ${customerCheckError.message}`);
+        console.error('Customer check error:', customerCheckError);
+        throw new Error(`Customer lookup failed: ${customerCheckError.message}`);
       }
 
       if (existingCustomer) {
         customerId = existingCustomer.id;
         console.log('Found existing customer with ID:', customerId);
       } else {
-        // Create new customer
         console.log('Creating new customer...');
-        const customerInsertData = {
-          first_name: bookingData.customerInfo.firstName,
-          last_name: bookingData.customerInfo.lastName,
-          email: bookingData.customerInfo.email,
-          phone: bookingData.customerInfo.phone || null
+        const customerData = {
+          first_name: bookingData.customerInfo.firstName.trim(),
+          last_name: bookingData.customerInfo.lastName.trim(),
+          email: bookingData.customerInfo.email.trim().toLowerCase(),
+          phone: bookingData.customerInfo.phone?.trim() || null
         };
-        console.log('Customer insert data:', customerInsertData);
+        console.log('Customer data to insert:', customerData);
 
         const { data: newCustomer, error: customerError } = await supabase
           .from('customers')
-          .insert(customerInsertData)
+          .insert(customerData)
           .select('id')
           .single();
 
         if (customerError) {
-          console.error('ERROR creating customer:', customerError);
-          throw new Error(`Customer creation failed: ${customerError.message}`);
+          console.error('Customer creation error:', customerError);
+          throw new Error(`Failed to create customer: ${customerError.message}`);
         }
         
         if (!newCustomer) {
@@ -80,47 +104,37 @@ export const useBooking = () => {
         console.log('Created new customer with ID:', customerId);
       }
 
-      // Get service details for price
-      console.log('Fetching service details for ID:', bookingData.serviceId);
-      const { data: service, error: serviceError } = await supabase
-        .from('services')
-        .select('price_cents, duration_minutes, name')
-        .eq('id', bookingData.serviceId)
-        .single();
-
-      if (serviceError) {
-        console.error('ERROR fetching service:', serviceError);
-        throw new Error(`Service fetch failed: ${serviceError.message}`);
-      }
-
-      if (!service) {
-        throw new Error('Service not found');
-      }
-
-      console.log('Service found:', service);
-
-      // Prepare booking data
+      // Prepare booking data with explicit validation
       const bookingInsertData = {
         customer_id: customerId,
         service_id: bookingData.serviceId,
         booking_date: bookingData.date,
         booking_time: bookingData.time,
-        vehicle_make: bookingData.vehicleInfo.make || null,
-        vehicle_model: bookingData.vehicleInfo.model || null,
-        vehicle_year: bookingData.vehicleInfo.year || null,
-        notes: bookingData.vehicleInfo.notes || null,
+        vehicle_make: bookingData.vehicleInfo.make?.trim() || null,
+        vehicle_model: bookingData.vehicleInfo.model?.trim() || null,
+        vehicle_year: bookingData.vehicleInfo.year?.trim() || null,
+        notes: bookingData.vehicleInfo.notes?.trim() || null,
         total_price_cents: service.price_cents,
         status: 'pending'
       };
 
       console.log('=== BOOKING INSERT ATTEMPT ===');
-      console.log('Booking insert data:', JSON.stringify(bookingInsertData, null, 2));
+      console.log('Booking data to insert:', JSON.stringify(bookingInsertData, null, 2));
 
-      // Create booking with explicit status
+      // Validate UUIDs before inserting
+      const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+      if (!uuidRegex.test(customerId)) {
+        throw new Error(`Invalid customer ID format: ${customerId}`);
+      }
+      if (!uuidRegex.test(bookingData.serviceId)) {
+        throw new Error(`Invalid service ID format: ${bookingData.serviceId}`);
+      }
+
+      // Create booking
       const { data: booking, error: bookingError } = await supabase
         .from('bookings')
         .insert(bookingInsertData)
-        .select('confirmation_number, id')
+        .select('id, confirmation_number')
         .single();
 
       if (bookingError) {
@@ -130,7 +144,15 @@ export const useBooking = () => {
         console.error('Error details:', bookingError.details);
         console.error('Error hint:', bookingError.hint);
         console.error('Error code:', bookingError.code);
-        throw new Error(`Booking creation failed: ${bookingError.message}`);
+        
+        // More specific error handling
+        if (bookingError.code === '23503') {
+          throw new Error('Database constraint violation - please contact support');
+        } else if (bookingError.code === '23505') {
+          throw new Error('A booking with this information already exists');
+        } else {
+          throw new Error(`Booking creation failed: ${bookingError.message}`);
+        }
       }
 
       if (!booking) {
