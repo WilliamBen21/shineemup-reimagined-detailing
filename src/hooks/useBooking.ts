@@ -76,7 +76,21 @@ export const useBooking = () => {
         throw serviceError;
       }
 
-      // Create booking
+      console.log('Service found:', service);
+      console.log('About to create booking with:', {
+        customer_id: customerId,
+        service_id: bookingData.serviceId,
+        booking_date: bookingData.date,
+        booking_time: bookingData.time,
+        vehicle_make: bookingData.vehicleInfo.make,
+        vehicle_model: bookingData.vehicleInfo.model,
+        vehicle_year: bookingData.vehicleInfo.year,
+        notes: bookingData.vehicleInfo.notes,
+        total_price_cents: service.price_cents,
+        status: 'pending'
+      });
+
+      // Create booking with explicit status
       const { data: booking, error: bookingError } = await supabase
         .from('bookings')
         .insert({
@@ -84,17 +98,24 @@ export const useBooking = () => {
           service_id: bookingData.serviceId,
           booking_date: bookingData.date,
           booking_time: bookingData.time,
-          vehicle_make: bookingData.vehicleInfo.make,
-          vehicle_model: bookingData.vehicleInfo.model,
-          vehicle_year: bookingData.vehicleInfo.year,
-          notes: bookingData.vehicleInfo.notes,
-          total_price_cents: service.price_cents
+          vehicle_make: bookingData.vehicleInfo.make || null,
+          vehicle_model: bookingData.vehicleInfo.model || null,
+          vehicle_year: bookingData.vehicleInfo.year || null,
+          notes: bookingData.vehicleInfo.notes || null,
+          total_price_cents: service.price_cents,
+          status: 'pending'
         })
-        .select('confirmation_number')
+        .select('confirmation_number, id')
         .single();
 
       if (bookingError) {
         console.error('Booking creation error:', bookingError);
+        console.error('Booking error details:', {
+          message: bookingError.message,
+          details: bookingError.details,
+          hint: bookingError.hint,
+          code: bookingError.code
+        });
         throw bookingError;
       }
 
@@ -108,6 +129,7 @@ export const useBooking = () => {
       return { success: true, confirmationNumber: booking.confirmation_number };
     } catch (error: any) {
       console.error('Booking error:', error);
+      console.error('Full error object:', JSON.stringify(error, null, 2));
       toast({
         title: "Booking Failed",
         description: error.message || "Something went wrong. Please try again.",
