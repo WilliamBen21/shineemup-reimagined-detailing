@@ -13,6 +13,7 @@ import EastCharlottePage from './pages/areas/EastCharlottePage';
 import MatthewsPage from './pages/areas/MatthewsPage';
 import ConcordPage from './pages/areas/ConcordPage';
 import CarDetailingGuidePage from './pages/guides/CarDetailingGuidePage';
+import AdminBookingsPage from './pages/AdminBookingsPage';
 
 const App: React.FC = () => {
   console.log('App component rendering...');
@@ -32,6 +33,7 @@ const App: React.FC = () => {
         <Route path="/areas/matthews" element={<MatthewsPage />} />
         <Route path="/areas/concord" element={<ConcordPage />} />
         <Route path="/guides/car-detailing-guide" element={<CarDetailingGuidePage />} />
+        <Route path="/admin/bookings" element={<AdminBookingsPage />} />
       </Routes>
     </Router>
   );
