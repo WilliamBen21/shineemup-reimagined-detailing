@@ -21,8 +21,8 @@ const DateTimeSelection: React.FC<DateTimeSelectionProps> = ({
   const handleTimeClick = (time: string) => {
     console.log('Time button clicked:', time);
     console.log('Current selectedTime before click:', selectedTime);
+    console.log('Setting selectedTime to:', time);
     setSelectedTime(time);
-    console.log('After setSelectedTime called with:', time);
   };
 
   console.log('DateTimeSelection render - selectedTime:', selectedTime);

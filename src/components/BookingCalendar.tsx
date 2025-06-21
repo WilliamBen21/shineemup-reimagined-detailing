@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Calendar } from 'lucide-react';
 import { useServices } from '@/hooks/useServices';
@@ -58,7 +59,7 @@ const BookingCalendar = () => {
       setAvailableSlots([]);
       setSelectedTime('');
     }
-  }, [selectedDate, getAvailableSlots]); // Removed selectedTime from dependencies
+  }, [selectedDate, getAvailableSlots]);
 
   // Log state changes for debugging
   useEffect(() => {
@@ -123,12 +124,6 @@ const BookingCalendar = () => {
     }
   };
 
-  const handleTimeSelection = (time: string) => {
-    console.log('Time selected in BookingCalendar handleTimeSelection:', time);
-    setSelectedTime(time);
-    console.log('State updated to:', time);
-  };
-
   if (servicesLoading) {
     return (
       <section className="py-24 bg-[#080808] relative overflow-hidden">
@@ -182,7 +177,7 @@ const BookingCalendar = () => {
               selectedDate={selectedDate}
               setSelectedDate={setSelectedDate}
               selectedTime={selectedTime}
-              setSelectedTime={handleTimeSelection}
+              setSelectedTime={setSelectedTime}
               availableSlots={availableSlots}
             />
           )}
