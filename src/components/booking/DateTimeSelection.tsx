@@ -22,8 +22,19 @@ const DateTimeSelection: React.FC<DateTimeSelectionProps> = ({
     console.log('Time slot clicked:', time);
     console.log('Current selectedTime before update:', selectedTime);
     setSelectedTime(time);
-    console.log('setSelectedTime called with:', time);
+    console.log('Time selection completed, new time:', time);
+    
+    // Force a small delay to ensure state is updated
+    setTimeout(() => {
+      console.log('Delayed check - selectedTime should be:', time);
+    }, 100);
   };
+
+  console.log('DateTimeSelection render:', {
+    selectedDate: !!selectedDate,
+    selectedTime,
+    availableSlots: availableSlots.length
+  });
 
   return (
     <div className="space-y-4 sm:space-y-6">
@@ -71,43 +82,53 @@ const DateTimeSelection: React.FC<DateTimeSelectionProps> = ({
         {/* Time Slots */}
         <div>
           <h4 className="text-base sm:text-lg font-semibold text-white mb-4 sm:mb-6 text-center sm:text-left">
-            Available Times {selectedTime && <span className="text-blue-400">({selectedTime} selected)</span>}
+            Available Times
+            {selectedTime && (
+              <span className="text-blue-400 ml-2">
+                ({selectedTime} selected)
+              </span>
+            )}
           </h4>
+          
           {selectedDate ? (
-            <div className="grid grid-cols-2 gap-2 sm:gap-3 md:gap-4">
-              {availableSlots.map((time) => (
-                <button
-                  key={time}
-                  type="button"
-                  onClick={() => handleTimeSelection(time)}
-                  className={`px-3 sm:px-4 md:px-6 py-3 sm:py-4 rounded-lg sm:rounded-xl text-xs sm:text-sm font-medium transition-all duration-200 ${
-                    selectedTime === time
-                      ? 'bg-blue-500 text-white shadow-lg ring-2 ring-blue-400/50'
-                      : 'bg-blue-500/10 text-blue-400 hover:bg-blue-500/20 border border-blue-500/20 hover:border-blue-500/40'
-                  }`}
-                >
-                  {time}
-                </button>
-              ))}
-              {availableSlots.length > 0 && (
-                <div className="col-span-2 mt-4 text-center">
+            availableSlots.length > 0 ? (
+              <div className="space-y-4">
+                <div className="grid grid-cols-2 gap-2 sm:gap-3 md:gap-4">
+                  {availableSlots.map((time) => (
+                    <button
+                      key={time}
+                      type="button"
+                      onClick={() => handleTimeSelection(time)}
+                      className={`px-3 sm:px-4 md:px-6 py-3 sm:py-4 rounded-lg sm:rounded-xl text-xs sm:text-sm font-medium transition-all duration-200 ${
+                        selectedTime === time
+                          ? 'bg-blue-500 text-white shadow-lg ring-2 ring-blue-400/50 scale-105'
+                          : 'bg-blue-500/10 text-blue-400 hover:bg-blue-500/20 border border-blue-500/20 hover:border-blue-500/40 hover:scale-105'
+                      }`}
+                    >
+                      {time}
+                    </button>
+                  ))}
+                </div>
+                
+                {/* Status Display */}
+                <div className="text-center p-3 bg-black/40 rounded-lg border border-blue-500/10">
                   <p className="text-gray-400 text-xs">
-                    Selected: {selectedTime || 'None'} | Available slots: {availableSlots.length}
+                    <span className="text-blue-400">Selected:</span> {selectedTime || 'None'} | 
+                    <span className="text-blue-400 ml-1">Available:</span> {availableSlots.length} slots
                   </p>
                 </div>
-              )}
-            </div>
+              </div>
+            ) : (
+              <div className="text-center text-gray-400 py-8 sm:py-12 bg-black/40 rounded-lg sm:rounded-xl border border-gray-700">
+                <Clock className="w-8 h-8 sm:w-12 sm:h-12 mx-auto mb-3 sm:mb-4 opacity-50" />
+                <p className="text-sm sm:text-lg">No available slots for this date</p>
+                <p className="text-xs sm:text-sm mt-2">Please try selecting another date</p>
+              </div>
+            )
           ) : (
             <div className="text-center text-gray-400 py-8 sm:py-12 bg-black/40 rounded-lg sm:rounded-xl border border-gray-700">
               <Calendar className="w-8 h-8 sm:w-12 sm:h-12 mx-auto mb-3 sm:mb-4 opacity-50" />
               <p className="text-sm sm:text-lg">Please select a date first</p>
-            </div>
-          )}
-          {selectedDate && availableSlots.length === 0 && (
-            <div className="text-center text-gray-400 py-8 sm:py-12 bg-black/40 rounded-lg sm:rounded-xl border border-gray-700">
-              <Clock className="w-8 h-8 sm:w-12 sm:h-12 mx-auto mb-3 sm:mb-4 opacity-50" />
-              <p className="text-sm sm:text-lg">No available slots for this date</p>
-              <p className="text-xs sm:text-sm mt-2">Please try selecting another date</p>
             </div>
           )}
         </div>

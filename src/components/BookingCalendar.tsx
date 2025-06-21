@@ -47,14 +47,30 @@ const BookingCalendar = () => {
         const slots = await getAvailableSlots(selectedDate.toISOString().split('T')[0]);
         console.log('Available slots received:', slots);
         setAvailableSlots(slots);
-        setSelectedTime(''); // Reset selected time
+        // Reset selected time when date changes
+        setSelectedTime('');
       };
       fetchAvailableSlots();
+    } else {
+      setAvailableSlots([]);
+      setSelectedTime('');
     }
   }, [selectedDate, getAvailableSlots]);
 
+  // Log state changes for debugging
+  useEffect(() => {
+    console.log('BookingCalendar state updated:', {
+      currentStep,
+      selectedService: !!selectedService,
+      selectedDate: !!selectedDate,
+      selectedTime,
+      availableSlots: availableSlots.length
+    });
+  }, [currentStep, selectedService, selectedDate, selectedTime, availableSlots]);
+
   const handleSubmit = async () => {
     if (!selectedDate || !selectedTime || !selectedService || !customerInfo.firstName || !customerInfo.lastName || !customerInfo.email) {
+      console.error('Missing required fields for booking submission');
       return;
     }
 
@@ -78,31 +94,22 @@ const BookingCalendar = () => {
   };
 
   const canProceedToStep = (step: number) => {
-    console.log('Checking can proceed to step:', step);
-    console.log('Current state:', {
-      selectedService: !!selectedService,
-      selectedDate: !!selectedDate,
-      selectedTime,
-      customerInfo
-    });
-
     switch (step) {
       case 2:
-        const canGoToStep2 = !!selectedService;
-        console.log('Can go to step 2:', canGoToStep2);
-        return canGoToStep2;
+        return !!selectedService;
       case 3:
-        const canGoToStep3 = !!selectedService && !!selectedDate && !!selectedTime;
-        console.log('Can go to step 3:', canGoToStep3);
-        return canGoToStep3;
+        return !!selectedService && !!selectedDate && !!selectedTime;
       case 4:
-        const canGoToStep4 = !!selectedService && !!selectedDate && !!selectedTime && 
+        return !!selectedService && !!selectedDate && !!selectedTime && 
                !!customerInfo.firstName && !!customerInfo.lastName && !!customerInfo.email;
-        console.log('Can go to step 4:', canGoToStep4);
-        return canGoToStep4;
       default:
         return true;
     }
+  };
+
+  const handleTimeSelect = (time: string) => {
+    console.log('Time selected in BookingCalendar:', time);
+    setSelectedTime(time);
   };
 
   if (servicesLoading) {
@@ -158,7 +165,7 @@ const BookingCalendar = () => {
               selectedDate={selectedDate}
               setSelectedDate={setSelectedDate}
               selectedTime={selectedTime}
-              setSelectedTime={setSelectedTime}
+              setSelectedTime={handleTimeSelect}
               availableSlots={availableSlots}
             />
           )}
