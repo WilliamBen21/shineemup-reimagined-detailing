@@ -104,7 +104,7 @@ export const useBooking = () => {
         console.log('Created new customer with ID:', customerId);
       }
 
-      // Prepare booking data
+      // Prepare booking data - ensure all required fields are present
       const bookingInsertData = {
         customer_id: customerId,
         service_id: bookingData.serviceId,
@@ -121,7 +121,7 @@ export const useBooking = () => {
       console.log('=== BOOKING INSERT ATTEMPT ===');
       console.log('Booking data to insert:', JSON.stringify(bookingInsertData, null, 2));
 
-      // Create booking
+      // Create booking with proper error handling
       const { data: booking, error: bookingError } = await supabase
         .from('bookings')
         .insert(bookingInsertData)
@@ -130,7 +130,10 @@ export const useBooking = () => {
 
       if (bookingError) {
         console.error('=== BOOKING INSERT ERROR ===');
-        console.error('Error details:', bookingError);
+        console.error('Error code:', bookingError.code);
+        console.error('Error message:', bookingError.message);
+        console.error('Error details:', bookingError.details);
+        console.error('Error hint:', bookingError.hint);
         throw new Error(`Booking creation failed: ${bookingError.message}`);
       }
 
@@ -151,6 +154,8 @@ export const useBooking = () => {
     } catch (error: any) {
       console.error('=== BOOKING CREATION FAILED ===');
       console.error('Error:', error);
+      console.error('Error message:', error.message);
+      console.error('Error stack:', error.stack);
       
       toast({
         title: "Booking Failed",
