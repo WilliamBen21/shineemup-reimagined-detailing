@@ -1,6 +1,7 @@
 
 import * as React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import HomePage from './pages/HomePage';
 import GalleryPage from './pages/GalleryPage';
 import AboutPage from './pages/AboutPage';
@@ -15,27 +16,39 @@ import ConcordPage from './pages/areas/ConcordPage';
 import CarDetailingGuidePage from './pages/guides/CarDetailingGuidePage';
 import AdminBookingsPage from './pages/AdminBookingsPage';
 
+// Create a client
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 3,
+      staleTime: 1000 * 60 * 5, // 5 minutes
+    },
+  },
+});
+
 const App: React.FC = () => {
   console.log('App component rendering...');
   
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/gallery" element={<GalleryPage />} />
-        <Route path="/about" element={<AboutPage />} />
-        <Route path="/car-care-tips" element={<CarCareTipsPage />} />
-        <Route path="/services/mobile-detailing" element={<MobileDetailingPage />} />
-        <Route path="/services/truck-detailing" element={<TruckDetailingPage />} />
-        <Route path="/areas/south-charlotte" element={<SouthCharlottePage />} />
-        <Route path="/areas/north-charlotte" element={<NorthCharlottePage />} />
-        <Route path="/areas/east-charlotte" element={<EastCharlottePage />} />
-        <Route path="/areas/matthews" element={<MatthewsPage />} />
-        <Route path="/areas/concord" element={<ConcordPage />} />
-        <Route path="/guides/car-detailing-guide" element={<CarDetailingGuidePage />} />
-        <Route path="/admin/bookings" element={<AdminBookingsPage />} />
-      </Routes>
-    </Router>
+    <QueryClientProvider client={queryClient}>
+      <Router>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/gallery" element={<GalleryPage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/car-care-tips" element={<CarCareTipsPage />} />
+          <Route path="/services/mobile-detailing" element={<MobileDetailingPage />} />
+          <Route path="/services/truck-detailing" element={<TruckDetailingPage />} />
+          <Route path="/areas/south-charlotte" element={<SouthCharlottePage />} />
+          <Route path="/areas/north-charlotte" element={<NorthCharlottePage />} />
+          <Route path="/areas/east-charlotte" element={<EastCharlottePage />} />
+          <Route path="/areas/matthews" element={<MatthewsPage />} />
+          <Route path="/areas/concord" element={<ConcordPage />} />
+          <Route path="/guides/car-detailing-guide" element={<CarDetailingGuidePage />} />
+          <Route path="/admin/bookings" element={<AdminBookingsPage />} />
+        </Routes>
+      </Router>
+    </QueryClientProvider>
   );
 };
 
