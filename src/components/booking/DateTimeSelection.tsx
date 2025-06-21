@@ -22,19 +22,11 @@ const DateTimeSelection: React.FC<DateTimeSelectionProps> = ({
     console.log('Time slot clicked:', time);
     console.log('Current selectedTime before update:', selectedTime);
     setSelectedTime(time);
-    console.log('Time selection completed, new time:', time);
-    
-    // Force a small delay to ensure state is updated
-    setTimeout(() => {
-      console.log('Delayed check - selectedTime should be:', time);
-    }, 100);
+    console.log('setSelectedTime called with:', time);
   };
 
-  console.log('DateTimeSelection render:', {
-    selectedDate: !!selectedDate,
-    selectedTime,
-    availableSlots: availableSlots.length
-  });
+  console.log('DateTimeSelection render - selectedTime:', selectedTime);
+  console.log('Available slots:', availableSlots);
 
   return (
     <div className="space-y-4 sm:space-y-6">
@@ -85,7 +77,7 @@ const DateTimeSelection: React.FC<DateTimeSelectionProps> = ({
             Available Times
             {selectedTime && (
               <span className="text-blue-400 ml-2">
-                ({selectedTime} selected)
+                (Selected: {selectedTime})
               </span>
             )}
           </h4>
@@ -94,20 +86,25 @@ const DateTimeSelection: React.FC<DateTimeSelectionProps> = ({
             availableSlots.length > 0 ? (
               <div className="space-y-4">
                 <div className="grid grid-cols-2 gap-2 sm:gap-3 md:gap-4">
-                  {availableSlots.map((time) => (
-                    <button
-                      key={time}
-                      type="button"
-                      onClick={() => handleTimeSelection(time)}
-                      className={`px-3 sm:px-4 md:px-6 py-3 sm:py-4 rounded-lg sm:rounded-xl text-xs sm:text-sm font-medium transition-all duration-200 ${
-                        selectedTime === time
-                          ? 'bg-blue-500 text-white shadow-lg ring-2 ring-blue-400/50 scale-105'
-                          : 'bg-blue-500/10 text-blue-400 hover:bg-blue-500/20 border border-blue-500/20 hover:border-blue-500/40 hover:scale-105'
-                      }`}
-                    >
-                      {time}
-                    </button>
-                  ))}
+                  {availableSlots.map((time) => {
+                    const isSelected = selectedTime === time;
+                    console.log(`Time ${time} - isSelected: ${isSelected}, selectedTime: ${selectedTime}`);
+                    
+                    return (
+                      <button
+                        key={time}
+                        type="button"
+                        onClick={() => handleTimeSelection(time)}
+                        className={`px-3 sm:px-4 md:px-6 py-3 sm:py-4 rounded-lg sm:rounded-xl text-xs sm:text-sm font-medium transition-all duration-200 ${
+                          isSelected
+                            ? 'bg-blue-500 text-white shadow-lg ring-2 ring-blue-400/50 scale-105'
+                            : 'bg-blue-500/10 text-blue-400 hover:bg-blue-500/20 border border-blue-500/20 hover:border-blue-500/40 hover:scale-105'
+                        }`}
+                      >
+                        {time}
+                      </button>
+                    );
+                  })}
                 </div>
                 
                 {/* Status Display */}
