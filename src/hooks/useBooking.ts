@@ -21,6 +21,13 @@ interface BookingData {
   };
 }
 
+// Generate confirmation number in the app as fallback
+const generateConfirmationNumber = () => {
+  const date = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+  const random = Math.floor(Math.random() * 10000).toString().padStart(4, '0');
+  return `SH${date}-${random}`;
+};
+
 export const useBooking = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
@@ -104,7 +111,10 @@ export const useBooking = () => {
         console.log('Created new customer with ID:', customerId);
       }
 
-      // Prepare booking data - ensure all required fields are present
+      // Generate confirmation number as fallback
+      const confirmationNumber = generateConfirmationNumber();
+
+      // Prepare booking data with confirmation number
       const bookingInsertData = {
         customer_id: customerId,
         service_id: bookingData.serviceId,
@@ -115,13 +125,14 @@ export const useBooking = () => {
         vehicle_year: bookingData.vehicleInfo.year?.trim() || null,
         notes: bookingData.vehicleInfo.notes?.trim() || null,
         total_price_cents: service.price_cents,
-        status: 'pending' as const
+        status: 'pending' as const,
+        confirmation_number: confirmationNumber
       };
 
       console.log('=== BOOKING INSERT ATTEMPT ===');
       console.log('Booking data to insert:', JSON.stringify(bookingInsertData, null, 2));
 
-      // Create booking with proper error handling
+      // Create booking with explicit confirmation number
       const { data: booking, error: bookingError } = await supabase
         .from('bookings')
         .insert(bookingInsertData)
