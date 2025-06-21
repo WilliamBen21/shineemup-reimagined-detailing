@@ -36,8 +36,14 @@ const BookingNavigation: React.FC<BookingNavigationProps> = ({
     }
   };
 
-  const canGoNext = canProceedToStep(currentStep + 1);
+  const handleConfirmBooking = () => {
+    console.log('Confirm booking button clicked - calling handleSubmit');
+    handleSubmit();
+  };
+
+  const canGoNext = currentStep < 4 && canProceedToStep(currentStep + 1);
   const canGoBack = currentStep > 1;
+  const canConfirm = currentStep === 4 && canProceedToStep(4);
 
   return (
     <div className="flex justify-between items-center pt-6 sm:pt-8 border-t border-blue-500/20 mt-6 sm:mt-8 animate-fade-in-up">
@@ -69,8 +75,8 @@ const BookingNavigation: React.FC<BookingNavigationProps> = ({
       ) : (
         <Button
           type="button"
-          onClick={handleSubmit}
-          disabled={!canProceedToStep(4) || bookingLoading}
+          onClick={handleConfirmBooking}
+          disabled={!canConfirm || bookingLoading}
           className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white text-xs sm:text-sm px-3 sm:px-4 py-2 transition-all duration-300 transform hover:scale-105 hover:-translate-y-0.5 disabled:hover:scale-100 disabled:hover:translate-y-0 shadow-lg hover:shadow-xl hover:shadow-blue-500/25 group"
         >
           {bookingLoading ? (

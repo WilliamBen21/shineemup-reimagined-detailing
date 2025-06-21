@@ -61,23 +61,25 @@ const BookingCalendar = () => {
     }
   }, [selectedDate, getAvailableSlots]);
 
-  // Log state changes for debugging
-  useEffect(() => {
-    console.log('BookingCalendar state updated:', {
-      currentStep,
+  const handleSubmit = async () => {
+    console.log('=== HANDLE SUBMIT CALLED ===');
+    console.log('Form data check:', {
       selectedService: !!selectedService,
       selectedDate: !!selectedDate,
-      selectedTime: `"${selectedTime}"`,
-      availableSlots: availableSlots.length
+      selectedTime: selectedTime,
+      customerInfo: {
+        firstName: customerInfo.firstName,
+        lastName: customerInfo.lastName,
+        email: customerInfo.email
+      }
     });
-  }, [currentStep, selectedService, selectedDate, selectedTime, availableSlots]);
 
-  const handleSubmit = async () => {
     if (!selectedDate || !selectedTime || !selectedService || !customerInfo.firstName || !customerInfo.lastName || !customerInfo.email) {
       console.error('Missing required fields for booking submission');
       return;
     }
 
+    console.log('About to call createBooking...');
     const result = await createBooking({
       serviceId: selectedService.id,
       date: selectedDate.toISOString().split('T')[0],
@@ -98,24 +100,11 @@ const BookingCalendar = () => {
   };
 
   const canProceedToStep = (step: number) => {
-    console.log(`Checking if can proceed to step ${step}:`, {
-      selectedService: !!selectedService,
-      selectedDate: !!selectedDate,
-      selectedTime: `"${selectedTime}"`,
-      customerInfo: {
-        firstName: !!customerInfo.firstName,
-        lastName: !!customerInfo.lastName,
-        email: !!customerInfo.email
-      }
-    });
-
     switch (step) {
       case 2:
         return !!selectedService;
       case 3:
-        const canGoToStep3 = !!selectedService && !!selectedDate && selectedTime.trim() !== '';
-        console.log('Can go to step 3:', canGoToStep3);
-        return canGoToStep3;
+        return !!selectedService && !!selectedDate && selectedTime.trim() !== '';
       case 4:
         return !!selectedService && !!selectedDate && selectedTime.trim() !== '' && 
                !!customerInfo.firstName && !!customerInfo.lastName && !!customerInfo.email;
