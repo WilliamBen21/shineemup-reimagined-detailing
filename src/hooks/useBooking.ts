@@ -156,6 +156,38 @@ export const useBooking = () => {
       console.log('=== BOOKING CREATED SUCCESSFULLY ===');
       console.log('Booking result:', booking);
 
+      // Send email notifications
+      try {
+        console.log('Sending booking confirmation emails...');
+        const emailResponse = await supabase.functions.invoke('send-booking-emails', {
+          body: {
+            bookingId: booking.id,
+            customerName: `${bookingData.customerInfo.firstName} ${bookingData.customerInfo.lastName}`,
+            customerEmail: bookingData.customerInfo.email,
+            serviceName: service.name,
+            bookingDate: bookingData.date,
+            bookingTime: bookingData.time,
+            confirmationNumber: booking.confirmation_number,
+            totalPrice: service.price_cents,
+            vehicleInfo: {
+              make: bookingData.vehicleInfo.make,
+              model: bookingData.vehicleInfo.model,
+              year: bookingData.vehicleInfo.year
+            }
+          }
+        });
+
+        if (emailResponse.error) {
+          console.error('Email sending failed:', emailResponse.error);
+          // Don't throw error here - booking was successful, email is secondary
+        } else {
+          console.log('Confirmation emails sent successfully');
+        }
+      } catch (emailError) {
+        console.error('Error sending emails:', emailError);
+        // Don't throw error here - booking was successful, email is secondary
+      }
+
       toast({
         title: "Booking Confirmed!",
         description: `Your booking has been confirmed. Confirmation number: ${booking.confirmation_number}`,
