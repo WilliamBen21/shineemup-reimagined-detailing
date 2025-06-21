@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Calendar } from 'lucide-react';
 import { useServices } from '@/hooks/useServices';
@@ -47,15 +46,19 @@ const BookingCalendar = () => {
         const slots = await getAvailableSlots(selectedDate.toISOString().split('T')[0]);
         console.log('Available slots received:', slots);
         setAvailableSlots(slots);
-        // Reset selected time when date changes
-        setSelectedTime('');
+        
+        // Only reset selected time if it's not available in the new slots
+        if (selectedTime && !slots.includes(selectedTime)) {
+          console.log('Selected time not available in new slots, resetting');
+          setSelectedTime('');
+        }
       };
       fetchAvailableSlots();
     } else {
       setAvailableSlots([]);
       setSelectedTime('');
     }
-  }, [selectedDate, getAvailableSlots]);
+  }, [selectedDate, getAvailableSlots]); // Removed selectedTime from dependencies
 
   // Log state changes for debugging
   useEffect(() => {
@@ -123,7 +126,7 @@ const BookingCalendar = () => {
   const handleTimeSelection = (time: string) => {
     console.log('Time selected in BookingCalendar handleTimeSelection:', time);
     setSelectedTime(time);
-    console.log('State should be updated to:', time);
+    console.log('State updated to:', time);
   };
 
   if (servicesLoading) {

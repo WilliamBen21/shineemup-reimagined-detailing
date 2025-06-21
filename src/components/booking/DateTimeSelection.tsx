@@ -20,7 +20,7 @@ const DateTimeSelection: React.FC<DateTimeSelectionProps> = ({
 }) => {
   const handleTimeClick = (time: string) => {
     console.log('Time button clicked:', time);
-    console.log('Current selectedTime:', selectedTime);
+    console.log('Current selectedTime before click:', selectedTime);
     setSelectedTime(time);
     console.log('After setSelectedTime called with:', time);
   };
@@ -95,10 +95,10 @@ const DateTimeSelection: React.FC<DateTimeSelectionProps> = ({
                         key={time}
                         type="button"
                         onClick={() => handleTimeClick(time)}
-                        className={`px-3 sm:px-4 md:px-6 py-3 sm:py-4 rounded-lg sm:rounded-xl text-xs sm:text-sm font-medium transition-all duration-200 ${
+                        className={`px-3 sm:px-4 md:px-6 py-3 sm:py-4 rounded-lg sm:rounded-xl text-xs sm:text-sm font-medium transition-all duration-200 border ${
                           isSelected
-                            ? 'bg-blue-500 text-white shadow-lg ring-2 ring-blue-400/50 transform scale-105'
-                            : 'bg-blue-500/10 text-blue-400 hover:bg-blue-500/20 border border-blue-500/20 hover:border-blue-500/40 hover:scale-105'
+                            ? 'bg-blue-500 text-white shadow-lg ring-2 ring-blue-400/50 transform scale-105 border-blue-500'
+                            : 'bg-blue-500/10 text-blue-400 hover:bg-blue-500/20 border-blue-500/20 hover:border-blue-500/40 hover:scale-105'
                         }`}
                       >
                         {time}
