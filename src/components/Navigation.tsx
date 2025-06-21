@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X, Phone, Calendar, Clock, MapPin, ChevronDown } from 'lucide-react';
 import { navigateToBooking } from '@/utils/bookingNavigation';
 
@@ -9,6 +9,7 @@ const Navigation = () => {
   const [servicesDropdownOpen, setServicesDropdownOpen] = useState(false);
   const [areasDropdownOpen, setAreasDropdownOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -52,12 +53,27 @@ const Navigation = () => {
       return;
     }
     
+    // For hash links, navigate to home first if not already there, then scroll
     if (location.pathname !== '/') {
-      window.location.href = `/${item.href}`;
+      navigate('/');
+      // Wait for navigation to complete, then scroll
+      setTimeout(() => {
+        const element = document.querySelector(item.href);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    } else {
+      // Already on home page, just scroll to section
+      const element = document.querySelector(item.href);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
     }
     setIsOpen(false);
   };
 
+  
   return (
     <nav
       className={`fixed w-full z-50 transition-all duration-500 ${
@@ -165,13 +181,12 @@ const Navigation = () => {
                       {item.name}
                     </Link>
                   ) : (
-                    <a
-                      href={item.href}
+                    <button
                       onClick={() => handleNavClick(item)}
                       className="text-gray-300 hover:text-blue-400 px-2 lg:px-3 py-2 text-sm font-medium transition-colors duration-300 capitalize"
                     >
                       {item.name}
-                    </a>
+                    </button>
                   )}
                 </div>
               ))}
@@ -260,13 +275,12 @@ const Navigation = () => {
                     {item.name}
                   </Link>
                 ) : (
-                  <a
-                    href={item.href}
-                    className="block text-gray-300 hover:text-blue-400 px-4 py-3 text-base font-medium transition-colors duration-200 capitalize rounded-lg hover:bg-blue-500/10"
+                  <button
                     onClick={() => handleNavClick(item)}
+                    className="block text-gray-300 hover:text-blue-400 px-4 py-3 text-base font-medium transition-colors duration-200 capitalize rounded-lg hover:bg-blue-500/10 w-full text-left"
                   >
                     {item.name}
-                  </a>
+                  </button>
                 )}
               </div>
             ))}
