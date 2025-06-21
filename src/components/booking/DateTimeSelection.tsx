@@ -18,6 +18,13 @@ const DateTimeSelection: React.FC<DateTimeSelectionProps> = ({
   setSelectedTime,
   availableSlots
 }) => {
+  const handleTimeSelection = (time: string) => {
+    console.log('Time slot clicked:', time);
+    console.log('Current selectedTime before update:', selectedTime);
+    setSelectedTime(time);
+    console.log('setSelectedTime called with:', time);
+  };
+
   return (
     <div className="space-y-4 sm:space-y-6">
       <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white mb-4 sm:mb-6 text-center sm:text-left">
@@ -64,7 +71,7 @@ const DateTimeSelection: React.FC<DateTimeSelectionProps> = ({
         {/* Time Slots */}
         <div>
           <h4 className="text-base sm:text-lg font-semibold text-white mb-4 sm:mb-6 text-center sm:text-left">
-            Available Times
+            Available Times {selectedTime && <span className="text-blue-400">({selectedTime} selected)</span>}
           </h4>
           {selectedDate ? (
             <div className="grid grid-cols-2 gap-2 sm:gap-3 md:gap-4">
@@ -72,7 +79,7 @@ const DateTimeSelection: React.FC<DateTimeSelectionProps> = ({
                 <button
                   key={time}
                   type="button"
-                  onClick={() => setSelectedTime(time)}
+                  onClick={() => handleTimeSelection(time)}
                   className={`px-3 sm:px-4 md:px-6 py-3 sm:py-4 rounded-lg sm:rounded-xl text-xs sm:text-sm font-medium transition-all duration-200 ${
                     selectedTime === time
                       ? 'bg-blue-500 text-white shadow-lg ring-2 ring-blue-400/50'
@@ -82,6 +89,13 @@ const DateTimeSelection: React.FC<DateTimeSelectionProps> = ({
                   {time}
                 </button>
               ))}
+              {availableSlots.length > 0 && (
+                <div className="col-span-2 mt-4 text-center">
+                  <p className="text-gray-400 text-xs">
+                    Selected: {selectedTime || 'None'} | Available slots: {availableSlots.length}
+                  </p>
+                </div>
+              )}
             </div>
           ) : (
             <div className="text-center text-gray-400 py-8 sm:py-12 bg-black/40 rounded-lg sm:rounded-xl border border-gray-700">
