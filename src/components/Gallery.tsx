@@ -1,10 +1,9 @@
-
 import React, { useState, useMemo } from 'react';
 import { GalleryCategory } from '@/types/gallery';
 import { galleryImages } from '@/data/galleryImages';
 import { createVehicleComparisons } from '@/utils/vehicleMatching';
 import BeforeAfterComparison from './BeforeAfterComparison';
-import { Sparkles, ArrowLeftRight } from 'lucide-react';
+import { Sparkles, ArrowLeftRight, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const Gallery = () => {
   const [activeCategory, setActiveCategory] = useState<GalleryCategory>('all');
@@ -29,6 +28,42 @@ const Gallery = () => {
   const filteredUnpairedImages = activeCategory === 'all' 
     ? unpairedImages 
     : unpairedImages.filter(img => img.category === activeCategory);
+
+  // Get all currently visible images for navigation
+  const getAllVisibleImages = () => {
+    if (viewMode === 'individual') {
+      return activeCategory === 'all' ? galleryImages : galleryImages.filter(img => img.category === activeCategory);
+    } else {
+      const comparisonImages = filteredComparisons.flatMap(comp => [comp.before, comp.after]).filter(Boolean);
+      return [...comparisonImages, ...filteredUnpairedImages];
+    }
+  };
+
+  const visibleImages = getAllVisibleImages();
+  const currentImageIndex = selectedImage ? visibleImages.findIndex(img => img?.src === selectedImage) : -1;
+
+  const navigateImage = (direction: 'prev' | 'next') => {
+    if (currentImageIndex === -1) return;
+    
+    let newIndex;
+    if (direction === 'prev') {
+      newIndex = currentImageIndex === 0 ? visibleImages.length - 1 : currentImageIndex - 1;
+    } else {
+      newIndex = currentImageIndex === visibleImages.length - 1 ? 0 : currentImageIndex + 1;
+    }
+    
+    setSelectedImage(visibleImages[newIndex]?.src || null);
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === 'ArrowLeft') {
+      navigateImage('prev');
+    } else if (e.key === 'ArrowRight') {
+      navigateImage('next');
+    } else if (e.key === 'Escape') {
+      setSelectedImage(null);
+    }
+  };
 
   return (
     <section id="gallery" className="py-12 md:py-16 lg:py-20 bg-[#080808] relative overflow-hidden">
@@ -192,11 +227,13 @@ const Gallery = () => {
           </div>
         )}
 
-        {/* Modal for full-size image */}
+        {/* Enhanced Modal with Navigation */}
         {selectedImage && (
           <div 
             className="fixed inset-0 bg-black/90 backdrop-blur-sm z-50 flex items-center justify-center p-4"
             onClick={() => setSelectedImage(null)}
+            onKeyDown={handleKeyPress}
+            tabIndex={0}
           >
             <div className="relative max-w-[95vw] max-h-[95vh] md:max-w-4xl md:max-h-full">
               <img
@@ -204,12 +241,48 @@ const Gallery = () => {
                 alt="Gallery image"
                 className="max-w-full max-h-full object-contain rounded-lg"
               />
+              
+              {/* Close Button */}
               <button
                 onClick={() => setSelectedImage(null)}
                 className="absolute top-2 right-2 md:top-4 md:right-4 w-8 h-8 md:w-10 md:h-10 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white transition-colors text-lg md:text-xl"
               >
                 ×
               </button>
+
+              {/* Navigation Arrows */}
+              {visibleImages.length > 1 && (
+                <>
+                  {/* Previous Button */}
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      navigateImage('prev');
+                    }}
+                    className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white transition-colors"
+                  >
+                    <ChevronLeft className="w-5 h-5 md:w-6 md:h-6" />
+                  </button>
+
+                  {/* Next Button */}
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      navigateImage('next');
+                    }}
+                    className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white transition-colors"
+                  >
+                    <ChevronRight className="w-5 h-5 md:w-6 md:h-6" />
+                  </button>
+                </>
+              )}
+
+              {/* Image Counter */}
+              {visibleImages.length > 1 && (
+                <div className="absolute bottom-2 md:bottom-4 left-1/2 -translate-x-1/2 bg-black/50 text-white px-3 py-1 rounded-full text-sm">
+                  {currentImageIndex + 1} / {visibleImages.length}
+                </div>
+              )}
             </div>
           </div>
         )}
