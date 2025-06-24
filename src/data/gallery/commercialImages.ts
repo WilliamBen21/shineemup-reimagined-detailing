@@ -153,5 +153,21 @@ export const commercialImages: GalleryImage[] = [
     category: 'commercial',
     title: 'Commercial Truck Complete',
     description: 'Finished professional detailing of commercial fleet vehicle'
+  },
+  {
+    id: '51',
+    src: '/lovable-uploads/1a0ce032-5431-4f12-bc12-761be384aaa1.png',
+    alt: 'Mecklenburg Transportation truck before detailing - side view',
+    category: 'commercial',
+    title: 'Mecklenburg Truck Before',
+    description: 'Commercial truck before professional detailing service'
+  },
+  {
+    id: '52',
+    src: '/lovable-uploads/d36ddb85-48fc-4414-8832-7c994060c2f5.png',
+    alt: 'Mecklenburg Transportation truck after detailing - front view',
+    category: 'commercial',
+    title: 'Mecklenburg Truck After',
+    description: 'Commercial truck after complete professional detailing'
   }
 ];

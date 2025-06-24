@@ -56,6 +56,12 @@ const vehicleGroups = [
     vehicleName: 'White Volkswagen Jetta',
     category: 'exterior' as const,
     imageIds: ['57', '58']
+  },
+  {
+    vehicleId: 'mecklenburg-truck',
+    vehicleName: 'Mecklenburg Transportation Truck',
+    category: 'commercial' as const,
+    imageIds: ['51', '52']
   }
 ];
 
@@ -81,6 +87,10 @@ export const createVehicleComparisons = (images: GalleryImage[]): {
         // Use image 27 as before and image 30 as after (clean floor mats)
         beforeImage = groupImages.find(img => img.id === '27') || groupImages[0];
         afterImage = groupImages.find(img => img.id === '30') || groupImages[groupImages.length - 1];
+      } else if (group.vehicleId === 'mecklenburg-truck') {
+        // Use image 51 as before and image 52 as after
+        beforeImage = groupImages.find(img => img.id === '51') || groupImages[0];
+        afterImage = groupImages.find(img => img.id === '52') || groupImages[groupImages.length - 1];
       } else {
         // Regular logic for other vehicles
         beforeImage = groupImages.find(img => 
