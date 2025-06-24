@@ -19,19 +19,19 @@ const vehicleGroups = [
     vehicleId: 'red-ford-escape',
     vehicleName: 'Red Ford Escape',
     category: 'exterior' as const,
-    imageIds: ['18', '17', '16', '15', '14'] // Keep the same order but swap before/after logic
+    imageIds: ['18', '17', '16', '15', '14']
   },
   {
     vehicleId: 'interior-vehicle-1',
     vehicleName: 'Vehicle Interior Detail',
     category: 'interior' as const,
-    imageIds: ['19', '24', '21', '22', '23', '20', '25', '26'] // Replaced 20 with 24 for cleaner after image
+    imageIds: ['19', '24', '21', '22', '23', '20', '25', '26']
   },
   {
     vehicleId: 'ford-interior',
     vehicleName: 'Ford Interior',
     category: 'interior' as const,
-    imageIds: ['27', '30', '29', '28', '31'] // Replaced 28 with 30 for cleaner after image
+    imageIds: ['27', '30', '29', '28', '31']
   },
   {
     vehicleId: 'peterbilt-interior',
@@ -72,11 +72,15 @@ export const createVehicleComparisons = (images: GalleryImage[]): {
     if (groupImages.length >= 2) {
       let beforeImage, afterImage;
       
-      // Special handling for Red Ford Escape - swap the before/after assignment
-      if (group.vehicleId === 'red-ford-escape') {
-        // For Red Ford Escape, use the first image as before and last as after (swapped from previous logic)
-        beforeImage = groupImages[0];
-        afterImage = groupImages[groupImages.length - 1];
+      // Special handling for interior vehicles to use the cleanest images as "after"
+      if (group.vehicleId === 'interior-vehicle-1') {
+        // Use image 19 as before (dirty/needs work) and image 24 as after (clean/detailed)
+        beforeImage = groupImages.find(img => img.id === '19') || groupImages[0];
+        afterImage = groupImages.find(img => img.id === '24') || groupImages[groupImages.length - 1];
+      } else if (group.vehicleId === 'ford-interior') {
+        // Use image 27 as before and image 30 as after (clean floor mats)
+        beforeImage = groupImages.find(img => img.id === '27') || groupImages[0];
+        afterImage = groupImages.find(img => img.id === '30') || groupImages[groupImages.length - 1];
       } else {
         // Regular logic for other vehicles
         beforeImage = groupImages.find(img => 
