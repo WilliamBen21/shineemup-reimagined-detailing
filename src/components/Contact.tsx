@@ -16,8 +16,8 @@ const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
 
-  // Replace this with your actual webhook URL for automation
-  const webhookUrl = 'https://hooks.zapier.com/hooks/catch/YOUR_WEBHOOK_ID/YOUR_WEBHOOK_KEY/';
+  // Make.com webhook URL for automation
+  const webhookUrl = 'https://hook.us2.make.com/nbjiy2e933medyzj9lm7qu5umnoy6ihv';
 
   const contactInfo = [
     {
@@ -58,7 +58,7 @@ const Contact = () => {
     setIsSubmitting(true);
 
     try {
-      // Send to webhook for automation
+      // Send to Make.com webhook for automation
       const response = await fetch(webhookUrl, {
         method: 'POST',
         headers: {
