@@ -88,9 +88,9 @@ export const createVehicleComparisons = (images: GalleryImage[]): {
         beforeImage = groupImages.find(img => img.id === '27') || groupImages[0];
         afterImage = groupImages.find(img => img.id === '30') || groupImages[groupImages.length - 1];
       } else if (group.vehicleId === 'mecklenburg-truck') {
-        // Use image 39 as before and image 46 as after (red and white truck)
-        beforeImage = groupImages.find(img => img.id === '39') || groupImages[0];
-        afterImage = groupImages.find(img => img.id === '46') || groupImages[groupImages.length - 1];
+        // Use image 46 as before and image 39 as after (red and white truck)
+        beforeImage = groupImages.find(img => img.id === '46') || groupImages[0];
+        afterImage = groupImages.find(img => img.id === '39') || groupImages[groupImages.length - 1];
       } else {
         // Regular logic for other vehicles
         beforeImage = groupImages.find(img => 
