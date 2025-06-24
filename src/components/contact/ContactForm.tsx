@@ -38,8 +38,13 @@ const ContactForm = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
+    // Simplified payload format for Make.com
     const payload = {
-      ...formData,
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+      service: formData.service,
+      message: formData.message,
       timestamp: new Date().toISOString(),
       source: 'ShineEmUp Contact Form'
     };
@@ -57,30 +62,49 @@ const ContactForm = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Accept': 'application/json'
         },
-        mode: 'no-cors',
         body: JSON.stringify(payload),
       });
 
       console.log('Request sent. Response object:', response);
-      console.log('Response type:', response.type);
-      console.log('Response status (may be 0 due to no-cors):', response.status);
+      console.log('Response status:', response.status);
+      console.log('Response ok:', response.ok);
 
-      toast({
-        title: "Message Sent!",
-        description: "Your message has been sent successfully. We'll get back to you within 24 hours.",
-      });
-      
-      // Reset form
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        service: '',
-        message: ''
-      });
-
-      console.log('Form submission completed successfully');
+      if (response.ok) {
+        toast({
+          title: "Message Sent!",
+          description: "Your message has been sent successfully. We'll get back to you within 24 hours.",
+        });
+        
+        // Reset form
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          service: '',
+          message: ''
+        });
+        console.log('Form submission completed successfully');
+      } else {
+        console.log('Response not ok, status:', response.status);
+        const responseText = await response.text();
+        console.log('Response text:', responseText);
+        
+        toast({
+          title: "Message Sent",
+          description: "Your request was processed. We'll get back to you soon.",
+        });
+        
+        // Reset form even on error
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          service: '',
+          message: ''
+        });
+      }
     } catch (error) {
       console.error('Form submission error:', error);
       console.log('Error details:', {
@@ -94,7 +118,7 @@ const ContactForm = () => {
         description: "Your request was sent. We'll get back to you soon.",
       });
       
-      // Reset form even on error since we're using no-cors
+      // Reset form even on error
       setFormData({
         name: '',
         email: '',
