@@ -69,10 +69,10 @@ export const exteriorImages: GalleryImage[] = [
   {
     id: '17',
     src: '/lovable-uploads/a5acbb0e-6594-487a-afc7-8084ac1593a8.png',
-    alt: 'Red Ford Escape with hood open',
+    alt: 'Red Ford Escape detailed exterior',
     category: 'exterior',
-    title: 'Engine Bay Access',
-    description: 'Complete vehicle detailing including engine bay'
+    title: 'Ford Escape Complete Detail',
+    description: 'Professional exterior detailing transformation'
   },
   {
     id: '18',
