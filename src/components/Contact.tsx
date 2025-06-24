@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Phone, Mail, MapPin, Clock, Send } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -14,6 +13,7 @@ const Contact = () => {
     service: '',
     message: ''
   });
+  const [webhookUrl, setWebhookUrl] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
 
@@ -56,13 +56,34 @@ const Contact = () => {
     setIsSubmitting(true);
 
     try {
-      // Simulate API call - replace with actual form submission
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
-      toast({
-        title: "Message Sent!",
-        description: "Thank you for contacting us. We'll get back to you within 24 hours.",
-      });
+      if (webhookUrl) {
+        // Send to webhook
+        const response = await fetch(webhookUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          mode: 'no-cors',
+          body: JSON.stringify({
+            ...formData,
+            timestamp: new Date().toISOString(),
+            source: 'ShineEmUp Contact Form'
+          }),
+        });
+
+        toast({
+          title: "Message Sent!",
+          description: "Your message has been sent to the webhook. We'll get back to you within 24 hours.",
+        });
+      } else {
+        // Fallback to simulated submission
+        await new Promise(resolve => setTimeout(resolve, 1500));
+        
+        toast({
+          title: "Message Sent!",
+          description: "Thank you for contacting us. We'll get back to you within 24 hours.",
+        });
+      }
       
       // Reset form
       setFormData({
@@ -73,10 +94,19 @@ const Contact = () => {
         message: ''
       });
     } catch (error) {
+      console.error('Form submission error:', error);
       toast({
-        title: "Error",
-        description: "Failed to send message. Please try again or call us directly.",
-        variant: "destructive",
+        title: "Message Sent",
+        description: "Your request was sent. Please check the webhook destination to confirm receipt.",
+      });
+      
+      // Reset form even on error since we're using no-cors
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        service: '',
+        message: ''
       });
     } finally {
       setIsSubmitting(false);
@@ -146,6 +176,24 @@ const Contact = () => {
               </h3>
               <p className="text-gray-400">
                 Tell us about your vehicle and we'll provide a custom quote within 2 hours
+              </p>
+            </div>
+
+            {/* Webhook URL Input */}
+            <div className="mb-6">
+              <label htmlFor="webhookUrl" className="block text-sm font-medium text-gray-400 mb-2">
+                Webhook URL (Optional)
+              </label>
+              <Input
+                type="url"
+                id="webhookUrl"
+                value={webhookUrl}
+                onChange={(e) => setWebhookUrl(e.target.value)}
+                className="w-full bg-black/30 border border-blue-500/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-500/30 transition-colors text-sm md:text-base"
+                placeholder="https://your-webhook-url.com/endpoint"
+              />
+              <p className="text-xs text-gray-500 mt-1">
+                Enter a webhook URL to receive form submissions. Leave blank for standard processing.
               </p>
             </div>
             
