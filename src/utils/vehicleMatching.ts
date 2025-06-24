@@ -1,3 +1,4 @@
+
 import { GalleryImage, VehicleComparison } from '@/types/gallery';
 
 // Define vehicle groups based on image analysis
@@ -71,11 +72,11 @@ export const createVehicleComparisons = (images: GalleryImage[]): {
     if (groupImages.length >= 2) {
       let beforeImage, afterImage;
       
-      // Special handling for Red Ford Escape - swap the before/after logic
+      // Special handling for Red Ford Escape - swap the before/after assignment
       if (group.vehicleId === 'red-ford-escape') {
-        // For Red Ford Escape, use the last image as before and first as after
-        beforeImage = groupImages[groupImages.length - 1];
-        afterImage = groupImages[0];
+        // For Red Ford Escape, use the first image as before and last as after (swapped from previous logic)
+        beforeImage = groupImages[0];
+        afterImage = groupImages[groupImages.length - 1];
       } else {
         // Regular logic for other vehicles
         beforeImage = groupImages.find(img => 
