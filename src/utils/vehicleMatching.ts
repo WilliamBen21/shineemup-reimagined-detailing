@@ -19,19 +19,19 @@ const vehicleGroups = [
     vehicleId: 'red-ford-escape',
     vehicleName: 'Red Ford Escape',
     category: 'exterior' as const,
-    imageIds: ['14', '15', '16', '17', '18']
+    imageIds: ['18', '17', '16', '15', '14'] // Switched order - now starts with 18 instead of 14
   },
   {
     vehicleId: 'interior-vehicle-1',
     vehicleName: 'Vehicle Interior Detail',
     category: 'interior' as const,
-    imageIds: ['19', '20', '21', '22', '23', '24', '25', '26']
+    imageIds: ['19', '24', '21', '22', '23', '20', '25', '26'] // Replaced 20 with 24 for cleaner after image
   },
   {
     vehicleId: 'ford-interior',
     vehicleName: 'Ford Interior',
     category: 'interior' as const,
-    imageIds: ['27', '28', '29', '30', '31']
+    imageIds: ['27', '30', '29', '28', '31'] // Replaced 28 with 30 for cleaner after image
   },
   {
     vehicleId: 'peterbilt-interior',
