@@ -1,4 +1,3 @@
-
 import { GalleryImage, VehicleComparison } from '@/types/gallery';
 
 // Define vehicle groups based on image analysis
@@ -19,7 +18,7 @@ const vehicleGroups = [
     vehicleId: 'red-ford-escape',
     vehicleName: 'Red Ford Escape',
     category: 'exterior' as const,
-    imageIds: ['18', '17', '16', '15', '14'] // Switched order - now starts with 18 instead of 14
+    imageIds: ['14', '15', '16', '17', '18'] // Switched back to original order
   },
   {
     vehicleId: 'interior-vehicle-1',
