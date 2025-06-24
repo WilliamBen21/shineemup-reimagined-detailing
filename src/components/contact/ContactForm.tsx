@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Send } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -25,8 +24,8 @@ const ContactForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
 
-  // Make.com webhook URL for automation
-  const webhookUrl = 'https://hook.us2.make.com/nbjiy2e933medyzj9lm7qu5umnoy6ihv';
+  // Updated Make.com webhook URL for automation
+  const webhookUrl = 'https://hook.us2.make.com/s63dl8x7yjksu0p1y5e9l3ukf32lhg81';
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData(prev => ({
