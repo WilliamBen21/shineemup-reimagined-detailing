@@ -1,12 +1,15 @@
 
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { GalleryCategory } from '@/types/gallery';
 import { galleryImages } from '@/data/galleryImages';
-import { Sparkles } from 'lucide-react';
+import { createVehicleComparisons } from '@/utils/vehicleMatching';
+import BeforeAfterComparison from './BeforeAfterComparison';
+import { Sparkles, ArrowLeftRight } from 'lucide-react';
 
 const Gallery = () => {
   const [activeCategory, setActiveCategory] = useState<GalleryCategory>('all');
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [viewMode, setViewMode] = useState<'comparisons' | 'individual'>('comparisons');
 
   const categories = [
     { id: 'all', label: 'All Work' },
@@ -15,9 +18,17 @@ const Gallery = () => {
     { id: 'commercial', label: 'Commercial' }
   ];
 
-  const filteredImages = activeCategory === 'all' 
-    ? galleryImages 
-    : galleryImages.filter(img => img.category === activeCategory);
+  const { comparisons, unpairedImages } = useMemo(() => {
+    return createVehicleComparisons(galleryImages);
+  }, []);
+
+  const filteredComparisons = activeCategory === 'all' 
+    ? comparisons 
+    : comparisons.filter(comp => comp.category === activeCategory);
+
+  const filteredUnpairedImages = activeCategory === 'all' 
+    ? unpairedImages 
+    : unpairedImages.filter(img => img.category === activeCategory);
 
   return (
     <section id="gallery" className="py-12 md:py-16 lg:py-20 bg-[#080808] relative overflow-hidden">
@@ -35,13 +46,40 @@ const Gallery = () => {
             <span>Our Work</span>
           </div>
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-white mb-3 md:mb-4 tracking-tight px-4">
-            Gallery of
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600"> Excellence</span>
+            Before & After
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600"> Transformations</span>
           </h2>
           <p className="text-gray-400 max-w-2xl mx-auto text-sm md:text-base lg:text-lg px-4">
-            See the transformation we bring to every vehicle. From luxury cars to commercial trucks, 
-            every detail matters.
+            See the incredible transformations we bring to every vehicle. Each comparison shows 
+            our commitment to excellence and attention to detail.
           </p>
+        </div>
+
+        {/* View Mode Toggle */}
+        <div className="flex justify-center mb-6 md:mb-8 px-4">
+          <div className="flex gap-2 bg-black/40 backdrop-blur-xl rounded-2xl p-2 border border-blue-500/10">
+            <button
+              onClick={() => setViewMode('comparisons')}
+              className={`px-3 py-2 md:px-4 md:py-2 rounded-xl font-medium transition-all duration-300 text-xs md:text-sm flex items-center gap-2 ${
+                viewMode === 'comparisons'
+                  ? 'bg-blue-500 text-white shadow-lg shadow-blue-500/25'
+                  : 'text-gray-400 hover:text-white hover:bg-blue-500/10'
+              }`}
+            >
+              <ArrowLeftRight className="w-3 h-3 md:w-4 md:h-4" />
+              Before & After
+            </button>
+            <button
+              onClick={() => setViewMode('individual')}
+              className={`px-3 py-2 md:px-4 md:py-2 rounded-xl font-medium transition-all duration-300 text-xs md:text-sm ${
+                viewMode === 'individual'
+                  ? 'bg-blue-500 text-white shadow-lg shadow-blue-500/25'
+                  : 'text-gray-400 hover:text-white hover:bg-blue-500/10'
+              }`}
+            >
+              Individual
+            </button>
+          </div>
         </div>
 
         {/* Category Filter */}
@@ -63,35 +101,96 @@ const Gallery = () => {
           </div>
         </div>
 
-        {/* Gallery Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-3 md:gap-4 px-2 md:px-0">
-          {filteredImages.map((image) => (
-            <div
-              key={image.id}
-              className="relative group cursor-pointer"
-              onClick={() => setSelectedImage(image.src)}
-            >
-              <div className="absolute inset-0.5 bg-gradient-to-b from-blue-500/20 to-transparent rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
-              <div className="relative bg-black/40 backdrop-blur-xl rounded-2xl overflow-hidden border border-blue-500/10 hover:border-blue-500/30 transition-colors duration-300">
-                <div className="aspect-[4/3] overflow-hidden">
-                  <img
-                    src={image.src}
-                    alt={image.alt}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
+        {/* Before/After Comparisons */}
+        {viewMode === 'comparisons' && (
+          <>
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-6 px-2 md:px-0 mb-8">
+              {filteredComparisons.map((comparison) => (
+                <BeforeAfterComparison
+                  key={comparison.vehicleId}
+                  comparison={comparison}
+                  onImageClick={setSelectedImage}
+                />
+              ))}
+            </div>
+
+            {filteredComparisons.length === 0 && (
+              <div className="text-center py-8">
+                <p className="text-gray-400 text-base md:text-lg">No before/after comparisons available in this category yet.</p>
+              </div>
+            )}
+
+            {/* Additional Individual Images */}
+            {filteredUnpairedImages.length > 0 && (
+              <>
+                <div className="text-center mb-6">
+                  <h3 className="text-xl md:text-2xl font-bold text-white mb-2">Additional Work</h3>
+                  <p className="text-gray-400 text-sm md:text-base">Individual showcase images</p>
                 </div>
-                <div className="p-2 md:p-3">
-                  {image.title && (
-                    <h3 className="text-white font-semibold mb-1 text-sm md:text-base">{image.title}</h3>
-                  )}
-                  {image.description && (
-                    <p className="text-gray-400 text-xs md:text-sm">{image.description}</p>
-                  )}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-3 md:gap-4 px-2 md:px-0">
+                  {filteredUnpairedImages.map((image) => (
+                    <div
+                      key={image.id}
+                      className="relative group cursor-pointer"
+                      onClick={() => setSelectedImage(image.src)}
+                    >
+                      <div className="absolute inset-0.5 bg-gradient-to-b from-blue-500/20 to-transparent rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
+                      <div className="relative bg-black/40 backdrop-blur-xl rounded-2xl overflow-hidden border border-blue-500/10 hover:border-blue-500/30 transition-colors duration-300">
+                        <div className="aspect-[4/3] overflow-hidden">
+                          <img
+                            src={image.src}
+                            alt={image.alt}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          />
+                        </div>
+                        <div className="p-2 md:p-3">
+                          {image.title && (
+                            <h3 className="text-white font-semibold mb-1 text-sm md:text-base">{image.title}</h3>
+                          )}
+                          {image.description && (
+                            <p className="text-gray-400 text-xs md:text-sm">{image.description}</p>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
+          </>
+        )}
+
+        {/* Individual Images View */}
+        {viewMode === 'individual' && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-3 md:gap-4 px-2 md:px-0">
+            {(activeCategory === 'all' ? galleryImages : galleryImages.filter(img => img.category === activeCategory)).map((image) => (
+              <div
+                key={image.id}
+                className="relative group cursor-pointer"
+                onClick={() => setSelectedImage(image.src)}
+              >
+                <div className="absolute inset-0.5 bg-gradient-to-b from-blue-500/20 to-transparent rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
+                <div className="relative bg-black/40 backdrop-blur-xl rounded-2xl overflow-hidden border border-blue-500/10 hover:border-blue-500/30 transition-colors duration-300">
+                  <div className="aspect-[4/3] overflow-hidden">
+                    <img
+                      src={image.src}
+                      alt={image.alt}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                  </div>
+                  <div className="p-2 md:p-3">
+                    {image.title && (
+                      <h3 className="text-white font-semibold mb-1 text-sm md:text-base">{image.title}</h3>
+                    )}
+                    {image.description && (
+                      <p className="text-gray-400 text-xs md:text-sm">{image.description}</p>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
 
         {/* Modal for full-size image */}
         {selectedImage && (
@@ -112,13 +211,6 @@ const Gallery = () => {
                 ×
               </button>
             </div>
-          </div>
-        )}
-
-        {/* No images message */}
-        {filteredImages.length === 0 && (
-          <div className="text-center py-8">
-            <p className="text-gray-400 text-base md:text-lg">No images available in this category yet.</p>
           </div>
         )}
       </div>
