@@ -38,7 +38,20 @@ const ContactForm = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
+    const payload = {
+      ...formData,
+      timestamp: new Date().toISOString(),
+      source: 'ShineEmUp Contact Form'
+    };
+
+    console.log('=== WEBHOOK DEBUG INFO ===');
+    console.log('Webhook URL:', webhookUrl);
+    console.log('Payload being sent:', payload);
+    console.log('Payload JSON:', JSON.stringify(payload, null, 2));
+
     try {
+      console.log('Sending request to Make.com webhook...');
+      
       // Send to Make.com webhook for automation
       const response = await fetch(webhookUrl, {
         method: 'POST',
@@ -46,12 +59,12 @@ const ContactForm = () => {
           'Content-Type': 'application/json',
         },
         mode: 'no-cors',
-        body: JSON.stringify({
-          ...formData,
-          timestamp: new Date().toISOString(),
-          source: 'ShineEmUp Contact Form'
-        }),
+        body: JSON.stringify(payload),
       });
+
+      console.log('Request sent. Response object:', response);
+      console.log('Response type:', response.type);
+      console.log('Response status (may be 0 due to no-cors):', response.status);
 
       toast({
         title: "Message Sent!",
@@ -66,8 +79,16 @@ const ContactForm = () => {
         service: '',
         message: ''
       });
+
+      console.log('Form submission completed successfully');
     } catch (error) {
       console.error('Form submission error:', error);
+      console.log('Error details:', {
+        name: error.name,
+        message: error.message,
+        stack: error.stack
+      });
+      
       toast({
         title: "Message Sent",
         description: "Your request was sent. We'll get back to you soon.",
@@ -83,6 +104,7 @@ const ContactForm = () => {
       });
     } finally {
       setIsSubmitting(false);
+      console.log('=== END WEBHOOK DEBUG ===');
     }
   };
 
