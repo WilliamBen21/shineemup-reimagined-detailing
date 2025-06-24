@@ -18,7 +18,7 @@ const vehicleGroups = [
     vehicleId: 'red-ford-escape',
     vehicleName: 'Red Ford Escape',
     category: 'exterior' as const,
-    imageIds: ['18', '17', '16', '15', '14'] // Switched order - now starts with 18 instead of 14
+    imageIds: ['18', '17', '16', '15', '14'] // Keep the same order but swap before/after logic
   },
   {
     vehicleId: 'interior-vehicle-1',
@@ -69,22 +69,31 @@ export const createVehicleComparisons = (images: GalleryImage[]): {
     const groupImages = images.filter(img => group.imageIds.includes(img.id));
     
     if (groupImages.length >= 2) {
-      // Try to identify before/after based on descriptions and titles
-      const beforeImage = groupImages.find(img => 
-        img.description?.toLowerCase().includes('before') || 
-        img.title?.toLowerCase().includes('before') ||
-        img.description?.toLowerCase().includes('needed') ||
-        img.description?.toLowerCase().includes('transformation')
-      ) || groupImages[0];
+      let beforeImage, afterImage;
       
-      const afterImage = groupImages.find(img => 
-        img !== beforeImage && (
-          img.description?.toLowerCase().includes('detailed') ||
-          img.description?.toLowerCase().includes('cleaned') ||
-          img.description?.toLowerCase().includes('finished') ||
-          img.description?.toLowerCase().includes('complete')
-        )
-      ) || groupImages[groupImages.length - 1];
+      // Special handling for Red Ford Escape - swap the before/after logic
+      if (group.vehicleId === 'red-ford-escape') {
+        // For Red Ford Escape, use the last image as before and first as after
+        beforeImage = groupImages[groupImages.length - 1];
+        afterImage = groupImages[0];
+      } else {
+        // Regular logic for other vehicles
+        beforeImage = groupImages.find(img => 
+          img.description?.toLowerCase().includes('before') || 
+          img.title?.toLowerCase().includes('before') ||
+          img.description?.toLowerCase().includes('needed') ||
+          img.description?.toLowerCase().includes('transformation')
+        ) || groupImages[0];
+        
+        afterImage = groupImages.find(img => 
+          img !== beforeImage && (
+            img.description?.toLowerCase().includes('detailed') ||
+            img.description?.toLowerCase().includes('cleaned') ||
+            img.description?.toLowerCase().includes('finished') ||
+            img.description?.toLowerCase().includes('complete')
+          )
+        ) || groupImages[groupImages.length - 1];
+      }
       
       if (beforeImage && afterImage && beforeImage !== afterImage) {
         comparisons.push({
