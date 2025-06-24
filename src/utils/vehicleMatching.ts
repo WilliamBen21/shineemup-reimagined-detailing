@@ -18,7 +18,7 @@ const vehicleGroups = [
     vehicleId: 'red-ford-escape',
     vehicleName: 'Red Ford Escape',
     category: 'exterior' as const,
-    imageIds: ['14', '15', '16', '17', '18'] // Switched back to original order
+    imageIds: ['18', '17', '16', '15', '14'] // Switched order - now starts with 18 instead of 14
   },
   {
     vehicleId: 'interior-vehicle-1',
