@@ -19,19 +19,19 @@ const vehicleGroups = [
     vehicleId: 'red-ford-escape',
     vehicleName: 'Red Ford Escape',
     category: 'exterior' as const,
-    imageIds: ['18', '17', '16', '15', '14'] // Keep the same order but swap before/after logic
+    imageIds: ['18', '24'] // Using exterior before and clean interior after
   },
   {
     vehicleId: 'interior-vehicle-1',
     vehicleName: 'Vehicle Interior Detail',
     category: 'interior' as const,
-    imageIds: ['19', '24', '21', '22', '23', '20', '25', '26'] // Replaced 20 with 24 for cleaner after image
+    imageIds: ['19', '21', '22', '23', '20', '25', '26']
   },
   {
     vehicleId: 'ford-interior',
     vehicleName: 'Ford Interior',
     category: 'interior' as const,
-    imageIds: ['27', '30', '29', '28', '31'] // Replaced 28 with 30 for cleaner after image
+    imageIds: ['27', '30', '29', '28', '31']
   },
   {
     vehicleId: 'peterbilt-interior',
@@ -72,11 +72,10 @@ export const createVehicleComparisons = (images: GalleryImage[]): {
     if (groupImages.length >= 2) {
       let beforeImage, afterImage;
       
-      // Special handling for Red Ford Escape - swap the before/after assignment
+      // Special handling for Red Ford Escape - exterior before, clean interior after
       if (group.vehicleId === 'red-ford-escape') {
-        // For Red Ford Escape, use the first image as before and last as after (swapped from previous logic)
-        beforeImage = groupImages[0];
-        afterImage = groupImages[groupImages.length - 1];
+        beforeImage = groupImages[0]; // Exterior image
+        afterImage = groupImages[1]; // Clean interior image
       } else {
         // Regular logic for other vehicles
         beforeImage = groupImages.find(img => 
