@@ -34,16 +34,10 @@ const vehicleGroups = [
     imageIds: ['27', '28', '29', '30', '31']
   },
   {
-    vehicleId: 'peterbilt-truck',
-    vehicleName: 'Peterbilt Commercial Truck',
+    vehicleId: 'peterbilt-interior',
+    vehicleName: 'Peterbilt Truck Interior',
     category: 'commercial' as const,
     imageIds: ['32', '33', '34', '35', '36', '42', '43', '44', '45']
-  },
-  {
-    vehicleId: 'mecklenburg-truck',
-    vehicleName: 'Mecklenburg Transportation Truck',
-    category: 'commercial' as const,
-    imageIds: ['37', '38', '39', '40', '41', '46', '47', '48', '49', '50']
   },
   {
     vehicleId: 'range-rover-black',
