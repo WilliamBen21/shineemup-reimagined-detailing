@@ -188,6 +188,39 @@ export const useBooking = () => {
         // Don't throw error here - booking was successful, email is secondary
       }
 
+      // Create Google Calendar event
+      try {
+        console.log('Creating Google Calendar event...');
+        const calendarResponse = await supabase.functions.invoke('google-calendar-integration', {
+          body: {
+            bookingId: booking.id,
+            customerName: `${bookingData.customerInfo.firstName} ${bookingData.customerInfo.lastName}`,
+            customerEmail: bookingData.customerInfo.email,
+            serviceName: service.name,
+            bookingDate: bookingData.date,
+            bookingTime: bookingData.time,
+            duration: service.duration_minutes,
+            confirmationNumber: booking.confirmation_number,
+            vehicleInfo: {
+              make: bookingData.vehicleInfo.make,
+              model: bookingData.vehicleInfo.model,
+              year: bookingData.vehicleInfo.year
+            },
+            notes: bookingData.vehicleInfo.notes
+          }
+        });
+
+        if (calendarResponse.error) {
+          console.error('Calendar event creation failed:', calendarResponse.error);
+          // Don't throw error here - booking was successful, calendar is secondary
+        } else {
+          console.log('Calendar event created successfully');
+        }
+      } catch (calendarError) {
+        console.error('Error creating calendar event:', calendarError);
+        // Don't throw error here - booking was successful, calendar is secondary
+      }
+
       toast({
         title: "Booking Confirmed!",
         description: `Your booking has been confirmed. Confirmation number: ${booking.confirmation_number}`,
