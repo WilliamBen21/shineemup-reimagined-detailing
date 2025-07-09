@@ -33,23 +33,8 @@ const BeforeAfterComparison: React.FC<BeforeAfterComparisonProps> = ({
 
         {/* Before/After Images */}
         <div className="grid grid-cols-2 gap-0">
-          {/* Before Image */}
-          <div className="relative">
-            <div className="absolute top-2 left-2 z-10 px-2 py-1 bg-red-500/80 text-white text-xs rounded-full">
-              Before
-            </div>
-            <div className="aspect-[4/3] overflow-hidden">
-              <img
-                src={comparison.before.src}
-                alt={comparison.before.alt}
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                onClick={() => onImageClick(comparison.before!.src)}
-              />
-            </div>
-          </div>
-
           {/* After Image */}
-          <div className="relative border-l border-blue-500/10">
+          <div className="relative">
             <div className="absolute top-2 left-2 z-10 px-2 py-1 bg-green-500/80 text-white text-xs rounded-full">
               After
             </div>
@@ -59,6 +44,21 @@ const BeforeAfterComparison: React.FC<BeforeAfterComparisonProps> = ({
                 alt={comparison.after.alt}
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 onClick={() => onImageClick(comparison.after!.src)}
+              />
+            </div>
+          </div>
+
+          {/* Before Image */}
+          <div className="relative border-l border-blue-500/10">
+            <div className="absolute top-2 left-2 z-10 px-2 py-1 bg-red-500/80 text-white text-xs rounded-full">
+              Before
+            </div>
+            <div className="aspect-[4/3] overflow-hidden">
+              <img
+                src={comparison.before.src}
+                alt={comparison.before.alt}
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                onClick={() => onImageClick(comparison.before!.src)}
               />
             </div>
           </div>
