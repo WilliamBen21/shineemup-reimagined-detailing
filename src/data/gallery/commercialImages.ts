@@ -122,22 +122,6 @@ export const commercialImages: GalleryImage[] = [
     description: 'Professional exterior detailing of commercial fleet vehicle'
   },
   {
-    id: '47',
-    src: '/lovable-uploads/641494a5-6943-477b-a8c1-39cf358267d7.png',
-    alt: 'Commercial truck fifth wheel and coupling mechanism detail',
-    category: 'commercial',
-    title: 'Fifth Wheel Detail',
-    description: 'Specialized cleaning of commercial truck coupling systems'
-  },
-  {
-    id: '48',
-    src: '/lovable-uploads/a78c063b-66d1-457a-8428-0f5082a40f55.png',
-    alt: 'Commercial truck dual wheels and undercarriage detail',
-    category: 'commercial',
-    title: 'Commercial Wheel Detail',
-    description: 'Professional wheel and undercarriage cleaning service'
-  },
-  {
     id: '49',
     src: '/lovable-uploads/cf610651-8609-499f-ae88-3a69fdcfb91a.png',
     alt: 'Red and white Mecklenburg commercial truck side profile view',
