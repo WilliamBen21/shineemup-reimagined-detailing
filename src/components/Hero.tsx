@@ -40,7 +40,7 @@ const Hero = () => {
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Left Content */}
-          <div className="text-left space-y-8">
+          <div className="text-left space-y-8 order-2 lg:order-1">
             <div className="space-y-6">
               <div className="inline-flex items-center space-x-2 bg-blue-500/10 border border-blue-500/20 rounded-full px-4 py-2 text-sm text-blue-400">
                 <span className="relative flex h-2 w-2">
@@ -77,7 +77,7 @@ const Hero = () => {
           </div>
 
           {/* Right Content - Premium Porsche Showcase */}
-          <div className="relative">
+          <div className="relative order-1 lg:order-2">
             <div className="relative group">
               <img
                 src="/lovable-uploads/7fd17302-61f8-4ef9-95c6-0047ddb3d546.png"
