@@ -1,7 +1,6 @@
 
 import React, { useEffect } from 'react';
 import { ArrowRight } from 'lucide-react';
-import whitePorscheHero from '@/assets/white-porsche-hero.jpg';
 
 const Hero = () => {
   useEffect(() => {
@@ -81,8 +80,8 @@ const Hero = () => {
           <div className="relative">
             <div className="relative group">
               <img
-                src={whitePorscheHero}
-                alt="Pristine white Porsche - Premium detailing showcase"
+                src="/lovable-uploads/ee2cc08a-703e-44ed-ae1e-ccebcf179283.png"
+                alt="White Porsche Cayman detailed side view - Premium detailing showcase"
                 className="w-full h-80 object-cover rounded-2xl transition-transform duration-300 group-hover:scale-105 shadow-2xl"
                 onError={handleImageError}
               />
