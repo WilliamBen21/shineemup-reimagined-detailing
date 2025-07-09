@@ -18,7 +18,7 @@ const NavigationTopBar = () => {
             </div>
           </div>
           <div className="flex items-center space-x-4">
-            <a href="#" className="text-gray-400 hover:text-blue-400 transition-colors">Facebook</a>
+            <a href="https://www.facebook.com/seu.detailing/videos/shineem-up-detailing/488938167610476/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-blue-400 transition-colors">Facebook</a>
             <a href="#" className="text-gray-400 hover:text-blue-400 transition-colors">Instagram</a>
           </div>
         </div>
