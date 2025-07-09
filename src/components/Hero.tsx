@@ -1,6 +1,7 @@
 
 import React, { useEffect } from 'react';
 import { ArrowRight } from 'lucide-react';
+import whitePorscheHero from '@/assets/white-porsche-hero.jpg';
 
 const Hero = () => {
   useEffect(() => {
@@ -76,49 +77,16 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* Right Content - Premium Image Grid */}
+          {/* Right Content - Premium Porsche Showcase */}
           <div className="relative">
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-4">
-                <div className="relative group">
-                  <img
-                    src="/lovable-uploads/e130fda3-08de-46f3-b191-e997be6476c1.png"
-                    alt="Professional car detailing - glossy black finish"
-                    className="w-full h-48 object-cover rounded-2xl transition-transform duration-300 group-hover:scale-105"
-                    onError={handleImageError}
-                  />
-                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </div>
-                <div className="relative group">
-                  <img
-                    src="/lovable-uploads/b8aa2085-7b5b-4afa-91c4-3ba6bdbc6549.png"
-                    alt="Clean wheel and tire detailing"
-                    className="w-full h-32 object-cover rounded-2xl transition-transform duration-300 group-hover:scale-105"
-                    onError={handleImageError}
-                  />
-                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </div>
-              </div>
-              <div className="space-y-4 pt-8">
-                <div className="relative group">
-                  <img
-                    src="/lovable-uploads/4efcf53f-d9c3-49ab-a97c-171af63cbe0b.png"
-                    alt="Red SUV exterior detailing"
-                    className="w-full h-32 object-cover rounded-2xl transition-transform duration-300 group-hover:scale-105"
-                    onError={handleImageError}
-                  />
-                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </div>
-                <div className="relative group">
-                  <img
-                    src="/lovable-uploads/ee5be719-a6a7-4b09-a760-953bbd247229.png"
-                    alt="Professional sedan detail"
-                    className="w-full h-48 object-cover rounded-2xl transition-transform duration-300 group-hover:scale-105"
-                    onError={handleImageError}
-                  />
-                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </div>
-              </div>
+            <div className="relative group">
+              <img
+                src={whitePorscheHero}
+                alt="Pristine white Porsche - Premium detailing showcase"
+                className="w-full h-80 object-cover rounded-2xl transition-transform duration-300 group-hover:scale-105 shadow-2xl"
+                onError={handleImageError}
+              />
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </div>
             {/* Premium Corner Accents */}
             <div className="absolute -top-4 -left-4 w-8 h-8 border-t-2 border-l-2 border-blue-500/30 rounded-tl-lg"></div>
