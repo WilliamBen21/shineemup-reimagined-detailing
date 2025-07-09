@@ -82,7 +82,7 @@ const Hero = () => {
               <img
                 src="/lovable-uploads/ee2cc08a-703e-44ed-ae1e-ccebcf179283.png"
                 alt="White Porsche Cayman detailed side view - Premium detailing showcase"
-                className="w-full h-80 object-cover rounded-2xl transition-transform duration-300 group-hover:scale-105 shadow-2xl"
+                className="w-full aspect-[4/3] object-contain rounded-2xl transition-transform duration-300 group-hover:scale-105 shadow-2xl"
                 onError={handleImageError}
               />
               <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
