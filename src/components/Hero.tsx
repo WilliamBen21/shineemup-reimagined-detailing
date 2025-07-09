@@ -80,8 +80,8 @@ const Hero = () => {
           <div className="relative">
             <div className="relative group">
               <img
-                src="/lovable-uploads/ee2cc08a-703e-44ed-ae1e-ccebcf179283.png"
-                alt="White Porsche Cayman detailed side view - Premium detailing showcase"
+                src="/lovable-uploads/7fd17302-61f8-4ef9-95c6-0047ddb3d546.png"
+                alt="Shine Em UP Detailing logo with truck design"
                 className="w-full h-80 object-contain rounded-2xl transition-transform duration-300 group-hover:scale-105 shadow-2xl"
                 onError={handleImageError}
               />
