@@ -36,7 +36,7 @@ const BeforeAfterComparison: React.FC<BeforeAfterComparisonProps> = ({
           {/* After Image */}
           <div className="relative">
             <div className="absolute top-2 left-2 z-10 px-2 py-1 bg-green-500/80 text-white text-xs rounded-full">
-              After
+              Before
             </div>
             <div className="aspect-[4/3] overflow-hidden">
               <img
@@ -51,7 +51,7 @@ const BeforeAfterComparison: React.FC<BeforeAfterComparisonProps> = ({
           {/* Before Image */}
           <div className="relative border-l border-blue-500/10">
             <div className="absolute top-2 left-2 z-10 px-2 py-1 bg-red-500/80 text-white text-xs rounded-full">
-              Before
+              After
             </div>
             <div className="aspect-[4/3] overflow-hidden">
               <img
