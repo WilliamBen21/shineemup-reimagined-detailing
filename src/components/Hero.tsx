@@ -82,7 +82,7 @@ const Hero = () => {
               <img
                 src="/lovable-uploads/7fd17302-61f8-4ef9-95c6-0047ddb3d546.png"
                 alt="Shine Em UP Detailing logo with truck design"
-                className="w-full h-80 object-contain rounded-2xl transition-transform duration-300 group-hover:scale-105 shadow-2xl"
+                className="w-full h-[450px] object-contain rounded-2xl transition-transform duration-300 group-hover:scale-105 shadow-2xl"
                 onError={handleImageError}
               />
               <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
